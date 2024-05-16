@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProposalProvider } from "./contexts/ProposalsContext";
+import { Web3ModalProvider } from './contexts/Web3ModalContext';
 import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,13 +18,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ProposalProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <Navbar/>
-          {children}
-        </body>
-      </html>
-    </ProposalProvider>
+    <Web3ModalProvider>
+      <ProposalProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <Navbar/>
+            {children}
+          </body>
+        </html>
+      </ProposalProvider>
+    </Web3ModalProvider>
   );
 }
