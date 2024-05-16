@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProposalProvider } from "./contexts/ProposalsContext";
 import { Web3ModalProvider } from './contexts/Web3ModalContext';
+import { Web3Modal } from './contexts/Web3ModalContext'
 import Navbar from "./components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Web3ModalProvider>
+    <Web3Modal>
       <ProposalProvider>
         <html lang="en">
           <body className={inter.className}>
@@ -27,6 +28,6 @@ export default function RootLayout({
           </body>
         </html>
       </ProposalProvider>
-    </Web3ModalProvider>
+    </Web3Modal>
   );
 }

@@ -2,7 +2,6 @@ import React, {
     useContext
 } from "react";
 import Link from "next/link";
-import { Web3ModalContext } from '../../contexts/Web3ModalContext';
 
 const Navbar:React.FC = () => {
 
