@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ProposalProvider } from "./contexts/ProposalsContext";
-import { Web3ModalProvider } from './contexts/Web3ModalContext';
 import { Web3Modal } from './contexts/Web3ModalContext'
 import Navbar from "./components/Navbar";
 
