@@ -4,7 +4,7 @@ import { ProposalType } from "@/app/types/proposal";
 import Proposal from "./Proposal";
 
 interface ProposalsProps{
-    proposals: ProposalType[] | [];
+    proposals: ProposalType[];
 }
 
 const Proposals:React.FC<ProposalsProps> = ({proposals}) => {

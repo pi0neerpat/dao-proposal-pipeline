@@ -16,7 +16,6 @@ const Home:React.FC = () => {
   
   return (
     <main className={styles.main}>
-      <div>OD Governance App</div>
       <Proposals proposals={proposals}/>
     </main>
   );
