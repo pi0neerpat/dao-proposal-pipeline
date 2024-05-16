@@ -1,5 +1,5 @@
 // proposal objects fetched from github
-export interface Proposal {
+export interface ProposalType {
     calldatas: string[];
     chainid: number;
     description: string;

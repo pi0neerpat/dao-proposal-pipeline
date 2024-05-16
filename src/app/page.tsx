@@ -6,13 +6,13 @@ import React, {
   useState 
 } from "react";
 import Proposals from "./components/Proposals";
-import { Proposal } from '@/app/types/proposal'
+import { ProposalType } from '@/app/types/proposal'
 
 
 const Home:React.FC = () => {
 
   // grab proposals from github
-  const [proposals, setProposals] = useState<Proposal[] | []>([])
+  const [proposals, setProposals] = useState<ProposalType[] | []>([])
   const loadData = async () => {
     let proposals = await fetchProposals()
     setProposals(await proposals)
@@ -23,7 +23,6 @@ const Home:React.FC = () => {
     loadData()
   }, [])
 
-  console.log(proposals)
   
   return (
     <main className={styles.main}>
