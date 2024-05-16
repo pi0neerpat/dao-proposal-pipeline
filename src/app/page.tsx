@@ -1,12 +1,7 @@
 'use client'
 import styles from "./page.module.css";
-import { fetchProposals } from "./lib/fetchProposals";
-import React, { 
-  useEffect, 
-  useState 
-} from "react";
+import React from "react";
 import Proposals from "./components/Proposals";
-import { ProposalType } from '@/app/types/proposal'
 import { useProposalContext } from "./contexts/ProposalsContext";
 
 
