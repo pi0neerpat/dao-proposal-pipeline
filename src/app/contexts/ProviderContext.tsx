@@ -1,5 +1,5 @@
 'use client'
-import { ethers, providers, Signer } from "ethers";
+import { ethers, providers, Signer, Contract } from "ethers";
 import { 
     useWeb3ModalProvider, 
     useWeb3ModalAccount 
@@ -12,6 +12,8 @@ import React, {
     ReactNode
 } from "react";
 import { EtherProviderType } from "../types/EtherProviderType";
+import ODGovernorABI from '../abis/ODGovernor.json'
+import ODGovernorType from "../types/ODGovernorType";
 
 
 const ProviderContext = createContext<EtherProviderType | undefined>(undefined);
@@ -30,17 +32,25 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
     const { walletProvider } = useWeb3ModalProvider();
     const [provider, setProvider] = useState<providers.Web3Provider | null>(null);
     const [signer, setSigner] = useState<Signer | null>(null);
+    const [odGovernor, setOdGovernor] = useState<ODGovernorType | null>(null)
 
     const loadProvider = async () => {
         try {
             if(walletProvider){
                 const ethersProvider = new ethers.providers.Web3Provider(walletProvider);
                 const signer = ethersProvider.getSigner();
+                const odGovernorAddress = "0xf704735CE81165261156b41D33AB18a08803B86F"
+                const odGovernor = new ethers.Contract(
+                    odGovernorAddress,
+                    ODGovernorABI.abi,
+                    ethersProvider
+                ) as unknown as ODGovernorType
                 setProvider(ethersProvider);
                 setSigner(signer);
+                setOdGovernor(odGovernor)
             }
           } catch (error) {
-            console.error('Error initializing web3:', error);
+            console.error('Error initializing ethers connection:', error);
           }
     }
 
@@ -51,7 +61,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
     },[isConnected, walletProvider, address])
 
     return(
-        <ProviderContext.Provider value={{ address, provider, signer }}>
+        <ProviderContext.Provider value={{ address, provider, signer, odGovernor }}>
             {children}
         </ProviderContext.Provider>
     )
