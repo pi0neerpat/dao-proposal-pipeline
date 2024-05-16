@@ -20,6 +20,7 @@ const Proposals:React.FC<ProposalsProps> = ({proposals}) => {
                         <Proposal
                             proposal={proposal}
                             index={index}
+                            key={index}
                         />
                     )
                 })
