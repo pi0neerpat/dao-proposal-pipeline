@@ -18,7 +18,6 @@ const Proposals:React.FC<ProposalsProps> = ({proposals}) => {
                 proposals.map((proposal, index) => {
                     return(
                         <Proposal
-                            proposal={proposal}
                             index={index}
                             key={index}
                         />

@@ -7,22 +7,12 @@ import React, {
 } from "react";
 import Proposals from "./components/Proposals";
 import { ProposalType } from '@/app/types/proposal'
+import { useProposalContext } from "./contexts/ProposalsContext";
 
 
 const Home:React.FC = () => {
 
-  // grab proposals from github
-  const [proposals, setProposals] = useState<ProposalType[] | []>([])
-  const loadData = async () => {
-    let proposals = await fetchProposals()
-    setProposals(await proposals)
-  }
-
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
+  const {proposals, setProposals} = useProposalContext()
   
   return (
     <main className={styles.main}>

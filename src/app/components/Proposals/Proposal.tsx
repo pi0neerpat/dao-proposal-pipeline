@@ -1,26 +1,35 @@
 'use client'
 
+import Link from "next/link"
 import React from "react"
 import { ProposalType } from "@/app/types/proposal"
+import { useProposalContext } from "@/app/contexts/ProposalsContext"
 
 interface ProposalProps{
-    proposal: ProposalType;
     index: number;
 }
 
-const Proposal:React.FC<ProposalProps> = ({proposal, index}) => {
+const Proposal:React.FC<ProposalProps> = ({index}) => {
+
+    const {proposals, setProposals} = useProposalContext()
+
     return(
-        <li key={index} className="proposal-list-item">
+        <Link 
+            key={index} 
+            className="proposal-list-item"
+            href={`/proposal/[proposalId]`}
+            as={`/proposal/${proposals[index].proposalId.toString()}`}
+        >
             <h3 className="proposal-description">
-                {proposal.description}
+                {proposals[index].description}
             </h3>
             <div className="proposal-type">
-                {proposal.proposalType}
+                {proposals[index].proposalType}
             </div>
             <div className="proposal-id">
-                {proposal.proposalId.toString().slice(0,10)}...
+                {proposals[index].proposalId.toString().slice(0,10)}...
             </div>
-        </li>
+        </Link>
     )
 }
 
