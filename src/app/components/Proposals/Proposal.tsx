@@ -4,6 +4,7 @@ import Link from "next/link"
 import React from "react"
 import { ProposalType } from "@/app/types/proposal"
 import { useProposalContext } from "@/app/contexts/ProposalsContext"
+import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK"
 
 interface ProposalProps{
     index: number;
@@ -13,6 +14,8 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
 
     const {proposals, setProposals, proposalMetadata} = useProposalContext()
     console.log(proposalMetadata[index])
+    // convert votes to human readable numbers
+
 
     return(
         <Link 
@@ -48,7 +51,7 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
                         proposalMetadata.length > 0 &&
                         proposalMetadata[index].proposer !== "" 
                     ) ? (
-                        `${proposalMetadata[index].forVotes}`
+                        `${convertTokensToThousandsK(proposalMetadata[index].forVotes)}`
                     ) : (
                         ""
                     )
@@ -60,7 +63,7 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
                         proposalMetadata.length > 0 &&
                         proposalMetadata[index].proposer !== "" 
                     ) ? (
-                        `${proposalMetadata[index].againstVotes}`
+                        `${convertTokensToThousandsK(proposalMetadata[index].againstVotes)}`
                     ) : (
                         ""
                     )
