@@ -1,10 +1,17 @@
 'use client'
 
 import Link from "next/link"
-import React from "react"
+import React, {
+    useState,
+    useEffect
+} from "react"
 import { ProposalType } from "@/app/types/proposal"
 import { useProposalContext } from "@/app/contexts/ProposalsContext"
+import { useEtherProviderContext } from "@/app/contexts/ProviderContext"
 import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK"
+import { time } from "console"
+const { ethers } = require('ethers');
+
 
 interface ProposalProps{
     index: number;
@@ -13,9 +20,7 @@ interface ProposalProps{
 const Proposal:React.FC<ProposalProps> = ({index}) => {
 
     const {proposals, setProposals, proposalMetadata} = useProposalContext()
-    console.log(proposalMetadata[index])
-    // convert votes to human readable numbers
-
+    const { address, provider, signer, odGovernor } = useEtherProviderContext();
 
     return(
         <Link 
@@ -45,6 +50,25 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
                     )
                 }
             </div>
+            {
+                proposalMetadata.length > 0 &&
+                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].executed === true &&
+                <div className="proposal-executed">Executed</div>
+            }
+            {
+                proposalMetadata.length > 0 &&
+                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].cancelled === true &&
+                <div className="proposal-cancelled">Cancelled</div>
+            }
+            {
+                proposalMetadata.length > 0 &&
+                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].executed === false &&
+                proposalMetadata[index].cancelled === false &&
+                <div className="proposal-pending">Pending</div>
+            }
             <div className="proposal-votes-for">
                 { 
                     (
@@ -64,6 +88,20 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
                         proposalMetadata[index].proposer !== "" 
                     ) ? (
                         `${convertTokensToThousandsK(proposalMetadata[index].againstVotes)}`
+                    ) : (
+                        ""
+                    )
+                }
+            </div>
+            <div className="proposal-votes-total">
+                { 
+                    (
+                        proposalMetadata.length > 0 &&
+                        proposalMetadata[index].proposer !== "" 
+                    ) ? (
+                        `${convertTokensToThousandsK(
+                            proposalMetadata[index].againstVotes + proposalMetadata[index].forVotes
+                        )}`
                     ) : (
                         ""
                     )
