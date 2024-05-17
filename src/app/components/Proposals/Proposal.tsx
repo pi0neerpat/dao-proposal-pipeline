@@ -12,6 +12,7 @@ interface ProposalProps{
 const Proposal:React.FC<ProposalProps> = ({index}) => {
 
     const {proposals, setProposals, proposalMetadata} = useProposalContext()
+    console.log(proposalMetadata[index])
 
     return(
         <Link 
@@ -33,11 +34,35 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
                 {
                     (
                         proposalMetadata.length > 0 &&
-                        proposalMetadata[index].proposer == ""
+                        proposalMetadata[index].proposer === ""
                     ) ? (
                         "Unsubmitted"
                     ) : (
                         "Submitted"
+                    )
+                }
+            </div>
+            <div className="proposal-votes-for">
+                { 
+                    (
+                        proposalMetadata.length > 0 &&
+                        proposalMetadata[index].proposer !== "" 
+                    ) ? (
+                        `${proposalMetadata[index].forVotes}`
+                    ) : (
+                        ""
+                    )
+                }
+            </div>
+            <div className="proposal-votes-against">
+                { 
+                    (
+                        proposalMetadata.length > 0 &&
+                        proposalMetadata[index].proposer !== "" 
+                    ) ? (
+                        `${proposalMetadata[index].againstVotes}`
+                    ) : (
+                        ""
                     )
                 }
             </div>

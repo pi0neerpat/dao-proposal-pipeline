@@ -59,10 +59,8 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
       const metadataPromises = proposals.map(async (proposal) => {
           try {
               let proposalId = proposal.proposalId;
-              console.log(proposalId)
               //proposalId = ethers.BigNumber.from(proposalId);
               const metadata = await odGovernor.proposals(proposalId);
-              console.log("metadata: "+  await metadata)
               // handle response object
               const {
                   id,
