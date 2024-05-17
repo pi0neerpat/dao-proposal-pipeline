@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { useProposalContext } from "@/app/contexts/ProposalsContext";
 import { ProposalType } from "@/app/types/proposal";
+import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
 
 interface ProposalPageProps {
     params: {
@@ -15,7 +16,7 @@ interface ProposalPageProps {
 
 const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
 
-    const {proposals, setProposals} = useProposalContext()
+    const {proposals, setProposals, proposalMetadata} = useProposalContext()
 
     // determin current proposal by id
     const [currentProposal, setCurrentProposal] = useState<ProposalType | null>(null)
@@ -29,8 +30,23 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
     }
     useEffect(() => {
         getCurrentProposal()
-        console.log(proposals)
     },[proposals])
+
+    // get current proposal metadata
+    const [currentMetadata, setCurrentMetadata] = useState<any | null>(null)
+    const filterCurrentMetadata = (proposalMetadata: any[]) => {
+        const currentMetadata = proposalMetadata.filter((metadata: any) => {
+            return metadata.proposalId === currentProposal?.proposalId
+        })
+        setCurrentMetadata(currentMetadata)
+    }
+    useEffect(() => {
+        if(currentProposal !== null && proposalMetadata.length > 0){
+
+        console.log(proposalMetadata)
+            filterCurrentMetadata(proposalMetadata)
+        }
+    }, [currentProposal])
 
     const propose = () => {
         // propose logic here
@@ -48,6 +64,75 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             </h2>
             <div className="proposal-type">
                 Proposal Type: {currentProposal?.proposalType}
+            </div>
+            <div className="proposal-submitted">
+                {
+                    (
+                        currentMetadata !== null &&
+                        currentMetadata.proposer === ""
+                    ) ? (
+                        "Unsubmitted"
+                    ) : (
+                        "Submitted"
+                    )
+                }
+            </div>
+            {
+                currentMetadata !== null &&
+                currentMetadata.proposer !== "" &&
+                currentMetadata.executed === true &&
+                <div className="proposal-executed">Executed</div>
+            }
+            {
+                currentMetadata !== null &&
+                currentMetadata.proposer !== "" &&
+                currentMetadata.cancelled === true &&
+                <div className="proposal-cancelled">Cancelled</div>
+            }
+            {
+                currentMetadata !== null &&
+                currentMetadata.proposer !== "" &&
+                currentMetadata.executed === false &&
+                currentMetadata.cancelled === false &&
+                <div className="proposal-pending">Pending</div>
+            }
+            <div className="proposal-votes-for">
+                { 
+                    (
+                        currentMetadata !== null &&
+                        currentMetadata.proposer !== "" 
+                    ) ? (
+                        `${convertTokensToThousandsK(currentMetadata.forVotes)}`
+                    ) : (
+                        ""
+                    )
+                }
+            </div>
+            <div className="proposal-votes-against">
+                { 
+                    (
+                        currentMetadata !== null &&
+                        currentMetadata.proposer !== "" 
+                    ) ? (
+                        `${convertTokensToThousandsK(currentMetadata.againstVotes)}`
+                    ) : (
+                        ""
+                    )
+                }
+            </div>
+            <div className="proposal-votes-total">
+                { 
+                    (
+                        currentMetadata !== null &&
+                        currentMetadata.proposer !== "" 
+                    ) ? (
+                        `${convertTokensToThousandsK(
+                            currentMetadata.againstVotes + currentMetadata.forVotes
+                        )}`
+                    ) : (
+                        ""
+                    )
+                }
             </div>
             <ul className="call-data-list">
                 <h2 className="call-data-title">Call Data</h2>
@@ -95,9 +180,13 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                 }
             </ul>
             <div className="propose-button-container">
-                <button className="propose-button" onClick={() => propose()}>
-                    Propose
-                </button>
+                {
+                    currentMetadata !== null &&
+                    currentMetadata.proposer === "" &&
+                    <button className="propose-button" onClick={() => propose()}>
+                        Propose
+                    </button>
+                }
             </div>
         </div>
     )
