@@ -8,7 +8,7 @@ import Link from "next/link";
 const Navbar:React.FC = () => {
 
     const { address, provider, signer, odGovernor } = useEtherProviderContext();
-    console.log(odGovernor);
+    // console.log(odGovernor);
 
     return(
         <div className="navbar">

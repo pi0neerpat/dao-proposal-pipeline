@@ -1,3 +1,4 @@
+
 // this script fetches proposal data from github
 const fetchProposalNames = async () => {
     const response = await fetch(
@@ -14,10 +15,24 @@ const fetchProposalNames = async () => {
     const proposalNames = await fetchProposalNames()
     let proposals:any = []
     for(let i =0; i<proposalNames.length; i++){
-        const response = await fetch(
+        let response = await fetch(
             proposalNames[i].download_url
             );
-        const data = await response.json();
+        let data = await response.text();
+        let proposalIdString 
+        const lines = data.split('\n');
+        lines.forEach(line => {
+            const [key, value] = line.split(':').map(part => part.trim());
+            if (key === '"proposalId"') {
+              // remove hanging comma
+              proposalIdString = value.slice(0, -1);;
+            }
+        });
+        response = await fetch(
+          proposalNames[i].download_url
+        );
+        data = await response.json()
+        data.proposalId = proposalIdString      
         proposals.push(data)
     }
     return proposals

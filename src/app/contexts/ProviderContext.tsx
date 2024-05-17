@@ -43,7 +43,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
                 const odGovernor = new ethers.Contract(
                     odGovernorAddress,
                     ODGovernorABI.abi,
-                    ethersProvider
+                    signer
                 ) as unknown as ODGovernorType
                 setProvider(ethersProvider);
                 setSigner(signer);

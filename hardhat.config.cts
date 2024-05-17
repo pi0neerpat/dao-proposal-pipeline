@@ -10,7 +10,7 @@ const config: HardhatUserConfig = {
   networks: {
     hardhat: {
       forking: {
-        url: "https://arb1.arbitrum.io/rpc",
+        url: process.env.INFURA_ARBITRUM_ENDPOINT || "",
         blockNumber: 211597618,
       },
     },
