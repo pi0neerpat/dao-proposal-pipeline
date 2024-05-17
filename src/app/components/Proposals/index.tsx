@@ -123,6 +123,7 @@ const Proposals:React.FC<ProposalsProps> = ({proposals}) => {
                         <Proposal
                             index={index}
                             key={index}
+                            metadata={proposalMetadata[index]}
                         />
                     )
                 })

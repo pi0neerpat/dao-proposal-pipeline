@@ -7,9 +7,10 @@ import { useProposalContext } from "@/app/contexts/ProposalsContext"
 
 interface ProposalProps{
     index: number;
+    metadata: any;
 }
 
-const Proposal:React.FC<ProposalProps> = ({index}) => {
+const Proposal:React.FC<ProposalProps> = ({index, metadata}) => {
 
     const {proposals, setProposals} = useProposalContext()
 
@@ -28,6 +29,15 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
             </div>
             <div className="proposal-id">
                 {proposals[index].proposalId.toString().slice(0,10)}...
+            </div>
+            <div className="proposal-submitted">
+                {
+                    metadata.proposer == "" ? (
+                        "Unsubmitted"
+                    ) : (
+                        "Submitted"
+                    )
+                }
             </div>
         </Link>
     )
