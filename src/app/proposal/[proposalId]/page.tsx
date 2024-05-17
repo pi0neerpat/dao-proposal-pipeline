@@ -35,8 +35,6 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
     // get current proposal metadata
     const [currentMetadata, setCurrentMetadata] = useState<any | null>(null)
     const filterCurrentMetadata = (proposalMetadata: any[]) => {
-        console.log(currentProposal)
-        console.log(proposalMetadata)
         const currentMetadata = proposalMetadata.filter((metadata: any) => {
             return metadata.id === currentProposal?.proposalId
         })
