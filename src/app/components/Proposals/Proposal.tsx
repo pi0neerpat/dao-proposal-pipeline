@@ -52,19 +52,19 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
             </div>
             {
                 proposalMetadata.length > 0 &&
-                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].proposer !== "" &&
                 proposalMetadata[index].executed === true &&
                 <div className="proposal-executed">Executed</div>
             }
             {
                 proposalMetadata.length > 0 &&
-                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].proposer !== "" &&
                 proposalMetadata[index].cancelled === true &&
                 <div className="proposal-cancelled">Cancelled</div>
             }
             {
                 proposalMetadata.length > 0 &&
-                proposalMetadata[index].proposer === "" &&
+                proposalMetadata[index].proposer !== "" &&
                 proposalMetadata[index].executed === false &&
                 proposalMetadata[index].cancelled === false &&
                 <div className="proposal-pending">Pending</div>
