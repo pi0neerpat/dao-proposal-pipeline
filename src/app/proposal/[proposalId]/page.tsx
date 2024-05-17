@@ -35,19 +35,20 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
     // get current proposal metadata
     const [currentMetadata, setCurrentMetadata] = useState<any | null>(null)
     const filterCurrentMetadata = (proposalMetadata: any[]) => {
+        console.log(currentProposal)
+        console.log(proposalMetadata)
         const currentMetadata = proposalMetadata.filter((metadata: any) => {
-            return metadata.proposalId === currentProposal?.proposalId
+            return metadata.id === currentProposal?.proposalId
         })
-        setCurrentMetadata(currentMetadata)
+        if(currentMetadata.length > 0){
+            setCurrentMetadata(currentMetadata[0])
+        }
     }
     useEffect(() => {
         if(currentProposal !== null && proposalMetadata.length > 0){
-
-        console.log(proposalMetadata)
             filterCurrentMetadata(proposalMetadata)
         }
     }, [currentProposal])
-
     const propose = () => {
         // propose logic here
     }
