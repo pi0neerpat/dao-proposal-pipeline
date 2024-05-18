@@ -49,7 +49,7 @@ const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
             <h2>Call Data</h2>
             <h3>Function</h3>
             <div className="call-data-function-name">
-                {calldata.functionFragment.name}
+                {calldata.signature}
             </div>
             <h4>Inputs</h4>
             {
