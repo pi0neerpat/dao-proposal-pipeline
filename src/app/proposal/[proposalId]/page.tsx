@@ -58,6 +58,7 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             const abiPromises= currentProposal?.targets.map((target) => fetchABI(target));
             let fetchedABIs = await Promise.all(abiPromises);
             fetchedABIs = fetchedABIs.map((abi) => {
+                if(abi === undefined){return null}
                 return JSON.parse(abi)
             })
             setTargetABIs(fetchedABIs);
@@ -84,7 +85,6 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             setDecodedCallData(decodedCallDatas)
         }
     },[targetABIs])
-    console.log(decodedCallData)
 
 
 

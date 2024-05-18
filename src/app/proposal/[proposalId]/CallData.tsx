@@ -1,39 +1,9 @@
-import React from "react";
-import { BigNumber } from "ethers";
-
-interface FunctionInput {
-    name: string;
-    type: string;
-    indexed: boolean | null;
-    components: any | null;
-    arrayLength: number | null;
-    arrayChildren: any | null;
-    baseType: string;
-    _isParamType: boolean;
-}
-
-// Define the interface for the function fragment
-interface FunctionFragment {
-    type: string;
-    name: string;
-    constant: boolean;
-    inputs: FunctionInput[];
-    outputs: any[];
-    payable: boolean;
-    stateMutability: string;
-    gas: number | null;
-    _isFragment: boolean;
-}
-
-// Define the interface for the decoded call data
-interface DecodedCallData {
-    args: any[]; // Allow for any number and type of arguments
-    functionFragment: FunctionFragment;
-    name: string;
-    signature: string;
-    sighash: string;
-    value: BigNumber;
-}
+import React, {
+    useState,
+    useEffect
+} from "react";
+import DecodedCallData from "@/app/types/DecodedCallDataType";
+import decodeArguments from "@/app/lib/decodeArguments";
 
 interface CallDataProps {
     calldata: DecodedCallData;
@@ -41,6 +11,13 @@ interface CallDataProps {
 }
 
 const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
+
+    const [decodedArgs, setDecodedArgs] = useState<any[]>([])
+    useEffect(() => {
+        const decodedArgs = decodeArguments(calldata)
+        setDecodedArgs(decodedArgs)
+    }, [calldata])
+
     return(
         <div 
             className="call-data-container"
@@ -54,11 +31,15 @@ const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
             <h4>Inputs</h4>
             {
                 calldata.functionFragment.inputs.length > 0 &&
+                decodedArgs.length > 0 &&
                 calldata.functionFragment.inputs.map((input, index) => {
                     return (
                         <div className="call-data-inputs" key={index}>
                             <p className="call-data-input-name">
-                                {input.name}
+                                <strong>{input.name}</strong>
+                            </p>
+                            <p className="call-data-input-value">
+                                {decodedArgs[index]}
                             </p>
                         </div>
                     )
