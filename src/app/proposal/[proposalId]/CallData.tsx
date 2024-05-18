@@ -1,7 +1,4 @@
-import React, {
-    useState,
-    useEffect
-} from "react";
+import React, { useState, useEffect } from "react";
 import DecodedCallData from "@/app/types/DecodedCallDataType";
 import decodeArguments from "@/app/lib/decodeArguments";
 
@@ -10,19 +7,18 @@ interface CallDataProps {
     index: number;
 }
 
-const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
+const CallData: React.FC<CallDataProps> = ({ calldata, index }) => {
+    const [decodedArgs, setDecodedArgs] = useState<any[]>([]);
 
-    const [decodedArgs, setDecodedArgs] = useState<any[]>([])
     useEffect(() => {
-        const decodedArgs = decodeArguments(calldata)
-        setDecodedArgs(decodedArgs)
-    }, [calldata])
+        const decodedArgs = decodeArguments(calldata);
+        setDecodedArgs(decodedArgs);
+    }, [calldata]);
+    console.log(calldata)
+    console.log("decoded args" + decodedArgs)
 
-    return(
-        <div 
-            className="call-data-container"
-            key={index}
-        >
+    return (
+        <div className="call-data-container" key={index}>
             <h2>Call Data</h2>
             <h3>Function</h3>
             <div className="call-data-function-name">
@@ -32,24 +28,40 @@ const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
             {
                 calldata.functionFragment.inputs.length > 0 &&
                 decodedArgs.length > 0 &&
-                calldata.functionFragment.inputs.map((input, index) => {
-                    return (
-                        <div className="call-data-inputs" key={index}>
-                            <p className="call-data-input-name">
-                                <strong>{input.name}</strong>
-                            </p>
-                            <p className="call-data-input-value">
-                                {decodedArgs[index]}
-                            </p>
+                calldata.functionFragment.inputs.map((input, inputIndex) => (
+                    <div className="call-data-inputs" key={inputIndex}>
+                        <p className="call-data-input-name">
+                            <strong>{input.name}</strong>
+                        </p>
+                        <div className="call-data-input-value">
+                            {
+                                Array.isArray(decodedArgs[inputIndex]
+                                ) ? (
+                                    <div className="call-data-input-value-array">
+                                        {
+                                            decodedArgs[inputIndex].map((item: any, arrayIndex: number) => (
+                                                <div key={arrayIndex}>
+                                                    {
+                                                        typeof item === 'object' ? 
+                                                        Object.keys(item).map(key => `${key}: ${item[key]}`).join(', ') :
+                                                        item
+                                                    }
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                ) : (
+                                    <div className="call-data-input-value-scalar">
+                                        {decodedArgs[inputIndex]}
+                                    </div>
+                                )
+                            }
                         </div>
-                    )
-                })
-            }
-            <h3 className="call-data-inputs">
-            </h3>
-
+                    </div>
+                ))}
+            <h3 className="call-data-inputs"></h3>
         </div>
-    )
-}
+    );
+};
 
 export default CallData;

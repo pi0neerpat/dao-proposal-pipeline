@@ -5,7 +5,7 @@ function decodeArguments(callData: DecodedCallData): any[] {
     const { args, functionFragment } = callData;
     const inputs = functionFragment.inputs;
     const abiCoder = new ethers.utils.AbiCoder();
-    let decodedArgs = []
+    let decodedArgs = [];
 
     for (let i = 0; i < args.length; i++) {
         const arg = args[i];
@@ -13,7 +13,7 @@ function decodeArguments(callData: DecodedCallData): any[] {
         let decodedArg;
         // brute force handle different data types
         if (inputType.startsWith("uint") || inputType.startsWith("int")) {
-            decodedArg = ethers.BigNumber.from(arg);
+            decodedArg = ethers.BigNumber.from(arg).toString();
         } else if (inputType === "address") {
             decodedArg = ethers.utils.getAddress(ethers.utils.hexZeroPad(arg, 32));
         } else if (inputType === "bool") {
@@ -35,4 +35,4 @@ function decodeArguments(callData: DecodedCallData): any[] {
     return decodedArgs;
 }
 
-export default decodeArguments
+export default decodeArguments;
