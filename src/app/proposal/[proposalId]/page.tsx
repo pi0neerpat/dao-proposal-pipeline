@@ -7,6 +7,9 @@ import React, {
 import { useProposalContext } from "@/app/contexts/ProposalsContext";
 import { ProposalType } from "@/app/types/proposal";
 import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
+import ODGovernor from '../../abis/ODGovernor.json'
+import fetchABI from "@/app/lib/fetchABI";
+import decodeCallData from "@/app/lib/decodeCallData";
 
 interface ProposalPageProps {
     params: {
@@ -32,7 +35,7 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
         getCurrentProposal()
     },[proposals])
 
-    // get current proposal metadata
+    // get current proposal metadata using current proposal
     const [currentMetadata, setCurrentMetadata] = useState<any | null>(null)
     const filterCurrentMetadata = (proposalMetadata: any[]) => {
         const currentMetadata = proposalMetadata.filter((metadata: any) => {
@@ -47,6 +50,44 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             filterCurrentMetadata(proposalMetadata)
         }
     }, [currentProposal])
+
+    // this gets abis for each of our targets so we can decode call data
+    const [targetABIs, setTargetABIs] = useState<any[] | null>(null)
+    const pullAllTargetABIs = async (currentProposal: ProposalType) => {
+        if(currentProposal && currentProposal.targets.length > 0){
+            const abiPromises= currentProposal?.targets.map((target) => fetchABI(target));
+            let fetchedABIs = await Promise.all(abiPromises);
+            fetchedABIs = fetchedABIs.map((abi) => {
+                return JSON.parse(abi)
+            })
+            setTargetABIs(fetchedABIs);
+        }
+    }
+    useEffect(() => {
+        if(currentProposal && currentProposal.targets.length > 0){
+            pullAllTargetABIs(currentProposal)
+        }
+    },[currentProposal])
+
+    // this makes our calldatas from our currentMetadata a human readable format
+    const [decodedCallData, setDecodedCallData] = useState<any[]>([])
+    useEffect(() => {
+        if(
+            currentProposal && 
+            currentProposal?.calldatas.length > 0 && 
+            targetABIs &&
+            targetABIs?.length > 0
+        ){
+            const decodedCallDatas = currentProposal.calldatas.map((calldata, index) => {
+                return decodeCallData(calldata, targetABIs[index])
+            })
+            setDecodedCallData(decodedCallDatas)
+        }
+    },[targetABIs])
+    console.log(decodedCallData)
+
+
+
     const propose = () => {
         // propose logic here
     }
@@ -143,7 +184,8 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                             className="call-data"
                             key={index}
                         >
-                            {calldata.toString()}
+                            {/* {decodeCallData(calldata)} */}
+                            {calldata}
                         </li>
                     ))
                 }
