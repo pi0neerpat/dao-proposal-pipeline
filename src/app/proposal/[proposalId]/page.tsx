@@ -7,9 +7,9 @@ import React, {
 import { useProposalContext } from "@/app/contexts/ProposalsContext";
 import { ProposalType } from "@/app/types/proposal";
 import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
-import ODGovernor from '../../abis/ODGovernor.json'
 import fetchABI from "@/app/lib/fetchABI";
 import decodeCallData from "@/app/lib/decodeCallData";
+import CallData from "./CallData";
 
 interface ProposalPageProps {
     params: {
@@ -175,17 +175,17 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                 }
             </div>
             <ul className="call-data-list">
-                <h2 className="call-data-title">Call Data</h2>
                 {
                     currentProposal &&
                     currentProposal?.calldatas.length > 0 &&
-                    currentProposal.calldatas.map((calldata, index) => (
+                    decodedCallData &&
+                    decodedCallData.length > 0 &&
+                    decodedCallData.map((calldata, index) => (
                         <li 
                             className="call-data"
                             key={index}
                         >
-                            {/* {decodeCallData(calldata)} */}
-                            {calldata}
+                            <CallData calldata={calldata} index={index}/>
                         </li>
                     ))
                 }
