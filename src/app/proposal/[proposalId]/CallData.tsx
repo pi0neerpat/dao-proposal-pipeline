@@ -42,9 +42,11 @@ const CallData: React.FC<CallDataProps> = ({ calldata, index }) => {
                                             decodedArgs[inputIndex].map((item: any, arrayIndex: number) => (
                                                 <div key={arrayIndex}>
                                                     {
-                                                        typeof item === 'object' ? 
-                                                        Object.keys(item).map(key => `${key}: ${item[key]}`).join(', ') :
-                                                        item
+                                                        typeof item === 'object' ? (
+                                                            Object.keys(item).map(key => `${key}: ${item[key]}`).join(', ')
+                                                        ) : (
+                                                            ` ${item} `
+                                                        )
                                                     }
                                                 </div>
                                             ))
