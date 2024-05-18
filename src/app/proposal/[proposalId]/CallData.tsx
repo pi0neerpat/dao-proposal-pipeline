@@ -54,11 +54,12 @@ const CallData:React.FC<CallDataProps> = ({calldata, index}) => {
                 calldata.functionFragment.inputs.length > 0 &&
                 calldata.functionFragment.inputs.map((input, index) => {
                     return (
-                        <h3 className="call-data-inputs" key={index}>
+                        <div className="call-data-inputs" key={index}>
+                            <h4>Inputs</h4>
                             <h4 className="call-data-input-name">
                                 {input.name}
                             </h4>
-                        </h3>
+                        </div>
                     )
                 })
             }
