@@ -10,6 +10,7 @@ import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
 import fetchABI from "@/app/lib/fetchABI";
 import decodeCallData from "@/app/lib/decodeCallData";
 import CallData from "./CallData";
+import ProposeButton from "./ProposeButton";
 
 interface ProposalPageProps {
     params: {
@@ -85,12 +86,6 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             setDecodedCallData(decodedCallDatas)
         }
     },[targetABIs])
-
-
-
-    const propose = () => {
-        // propose logic here
-    }
 
 
 
@@ -222,11 +217,9 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
             </ul>
             <div className="propose-button-container">
                 {
-                    currentMetadata !== null &&
-                    currentMetadata.proposer === "" &&
-                    <button className="propose-button" onClick={() => propose()}>
-                        Propose
-                    </button>
+                    // currentMetadata !== null &&
+                    // currentMetadata.proposer !== "" &&
+                    <ProposeButton proposal={currentProposal}/>
                 }
             </div>
         </div>

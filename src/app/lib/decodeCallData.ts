@@ -2,6 +2,8 @@ import { ethers } from "ethers";
 
 const decodeCallData = (calldata: any, targetABI: any) => {
     try {
+        console.log(calldata)
+        console.log(targetABI)
         const targetInterface = new ethers.utils.Interface(targetABI);
         const calldataReadable = targetInterface.parseTransaction({ data: calldata });
         return calldataReadable
