@@ -9,10 +9,12 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
     const { address, provider, signer, odGovernor } = useEtherProviderContext();
 
     const propose = async (e: any, signer: Signer | null, odGovernor: ODGovernorType | null) => {
+        console.log('odgovernor')
         console.log(odGovernor)
         e.preventDefault()
         if(odGovernor !== null){
-            const tx = await odGovernor?.connect(signer).propose(
+            const proposeSignature = "propose(address[],uint256[],bytes[],string)"; 
+            const tx = await odGovernor?.connect(signer)[proposeSignature](
                 proposal.targets,
                 proposal.values,
                 proposal.calldatas,
