@@ -11,6 +11,7 @@ import fetchABI from "@/app/lib/fetchABI";
 import decodeCallData from "@/app/lib/decodeCallData";
 import CallData from "./CallData";
 import ProposeButton from "./ProposeButton";
+import Loading from "@/app/components/Loading";
 
 interface ProposalPageProps {
     params: {
@@ -21,6 +22,8 @@ interface ProposalPageProps {
 const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
 
     const {proposals, setProposals, proposalMetadata} = useProposalContext()
+
+    const [loading, setLoading] = useState<Boolean>(true)
 
     // determin current proposal by id
     const [currentProposal, setCurrentProposal] = useState<ProposalType | null>(null)
@@ -84,10 +87,15 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                 return decodeCallData(calldata, targetABIs[index])
             })
             setDecodedCallData(decodedCallDatas)
+            setLoading(false)
         }
     },[targetABIs])
 
-
+    if(loading){
+        return(
+            <Loading/>
+        )
+    }
 
     return(
         <div className="proposal-page">
