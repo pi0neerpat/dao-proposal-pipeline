@@ -6,7 +6,7 @@ import { ProposalType } from "@/app/types/proposal";
 
 const ProposeButton:React.FC<any> = ({proposal}) => {
 
-    const { address, provider, signer, odGovernor } = useEtherProviderContext();
+    const { address, provider, signer, odGovernor, userGovernanceBalance } = useEtherProviderContext();
 
     const [txWaiting, setTxWaiting] = useState<Boolean>(false)
     const [txError, setTxError] = useState<string | null>(null)

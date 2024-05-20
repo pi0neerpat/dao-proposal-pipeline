@@ -38,8 +38,7 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
     let proposals = await fetchProposals()
     setProposals(await proposals)
   }
-
-
+  
   useEffect(() => {
     loadData()
   }, [])
@@ -47,7 +46,7 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
   // after data is loaded we want to get the metadata from blockchain
   const [proposalMetadata, setProposalMetadata] = useState<any[]>([])
 
-  const { address, provider, signer, odGovernor } = useEtherProviderContext();
+  const { address, provider, signer, odGovernor, userGovernanceBalance } = useEtherProviderContext();
   
   // this function fetches the proposal meta data for each proposal, creates an array of them
   // returns error if not submitted yet
