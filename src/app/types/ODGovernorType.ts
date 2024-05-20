@@ -2,7 +2,7 @@ import {
     BigNumber, 
     BigNumberish, 
     BytesLike, 
-    PayableOverrides 
+    PayableOverrides
 } from "ethers";
 
 interface ODGovernorType {
@@ -184,6 +184,7 @@ interface ODGovernorType {
   version: () => Promise<string>;
   votingDelay: () => Promise<BigNumber>;
   votingPeriod: () => Promise<BigNumber>;
+  connect(arg0: any): any;
 }
 
 interface Event {
