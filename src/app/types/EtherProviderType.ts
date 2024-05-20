@@ -10,5 +10,6 @@ export interface EtherProviderType {
     provider: providers.Web3Provider | null | undefined;
     signer: Signer | null;
     odGovernor: ODGovernorType | null;
-    userGovernanceBalance: number | null;
+    userVotes: number | null;
+    proposalThreshold: number | null;
 }

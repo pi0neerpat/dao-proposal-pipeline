@@ -4,10 +4,11 @@ import React, {
 } from "react";
 import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
 import Link from "next/link";
+import Loading from "../Loading";
 
 const Navbar:React.FC = () => {
 
-    const { address, provider, signer, odGovernor, userGovernanceBalance } = useEtherProviderContext();
+    const { address, userVotes, proposalThreshold } = useEtherProviderContext();
     // console.log(odGovernor);
 
     return(
@@ -22,15 +23,35 @@ const Navbar:React.FC = () => {
                     </Link>
                     <div className="user-token-balance-container">
                         {
-                            userGovernanceBalance &&
-                            <h3>
-                                <a 
-                                    href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
-                                    target="_blank"
-                                >
-                                    OD Governance Token Balance {userGovernanceBalance}
-                                </a>
-                            </h3>
+                            (
+                                !address ||
+                                userVotes === null ||
+                                proposalThreshold === null
+                            ) ? (
+                                <Loading/>
+                            ) : (
+                                (
+                                    address &&
+                                    userVotes !== null &&
+                                    proposalThreshold !== null &&
+                                    userVotes > proposalThreshold
+                                ) ? (
+                                    <a 
+                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                        target="_blank"
+                                    >
+                                        {`${address?.slice(0,6)}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
+                                    </a>
+                                ) : (
+                                    <a 
+                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                        target="_blank"
+                                    >
+                                        {`You Do NOT Have Enough Votes to Propose. (${address?.slice(0,6)}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
+                                    </a>
+                                )
+                            )
+                            
                         }
                     </div>
                     <w3m-button />

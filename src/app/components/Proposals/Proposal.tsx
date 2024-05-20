@@ -19,8 +19,7 @@ interface ProposalProps{
 
 const Proposal:React.FC<ProposalProps> = ({index}) => {
 
-    const {proposals, setProposals, proposalMetadata} = useProposalContext()
-    const { address, provider, signer, odGovernor, userGovernanceBalance } = useEtherProviderContext();
+    const {proposals, proposalMetadata} = useProposalContext()
 
     return(
         <Link 

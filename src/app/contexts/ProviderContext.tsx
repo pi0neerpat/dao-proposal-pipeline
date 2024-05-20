@@ -14,7 +14,7 @@ import React, {
 import { EtherProviderType } from "../types/EtherProviderType";
 import ODGovernorABI from '../abis/ODGovernor.json'
 import ODGovernorType from "../types/ODGovernorType";
-import erc20Fragment from '../abis/erc20Fragment.json'
+import GovernanceToken from '../abis/GovernanceToken.json'
 
 
 const ProviderContext = createContext<EtherProviderType | undefined>(undefined);
@@ -34,31 +34,36 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
     const [provider, setProvider] = useState<providers.Web3Provider | null>(null);
     const [signer, setSigner] = useState<Signer | null>(null);
     const [odGovernor, setOdGovernor] = useState<ODGovernorType | null>(null)
-    const [userGovernanceBalance, setUserGovernanceBalance] = useState<number | null>(null)
+    const [userVotes, setUserVotes] = useState<number | null>(null)
+    const [proposalThreshold, setProposalThreshold] = useState<number | null>(null)
 
     const loadProvider = async () => {
         try {
             if(walletProvider){
+                //provider
                 const ethersProvider = new ethers.providers.Web3Provider(walletProvider);
-
+                // signer
                 const signer = ethersProvider.getSigner();
-                
+                // od gov contract
                 const odGovernorAddress = "0xf704735CE81165261156b41D33AB18a08803B86F"
                 const odGovernor = new ethers.Contract(
                     odGovernorAddress,
                     ODGovernorABI.abi,
                     signer
                 ) as unknown as ODGovernorType
-
-                // get user balance of governance token
+                // proposal threshold
+                let proposalThreshold = await odGovernor.proposalThreshold() as any
+                proposalThreshold = ethers.utils.formatUnits(proposalThreshold.toString(), 18)
+                setProposalThreshold(proposalThreshold)
+                // get user votes
                 if(process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN){
                     const protocolToken = new ethers.Contract(
                         process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN,
-                        erc20Fragment.abi,
+                        GovernanceToken.abi,
                         signer
                     ) 
-                    const userGovernanceBalance = await protocolToken.balanceOf(await signer.getAddress())
-                    setUserGovernanceBalance(userGovernanceBalance.toString())
+                    const userVotes = await protocolToken.getVotes(await signer.getAddress())
+                    setUserVotes(userVotes.toString())
                 }
                 setProvider(ethersProvider);
                 setSigner(signer);
@@ -76,7 +81,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
     },[isConnected, walletProvider, address])
 
     return(
-        <ProviderContext.Provider value={{ address, provider, signer, odGovernor, userGovernanceBalance }}>
+        <ProviderContext.Provider value={{ address, provider, signer, odGovernor, userVotes, proposalThreshold }}>
             {children}
         </ProviderContext.Provider>
     )

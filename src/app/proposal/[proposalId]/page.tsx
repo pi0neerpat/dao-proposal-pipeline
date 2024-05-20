@@ -21,7 +21,7 @@ interface ProposalPageProps {
 
 const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
 
-    const {proposals, setProposals, proposalMetadata} = useProposalContext()
+    const {proposals, proposalMetadata} = useProposalContext()
 
     const [loading, setLoading] = useState<Boolean>(true)
 
