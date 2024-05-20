@@ -3,10 +3,11 @@ import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
 import ODGovernorType from "@/app/types/ODGovernorType";
 import { ethers, Signer, Contract } from "ethers";
 import { ProposalType } from "@/app/types/proposal";
+import Loading from "@/app/components/Loading";
 
 const ProposeButton:React.FC<any> = ({proposal}) => {
 
-    const { signer, odGovernor } = useEtherProviderContext();
+    const { signer, odGovernor, userVotes, proposalThreshold } = useEtherProviderContext();
 
     const [txWaiting, setTxWaiting] = useState<Boolean>(false)
     const [txError, setTxError] = useState<string | null>(null)
@@ -47,13 +48,34 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
 
     return(
         <div className="propose-container">
-            <button 
-                className="propose-button" 
-                type="button" 
-                onClick={(e) => propose(e, signer, odGovernor)}
-            >
-                Propose
-            </button>
+            {
+                (
+                    userVotes === null ||
+                    proposalThreshold === null 
+                ) &&
+                <Loading/>
+            }
+            {
+                userVotes &&
+                proposalThreshold &&
+                userVotes < proposalThreshold ? (
+                    <button 
+                        className="propose-button" 
+                        type="button" 
+                        disabled
+                    >
+                        Not Enough Votes to Propose
+                    </button>
+                ) : (
+                    <button 
+                        className="propose-button" 
+                        type="button" 
+                        onClick={(e) => propose(e, signer, odGovernor)}
+                    >
+                        Propose
+                    </button>
+                )
+            }
             {
                 txError !== null &&
                 <div className="propose-error-container">

@@ -1,17 +1,9 @@
 'use client'
 
 import Link from "next/link"
-import React, {
-    useState,
-    useEffect
-} from "react"
-import { ProposalType } from "@/app/types/proposal"
+import React from "react"
 import { useProposalContext } from "@/app/contexts/ProposalsContext"
-import { useEtherProviderContext } from "@/app/contexts/ProviderContext"
 import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK"
-import { time } from "console"
-const { ethers } = require('ethers');
-
 
 interface ProposalProps{
     index: number;
