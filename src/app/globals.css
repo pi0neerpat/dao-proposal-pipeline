@@ -347,7 +347,7 @@ ul, ol {
   gap: var(--gap);
   font-size: larger;
   border-radius: var(--large-container-border-radius);
-  border-color: var(--color-4);
+  border-color: var(--color-3);
   border-width: var(--border-width);
   border-style: solid;
 }
