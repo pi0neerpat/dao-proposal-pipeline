@@ -141,10 +141,8 @@ ul, ol {
 
 .proposal-process{
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: 80% 40%;
   width: 100%;
-  position: relative;
-  left: 25%;
 }
 
 .proposal-submitted{
@@ -165,6 +163,9 @@ ul, ol {
   display: grid;
   align-items: center;
   justify-content: center;
+  border-bottom-color: var(--color-1);
+  border-bottom-width: var(--thick-border-width);
+  border-bottom-style: solid;
 }
 
 .proposal-votes-detail-labels{
