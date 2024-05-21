@@ -139,12 +139,13 @@ ul, ol {
 
 .proposal-list-item{
   display: grid;
-  justify-content: left;
+  grid-template-columns: 100%;
+  justify-content: center;
   padding: var(--large-container-padding);
   border-radius: var(--large-container-border-radius);
   border-width: var(--color-3);
   border-style: solid;
-  min-width: 60vw;
+  width: 80vw;
   transition: var(--transiton-settings);
   background-color: var(--color-5);
   box-shadow: var(--box-shadow);
@@ -158,10 +159,11 @@ ul, ol {
 .proposal-row-one,
 .proposal-row-two{
   display: grid;
-  grid-template-columns: 70% 20%;
+  grid-template-columns: minmax(50%, 70%) minmax(30%, 50%);
   align-items: center;
   justify-content: end;
   gap: var(--gap);
+  width: 100%;
 }
 
 .proposal-type,
@@ -171,8 +173,7 @@ ul, ol {
 
 .proposal-process{
   display: grid;
-  grid-template-columns: 80% 40%;
-  width: 100%;
+  grid-template-columns: 60% 40%;
 }
 
 .proposal-submitted{
@@ -202,26 +203,29 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
+  align-items: center;
   font-weight: 600;
   gap: var(--gap);
-  width: 100%;
+  position: relative;
+  left: var(--large-container-padding);
 }
 
 .proposal-vote-detail-values{
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
+  align-items: center;
   color: var(--color-1);
   font-weight: 600;
   gap: var(--gap);
-  width: 100%;
+  position: relative;
+  left: var(--large-container-padding);
 }
 
 .proposal-state{
   display: grid;
   justify-content: center;
   align-items: center;
-  position: relative;
   font-weight: 800;
   color: var(--color-3);
   font-size: larger;
@@ -343,10 +347,9 @@ ul, ol {
   gap: var(--gap);
   font-size: larger;
   border-radius: var(--large-container-border-radius);
-  border-color: var(--color-6);
+  border-color: var(--color-4);
   border-width: var(--border-width);
   border-style: solid;
-  box-shadow: var(--box-shadow);
 }
 
 .call-data-function-inputs-title{
@@ -359,7 +362,7 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: var(--gap);
-  justify-content: center;
+  justify-content: left;
   align-items: center;
 }
 
