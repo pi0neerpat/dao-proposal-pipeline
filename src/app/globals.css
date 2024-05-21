@@ -13,6 +13,13 @@
   --large-container-padding: 2vw;
   --large-container-border-radius: 1.5em;
   --gap: 2svh;
+  --background-gradient: linear-gradient(to bottom right, 
+    var(--color-4) 0%, 
+    var(--color-4) 20%, 
+    var(--color-5) 80%, 
+    var(--color-4) 99%, 
+    var(--color-4) 100%
+  );
 }
 
 html,
@@ -25,11 +32,25 @@ body {
 
 body {
   color: var(--color-3);
-  background-color: var(--color-5);
+  background: var(--color-5);
+  background-size: 300%;
+  background-image: var(--background-gradient);
   font-family: 'Barlow', 'Open Sans';
   list-style: none;
   width: 100vw;
+  animation: wave 20s infinite linear;
+}
 
+@keyframes wave {
+  0% {
+    background-position: left
+  }
+  50% {
+    background-position: right
+  }
+  100% {
+    background-position: left
+  }
 }
 
 a {
@@ -116,8 +137,9 @@ ul, ol {
   border-width: var(--color-3);
   border-style: solid;
   min-width: 60vw;
-  max-width: 90vw;
   transition: transform var(--transition-duration), filter var(--transition-duration);
+  background-color: var(--color-5);
+  box-shadow: 0.15em 0.15em 0.2em var(--color-6);
 }
 
 .proposal-list-item:hover{
