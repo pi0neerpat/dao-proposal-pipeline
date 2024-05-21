@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const Navbar:React.FC = () => {
 
-    const { address, userVotes, proposalThreshold } = useEtherProviderContext();
+    const { provider, address, userVotes, proposalThreshold } = useEtherProviderContext();
 
     return(
         <div className="navbar">
@@ -44,31 +44,34 @@ const Navbar:React.FC = () => {
             <div className="user-token-balance-container">
                         {
                             (
-                                !address ||
-                                userVotes === null ||
-                                proposalThreshold === null
-                            ) ? (
-                                <Loading/>
-                            ) : (
-                                (
-                                    address &&
-                                    userVotes !== null &&
-                                    proposalThreshold !== null &&
-                                    userVotes > proposalThreshold
-                                ) ? (
-                                    <a 
-                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
-                                        target="_blank"
-                                    >
-                                        {`${address?.slice(0,6)}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
-                                    </a>
+                                !address || !provider ? (
+                                    <div>No Web3 Connection</div>
                                 ) : (
-                                    <a 
-                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
-                                        target="_blank"
-                                    >
-                                        {`You Do NOT Have Enough Votes to Propose. (${address?.slice(0,6)}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
-                                    </a>
+                                    userVotes === null ||
+                                    proposalThreshold === null
+                                ) ? (
+                                    <Loading/>
+                                ) : (
+                                    (
+                                        address &&
+                                        userVotes !== null &&
+                                        proposalThreshold !== null &&
+                                        userVotes > proposalThreshold
+                                    ) ? (
+                                        <a 
+                                            href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                            target="_blank"
+                                        >
+                                            {`${address?.slice(0,6)}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
+                                        </a>
+                                    ) : (
+                                        <a 
+                                            href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                            target="_blank"
+                                        >
+                                            {`You Do NOT Have Enough Votes to Propose. (${address?.slice(0,6)}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
+                                        </a>
+                                    )
                                 )
                             )
                             
