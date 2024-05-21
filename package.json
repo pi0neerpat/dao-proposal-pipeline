@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/font": "^14.2.3",
     "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@web3modal/ethers5": "^4.2.1",
     "bignumber.js": "^9.1.2",

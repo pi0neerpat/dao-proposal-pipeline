@@ -31,7 +31,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     const { address, isConnected } = useWeb3ModalAccount();
     const { walletProvider } = useWeb3ModalProvider();
-    const [provider, setProvider] = useState<providers.Web3Provider | null>(null);
+    const [provider, setProvider] = useState<providers.Web3Provider | null | providers.JsonRpcProvider>(null);
     const [signer, setSigner] = useState<Signer | null>(null);
     const [odGovernor, setOdGovernor] = useState<ODGovernorType | null>(null)
     const [userVotes, setUserVotes] = useState<number | null>(null)
@@ -39,36 +39,42 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     const loadProvider = async () => {
         try {
+            let ethersProvider
+            let signer
             if(walletProvider){
                 //provider
-                const ethersProvider = new ethers.providers.Web3Provider(walletProvider);
+                ethersProvider = new ethers.providers.Web3Provider(walletProvider);
                 // signer
-                const signer = ethersProvider.getSigner();
-                // od gov contract
-                const odGovernorAddress = "0xf704735CE81165261156b41D33AB18a08803B86F"
-                const odGovernor = new ethers.Contract(
-                    odGovernorAddress,
-                    ODGovernorABI.abi,
-                    signer
-                ) as unknown as ODGovernorType
-                // proposal threshold
-                let proposalThreshold = await odGovernor.proposalThreshold() as any
-                proposalThreshold = ethers.utils.formatUnits(proposalThreshold.toString(), 18)
-                setProposalThreshold(proposalThreshold)
-                // get user votes
-                if(process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN){
-                    const protocolToken = new ethers.Contract(
-                        process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN,
-                        GovernanceToken.abi,
-                        signer
-                    ) 
-                    const userVotes = await protocolToken.getVotes(await signer.getAddress())
-                    setUserVotes(userVotes.toString())
-                }
-                setProvider(ethersProvider);
-                setSigner(signer);
-                setOdGovernor(odGovernor)
+                signer = ethersProvider.getSigner();
+            } else {
+                // fallback provider (infura etc, nees environmental var)
+                ethersProvider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_INFURA_ENDPOINT);
+                signer = ethersProvider.getSigner();
             }
+            // od gov contract
+            const odGovernorAddress = "0xf704735CE81165261156b41D33AB18a08803B86F"
+            const odGovernor = new ethers.Contract(
+                odGovernorAddress,
+                ODGovernorABI.abi,
+                signer
+            ) as unknown as ODGovernorType
+            // proposal threshold
+            let proposalThreshold = await odGovernor.proposalThreshold() as any
+            proposalThreshold = ethers.utils.formatUnits(proposalThreshold.toString(), 18)
+            setProposalThreshold(proposalThreshold)
+            // get user votes
+            if(process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN){
+                const protocolToken = new ethers.Contract(
+                    process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN,
+                    GovernanceToken.abi,
+                    signer
+                ) 
+                const userVotes = await protocolToken.getVotes(await signer.getAddress())
+                setUserVotes(userVotes.toString())
+            }
+            setProvider(ethersProvider);
+            setSigner(signer);
+            setOdGovernor(odGovernor)
           } catch (error) {
             console.error('Error initializing ethers connection:', error);
           }

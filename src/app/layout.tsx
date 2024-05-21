@@ -1,12 +1,37 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Barlow,Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ProposalProvider } from "./contexts/ProposalsContext";
 import { Web3Modal } from './contexts/Web3ModalContext'
 import { ProviderProvider } from './contexts/ProviderContext'
 import Navbar from "./components/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const barlow = Barlow({ 
+  subsets: ["latin"] ,
+  weight: [
+  "100", 
+  "200", 
+  "300", 
+  "400",
+  "500",
+  "600",
+  "700",
+  "800",
+  "900"
+]
+});
+
+const openSans = Open_Sans({ 
+  subsets: ["latin"] ,
+  weight: [
+  "300", 
+  "400",
+  "500",
+  "600",
+  "700",
+  "800"
+]
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +48,18 @@ export default function RootLayout({
       <ProviderProvider>
         <ProposalProvider>
           <html lang="en">
-            <body className={inter.className}>
+            <head>
+              <style>
+                {
+                  `
+                    body {
+                      font-family: '${barlow.style.fontFamily}', '${openSans.style.fontFamily}';
+                    }
+                  `
+                }
+              </style>
+            </head>
+            <body className={barlow.className}>
               <Navbar/>
               {children}
             </body>
