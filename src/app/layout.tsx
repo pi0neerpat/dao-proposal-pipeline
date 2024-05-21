@@ -47,18 +47,7 @@ export default function RootLayout({
     <Web3Modal>
       <ProviderProvider>
         <ProposalProvider>
-          <html lang="en">
-            <head>
-              <style>
-                {
-                  `
-                    body {
-                      font-family: '${barlow.style.fontFamily}', '${openSans.style.fontFamily}';
-                    }
-                  `
-                }
-              </style>
-            </head>
+          <html lang="en" className={`${barlow.className} ${openSans.className}`}>
             <body className={barlow.className}>
               <Navbar/>
               {children}

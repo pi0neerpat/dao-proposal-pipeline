@@ -18,6 +18,7 @@ body {
 body {
   color: var(--color-3);
   background-color: var(--color-5);
+  font-family: 'Barlow', 'Open Sans';
 }
 
 a {
