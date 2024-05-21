@@ -5,23 +5,43 @@ import React, {
 import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
 import Link from "next/link";
 import Loading from "../Loading";
+import Image from "next/image";
 
 const Navbar:React.FC = () => {
 
     const { address, userVotes, proposalThreshold } = useEtherProviderContext();
-    // console.log(odGovernor);
 
     return(
         <div className="navbar">
-            <h1>OD Governance</h1>
             <ul className="navbar-links-list">
                 <li className="navbar-link">
                     <Link
                         href={'/'}
                     >
-                        Home
+                        <Image 
+                            src="/home-icon.svg" 
+                            alt="Home" 
+                            width={28} 
+                            height={28} 
+                            itemType="svg"
+                            className="home-icon"
+                        />
                     </Link>
-                    <div className="user-token-balance-container">
+                </li>
+                <li>
+                    <Image
+                        src='/full-logo-open-dollar.svg'
+                        alt="open-dollar-logo"
+                        width={150}
+                        height={35}
+                        itemType="svg"
+                    />
+                </li>
+                <li className="navbar-link connect-button-container">
+                    <w3m-button />
+                </li>
+            </ul>
+            <div className="user-token-balance-container">
                         {
                             (
                                 !address ||
@@ -54,9 +74,7 @@ const Navbar:React.FC = () => {
                             
                         }
                     </div>
-                    <w3m-button />
-                </li>
-            </ul>
+            <h1 className="navbar-title">Open Dollar Governance Proposals</h1>
         </div>
     )
 }

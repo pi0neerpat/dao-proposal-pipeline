@@ -48,6 +48,10 @@ export default function RootLayout({
       <ProviderProvider>
         <ProposalProvider>
           <html lang="en" className={`${barlow.className} ${openSans.className}`}>
+            <head>
+              <link rel="icon" href="./full-logo-open-dollar.svg" />
+              <title>Open Dollar Governance Proposals</title>
+            </head>
             <body className={barlow.className}>
               <Navbar/>
               {children}

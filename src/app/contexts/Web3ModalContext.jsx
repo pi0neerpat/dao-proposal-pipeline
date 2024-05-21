@@ -41,7 +41,8 @@ createWeb3Modal({
   chains: [fork, mainnet],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
-  enableOnramp: true // Optional - false as default
+  enableOnramp: true, // Optional - false as default
+  themeMode: "light"
 })
 
 export function Web3Modal({ children }) {
