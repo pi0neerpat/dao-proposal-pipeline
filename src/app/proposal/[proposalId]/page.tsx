@@ -12,6 +12,8 @@ import decodeCallData from "@/app/lib/decodeCallData";
 import CallData from "./CallData";
 import ProposeButton from "./ProposeButton";
 import Loading from "@/app/components/Loading";
+import Link from "next/link";
+import Image from "next/image";
 
 interface ProposalPageProps {
     params: {
@@ -231,7 +233,20 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                                 className="target"
                                 key={index}
                             >
-                                {target.toString()}
+                                <Link 
+                                    href={`https://arbiscan.io/address/${target.toString()}`}
+                                    target="_blank"
+                                    className="target-link"
+                                >
+                                    {target.toString()} 
+                                    <Image
+                                        src={'/external-link.svg'}
+                                        alt="link"
+                                        width={25}
+                                        height={25}
+                                        className="external-link-svg"
+                                    ></Image>
+                                </Link>
                             </li>
                         ))
                     }
