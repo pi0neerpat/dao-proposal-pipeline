@@ -6,9 +6,13 @@
   --color-5: #ffffff;
   --color-6: #5d707f;
   --thick-border-width: 0.25em;
+  --border-width: 1px;
   --transition-duration: 0.6s;
   --small-container-padding: 1vw;
   --small-container-border-radius: 10em;
+  --large-container-padding: 2vw;
+  --large-container-border-radius: 1.5em;
+  --gap: 2svh;
 }
 
 html,
@@ -43,7 +47,7 @@ ul, ol {
   display: grid;
   justify-content: center;
   align-items: center;
-  gap: 2svh;
+  gap: var(--gap);
 }
 
 .navbar-links-list{
@@ -87,4 +91,107 @@ ul, ol {
   border-bottom-width: var(--thick-border-width);
   border-bottom-color: var(--color-1);
   border-bottom-style: solid;
+}
+
+.proposals-list{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--large-container-padding);
+}
+
+.proposals-header{
+  display: grid;
+  align-items: end;
+  justify-content: right;
+  color: var(--color-1);
+}
+
+.proposal-list-item{
+  display: grid;
+  justify-content: left;
+  padding: var(--large-container-padding);
+  border-radius: var(--large-container-border-radius);
+  border-width: var(--color-3);
+  border-style: solid;
+  min-width: 60vw;
+  max-width: 90vw;
+  transition: transform var(--transition-duration), filter var(--transition-duration);
+}
+
+.proposal-list-item:hover{
+  transform: scale(1.02);
+  filter: brightness(1.1)
+}
+
+.proposal-row-one,
+.proposal-row-two{
+  display: grid;
+  grid-template-columns: 70% 20%;
+  align-items: center;
+  justify-content: end;
+  gap: var(--gap);
+}
+
+.proposal-type,
+.proposal-submitted{
+  color: var(--color-1);
+}
+
+.proposal-process{
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  width: 100%;
+  position: relative;
+  left: 25%;
+}
+
+.proposal-submitted{
+  font-weight: 800;
+  font-size: large;
+}
+
+.proposal-vote-details{
+  display: grid;
+  grid-template-rows: repeat(3, auto);
+  grid-template-columns: 100%;
+  gap: var(--gap);
+  justify-content: center;
+  align-items: center;
+}
+
+.proposal-vote-detail-title{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.proposal-votes-detail-labels{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  font-weight: 500;
+  gap: var(--gap);
+  width: 100%;
+}
+
+.proposal-vote-detail-values{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: center;
+  color: var(--color-1);
+  font-weight: 600;
+  gap: var(--gap);
+  width: 100%;
+}
+
+.proposal-state{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-weight: 800;
+  color: var(--color-3);
+  font-size: larger;
 }
