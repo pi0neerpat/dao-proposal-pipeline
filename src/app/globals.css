@@ -319,7 +319,7 @@ ul, ol {
 
 .call-data-row-one{
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(2, 50%);
 }
 
 .call-data-function-column-one{
@@ -342,6 +342,7 @@ ul, ol {
   border-color: var(--color-3);
   border-width: var(--border-width);
   border-style: solid;
+  padding: var(--large-container-padding);
 }
 
 .call-data-function-inputs-title{
@@ -369,6 +370,13 @@ ul, ol {
   grid-template-columns: 50% 50%;
   justify-content: center;
   gap: var(--gap);
+}
+
+.call-data-input-value>div{
+  display: flex;
+  flex-wrap: wrap;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .targets-title,

@@ -19,7 +19,7 @@ function decodeArguments(callData: DecodedCallData): any[] {
         } else if (inputType === "bool") {
             decodedArg = ethers.utils.hexValue(arg) === "0x01";
         } else if (inputType === "bytes") {
-            decodedArg = ethers.utils.arrayify(arg);
+            decodedArg = arg;
         } else if (inputType === "bytes32") {
             decodedArg = ethers.utils.parseBytes32String(arg);
         } else if (inputType.startsWith("string")) {
