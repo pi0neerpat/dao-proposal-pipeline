@@ -137,14 +137,17 @@ ul, ol {
 
 .proposals-link{
   display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: var(--gap);
   justify-content: center;
   align-items: center;
   padding: var(--large-container-padding);
-  background-color: var(--color-1);
+  background-color: var(--color-2);
   color: var(--color-5);
   border-radius: var(--large-container-border-radius);
   transition: var(--transiton-settings);
   font-weight: 600;
+  box-shadow: 0.25em 0.25em 0.1em var(--color-1);
 }
 .proposals-link:hover{
   transform: var(--transition-transform-light);

@@ -6,6 +6,7 @@ import React, {
 import { ProposalType } from "@/app/types/proposal";
 import Proposal from "./Proposal";
 import Link from "next/link";
+import Image from "next/image";
 
 
 interface ProposalsProps{
@@ -26,6 +27,14 @@ const Proposals:React.FC<ProposalsProps> = ({proposals}) => {
                     className="proposals-link"
                 >
                     Pending proposals are fetched from our GitHub
+                    <Image
+                        src={'/external-link-white.svg'}
+                        alt="link"
+                        width={25}
+                        height={25}
+                        className="external-link-svg"
+                    ></Image>
+
                 </Link>
             </div>
             {
