@@ -22,13 +22,18 @@ const Navbar:React.FC = () => {
                     </Link>
                 </li>
                 <li>
-                    <Image
-                        src='/full-logo-open-dollar.svg'
-                        alt="open-dollar-logo"
-                        width={150}
-                        height={35}
-                        itemType="svg"
-                    />
+                    <Link
+                        href={'https://www.opendollar.com/'}
+                        target="_blank"
+                    >
+                        <Image
+                            src='/full-logo-open-dollar.svg'
+                            alt="open-dollar-logo"
+                            width={150}
+                            height={35}
+                            itemType="svg"
+                        />
+                    </Link>
                 </li>
                 <li className="navbar-link connect-button-container">
                     <w3m-button />
