@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {
+    useState,
+    useEffect,
+    useRef
+} from "react";
 import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
 import ODGovernorType from "@/app/types/ODGovernorType";
-import { ethers, Signer, Contract } from "ethers";
-import { ProposalType } from "@/app/types/proposal";
+import { Signer } from "ethers";
 import Loading from "@/app/components/Loading";
 
 const ProposeButton:React.FC<any> = ({proposal}) => {
@@ -45,6 +48,23 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
         e.preventDefault()
         setTxError(null)
     }
+    //handle clicking outside
+    const errorDivRef = useRef<HTMLDivElement>(null);
+    const successDivRef = useRef<HTMLDivElement>(null);
+    const handleClickOutside = (event: MouseEvent) => {
+        if (errorDivRef.current && !errorDivRef.current.contains(event.target as Node)) {
+            setTxError(null);
+        }
+        if (successDivRef.current && !successDivRef.current.contains(event.target as Node)) {
+            setTxSuccess(null);
+        }
+    };
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     return(
         <div className="propose-container">
@@ -78,7 +98,10 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
             }
             {
                 txError !== null &&
-                <div className="propose-error-container">
+                <div 
+                    className="propose-error-container"
+                    ref={errorDivRef}
+                >
                     <button
                         className="propose-error-exit-button"
                         onClick={(e) => exitTxError(e)}
@@ -101,7 +124,10 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
             }
             {
                 txSuccess !== null &&
-                <div className="tx-success-container">
+                <div 
+                    className="tx-success-container"
+                    ref={successDivRef}
+                >
                     <button 
                         type="button" 
                         className="tx-success-exit"
