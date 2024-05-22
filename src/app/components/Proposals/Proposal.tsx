@@ -30,7 +30,7 @@ const Proposal:React.FC<ProposalProps> = ({index}) => {
             </div>
             <div className="proposal-row-two">
                 <div className="proposal-id">
-                    Proposal ID: {proposals[index].proposalId.toString().slice(0,10)}...
+                    Proposal ID: {proposals[index].proposalId.toString().slice(0,8)}...
                 </div>
                 <div className="proposal-submitted">
                     {

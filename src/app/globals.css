@@ -129,6 +129,28 @@ ul, ol {
   color: var(--color-1);
 }
 
+.proposal-link-container{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.proposals-link{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: var(--large-container-padding);
+  background-color: var(--color-1);
+  color: var(--color-5);
+  border-radius: var(--large-container-border-radius);
+  transition: var(--transiton-settings);
+  font-weight: 600;
+}
+.proposals-link:hover{
+  transform: var(--transition-transform-light);
+  filter: var(--transition-filter)
+}
+
 .proposal-list-item{
   display: grid;
   grid-template-columns: 100%;

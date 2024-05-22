@@ -106,7 +106,7 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                     Proposal: {currentProposal?.description}
                 </h1>
                 <h2 className="proposal-page-id">
-                    Proposal ID: {currentProposal?.proposalId.toString().slice(0,10)}...
+                    Proposal ID: {currentProposal?.proposalId.toString().slice(0,8)}...
                 </h2>
             </div>
             <div className="proposal-page-row-two">
