@@ -217,56 +217,15 @@ const ProposalPage:React.FC<ProposalPageProps> = ({params}) => {
                             className="call-data"
                             key={index}
                         >
-                            <CallData calldata={calldata} index={index}/>
+                            <CallData 
+                                calldata={calldata} 
+                                index={index} 
+                                currentProposal={currentProposal}
+                            />
                         </li>
                     ))
                 }
             </ul>
-            <div className="targets-and-values-row">
-                <ul className="targets-list">
-                    <h2 className="targets-title">Targets</h2>
-                    {
-                        currentProposal &&
-                        currentProposal?.targets.length > 0 &&
-                        currentProposal.targets.map((target, index) => (
-                            <li 
-                                className="target"
-                                key={index}
-                            >
-                                <Link 
-                                    href={`https://arbiscan.io/address/${target.toString()}`}
-                                    target="_blank"
-                                    className="target-link"
-                                >
-                                    {target.toString()} 
-                                    <Image
-                                        src={'/external-link.svg'}
-                                        alt="link"
-                                        width={25}
-                                        height={25}
-                                        className="external-link-svg"
-                                    ></Image>
-                                </Link>
-                            </li>
-                        ))
-                    }
-                </ul>
-                <ul className="values-list">
-                    <h2 className="values-title">Values</h2>
-                    {
-                        currentProposal &&
-                        currentProposal?.values.length > 0 &&
-                        currentProposal.values.map((value, index) => (
-                            <li 
-                                className="value"
-                                key={index}
-                            >
-                                {value.toString()}
-                            </li>
-                        ))
-                    }
-                </ul>
-            </div>
             <div className="propose-button-container">
                 {
                     currentMetadata !== null &&
