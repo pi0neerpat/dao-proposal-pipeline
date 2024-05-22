@@ -154,6 +154,22 @@ ul, ol {
   filter: var(--transition-filter)
 }
 
+.proposals-subsection-title{
+  display: grid;
+  font-weight: 600;
+  font-size: larger;
+  border-bottom-width: var(--thick-border-width);
+  border-bottom-color: var(--color-1);
+  border-bottom-style: solid;
+  width: 40%;
+}
+
+.pending-proposals-container,
+.submitted-proposals-container{
+  display: grid;
+  gap: var(--gap);
+}
+
 .proposal-list-item{
   display: grid;
   grid-template-columns: 100%;
