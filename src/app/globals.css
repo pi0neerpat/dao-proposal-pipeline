@@ -18,7 +18,7 @@
   --large-container-border-radius: 1.5em;
   --gap: 2svh;
   --background-gradient: linear-gradient(to bottom right, 
-    var(--color-4) 0%, 
+    var(--color-1) 0%, 
     var(--color-4) 20%, 
     var(--color-5) 80%, 
     var(--color-4) 99%, 
@@ -43,7 +43,7 @@ body {
   font-family: 'Barlow', 'Open Sans', sans-serif;
   list-style: none;
   width: 100vw;
-  animation: wave 10s infinite linear;
+  animation: wave 25s infinite linear;
   display: grid;
   justify-content: center;
   align-items: center;
@@ -360,7 +360,9 @@ ul, ol {
 
 .call-data-row-one{
   display: grid;
-  grid-template-columns: repeat(2, 50%);
+  grid-template-columns: 60% 40%;
+  gap: var(--gap);
+  justify-content: right;
 }
 
 .call-data-function-column-one{
