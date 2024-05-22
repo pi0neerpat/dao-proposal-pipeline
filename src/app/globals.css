@@ -81,11 +81,12 @@ ul, ol {
 
 .navbar-links-list{
   display: grid;
-  grid-template-columns: repeat(3, 35%);
+  grid-template-columns: repeat(3, auto);
   justify-content: center;
   align-items: center;
-  height: 6svh;
+  height: 8svh;
   padding-top: var(--small-container-padding);
+  gap: var(--gap);
 }
 
 .home-icon{
@@ -100,17 +101,6 @@ ul, ol {
   display: grid;
   justify-content: right;
   align-items: center;
-}
-
-.user-token-balance-container{
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-2);
-  color: var(--color-5);
-  padding: var(--small-container-padding);
-  font-weight: 600;
-  border-radius: var(--small-container-border-radius);
 }
 
 .navbar-title{
@@ -417,6 +407,19 @@ ul, ol {
   align-items: center;
 }
 
+.button-and-balance{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap);
+}
+
+.button-container{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
 .propose-button{
   display: grid;
   justify-content: center;
@@ -498,4 +501,15 @@ ul, ol {
   border-bottom-width: var(--thick-border-width);
   border-bottom-style: solid;
   font-size: x-large;
+}
+
+.balances{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-2);
+  color: var(--color-5);
+  padding: var(--small-container-padding);
+  font-weight: 600;
+  border-radius: var(--small-container-border-radius);
 }
