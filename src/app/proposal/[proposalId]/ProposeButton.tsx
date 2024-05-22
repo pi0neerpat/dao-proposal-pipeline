@@ -80,7 +80,7 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
                     {
                         userVotes &&
                         proposalThreshold &&
-                        userVotes > proposalThreshold ? (
+                        userVotes < proposalThreshold ? (
                             <button 
                                 className="propose-button" 
                                 type="button" 
