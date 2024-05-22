@@ -10,7 +10,7 @@ import Loading from "@/app/components/Loading";
 
 const ProposeButton:React.FC<any> = ({proposal}) => {
 
-    const { signer, odGovernor, userVotes, proposalThreshold } = useEtherProviderContext();
+    const { address, provider, signer, odGovernor, userVotes, proposalThreshold } = useEtherProviderContext();
 
     const [txWaiting, setTxWaiting] = useState<Boolean>(false)
     const [txError, setTxError] = useState<string | null>(null)
@@ -68,34 +68,74 @@ const ProposeButton:React.FC<any> = ({proposal}) => {
 
     return(
         <div className="propose-container">
-            {
-                (
-                    userVotes === null ||
-                    proposalThreshold === null 
-                ) &&
-                <Loading/>
-            }
-            {
-                userVotes &&
-                proposalThreshold &&
-                userVotes > proposalThreshold ? (
-                    <button 
-                        className="propose-button" 
-                        type="button" 
-                        disabled
-                    >
-                        Not Enough Votes to Propose
-                    </button>
-                ) : (
-                    <button 
-                        className="propose-button-active" 
-                        type="button" 
-                        onClick={(e) => propose(e, signer, odGovernor)}
-                    >
-                        Propose
-                    </button>
-                )
-            }
+            <div className="button-and-balance">
+                <div className="button-container">
+                    {
+                        (
+                            userVotes === null ||
+                            proposalThreshold === null 
+                        ) &&
+                        <Loading/>
+                    }
+                    {
+                        userVotes &&
+                        proposalThreshold &&
+                        userVotes > proposalThreshold ? (
+                            <button 
+                                className="propose-button" 
+                                type="button" 
+                                disabled
+                            >
+                                Not Enough Votes to Propose
+                            </button>
+                        ) : (
+                            <button 
+                                className="propose-button-active" 
+                                type="button" 
+                                onClick={(e) => propose(e, signer, odGovernor)}
+                            >
+                                Propose
+                            </button>
+                        )
+                    }
+                </div>
+                <div className="balances">
+                    {
+                        (
+                            !address || !provider ? (
+                                <div>No Web3 Connection</div>
+                            ) : (
+                                userVotes === null ||
+                                proposalThreshold === null
+                            ) ? (
+                                <Loading/>
+                            ) : (
+                                (
+                                    address &&
+                                    userVotes !== null &&
+                                    proposalThreshold !== null &&
+                                    userVotes > proposalThreshold
+                                ) ? (
+                                    <a 
+                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                        target="_blank"
+                                    >
+                                        {`${address?.slice(0,6)}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
+                                    </a>
+                                ) : (
+                                    <a 
+                                        href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
+                                        target="_blank"
+                                    >
+                                        {`You Do NOT Have Enough Votes to Propose. (${address?.slice(0,6)}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
+                                    </a>
+                                )
+                            )
+                        )
+                        
+                    }
+                </div>
+            </div>
             {
                 txError !== null &&
                 <div 
