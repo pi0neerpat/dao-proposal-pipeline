@@ -13,7 +13,15 @@ export const generateMetadata = ({ params }: ProposalPageProps): Metadata => {
     title: `Proposal ${params.proposalId.slice(0, 8)}...`,
     openGraph: {
       title: `Proposal ${params.proposalId.slice(0, 8)}...`,
-      description: `A new Open Dollar Governance Proposal ${params.proposalId.slice(0, 8)}... for Submission`
+      description: `Open Dollar Governance Proposal ${params.proposalId.slice(0, 8)}... for Submission`
+    },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@open_dollar',
+      creator: '@open_dollar',
+      title: `Open Dollar Governance Proposal ${params.proposalId.slice(0, 8)}...`,
+      description: `Proposal $${params.proposalId.slice(0, 8)}... submission to vote`,
+      images: '/full-logo-open-dollar.svg'
     }
   }
 }
