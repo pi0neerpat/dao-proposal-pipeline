@@ -1,19 +1,14 @@
 'use client'
-import React, {
-    useState,
-    useEffect
-} from "react";
-import { ProposalType } from "@/app/types/proposal";
-import Proposal from "./Proposal";
-import Link from "next/link";
-import Image from "next/image";
-import { useProposalContext } from "@/app/contexts/ProposalsContext";
+import React from 'react'
+import Proposal from './Proposal'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useProposalContext } from '@/app/contexts/ProposalsContext'
 
-const Proposals:React.FC = () => {
+const Proposals: React.FC = () => {
+  const { proposalMetadata } = useProposalContext()
 
-    const {proposalMetadata} = useProposalContext()
-    
-    return(
+  return (
         <ul className="proposals-list">
             <div className="proposals-header">
                 <h2>Proposals</h2>
@@ -42,14 +37,16 @@ const Proposals:React.FC = () => {
                 <div className="pending-proposals">
                     {
                         proposalMetadata.map((proposal, index) => {
-                            if(proposal.proposer === ""){
-                                return(
+                          if (proposal.proposer === '') {
+                            return (
                                     <Proposal
                                         index={index}
                                         key={index}
                                     />
-                                )
-                            }
+                            )
+                          } else {
+                            return null
+                          }
                         })
                     }
                 </div>
@@ -61,20 +58,22 @@ const Proposals:React.FC = () => {
                 <div className="submitted-proposals">
                     {
                         proposalMetadata.map((proposal, index) => {
-                            if(proposal.proposer !== ""){
-                                return(
+                          if (proposal.proposer !== '') {
+                            return (
                                     <Proposal
                                         index={index}
                                         key={index}
                                     />
-                                )
-                            }
+                            )
+                          } else {
+                            return null
+                          }
                         })
                     }
                 </div>
             </div>
         </ul>
-    )
+  )
 }
 
-export default Proposals;
+export default Proposals

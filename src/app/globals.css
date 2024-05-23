@@ -43,7 +43,7 @@ body {
   font-family: 'Barlow', 'Open Sans', sans-serif;
   list-style: none;
   width: 100vw;
-  animation: wave 25s infinite linear;
+  animation: wave 40s infinite linear;
   display: grid;
   justify-content: center;
   align-items: center;

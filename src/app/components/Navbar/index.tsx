@@ -1,21 +1,21 @@
 'use client'
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
+import React from 'react'
 
-const Navbar:React.FC = () => {
-
-    return(
+const Navbar: React.FC = () => {
+  return (
         <div className="navbar">
             <ul className="navbar-links-list">
                 <li className="navbar-link">
                     <Link
                         href={'/'}
                     >
-                        <Image 
-                            src="/home-icon.svg" 
-                            alt="Home" 
-                            width={28} 
-                            height={28} 
+                        <Image
+                            src="/home-icon.svg"
+                            alt="Home"
+                            width={28}
+                            height={28}
                             itemType="svg"
                             className="home-icon"
                         />
@@ -41,7 +41,7 @@ const Navbar:React.FC = () => {
             </ul>
             <h1 className="navbar-title">Open Dollar Governance Proposals</h1>
         </div>
-    )
+  )
 }
 
-export default Navbar;
+export default Navbar
