@@ -17,7 +17,7 @@ interface CallDataProps {
 
 const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal }) => {
   const [decodedArgs, setDecodedArgs] = useState<any[]>([])
-
+    console.log(currentProposal)
   useEffect(() => {
     const decodedArgs = decodeArguments(calldata)
     setDecodedArgs(decodedArgs)
@@ -68,8 +68,7 @@ const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal })
                                 </p>
                                 <div className="call-data-input-value">
                                     {
-                                        Array.isArray(decodedArgs[inputIndex]
-                                        )
+                                        Array.isArray(decodedArgs[inputIndex])
                                           ? (
                                             <div className="call-data-input-value-array">
                                                 {
@@ -101,7 +100,12 @@ const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal })
                     }
                 </div>
             </div>
-            <h3 className="call-data-inputs"></h3>
+            <div className="call-data-raw">
+                <h3 className='call-data-raw-title'>Raw Call Data</h3>
+                <div className='call-data-raw-value'>
+                    {currentProposal.calldatas[index].toString()}
+                </div>
+            </div>
         </div>
   )
 }

@@ -13,13 +13,13 @@ const mainnet = {
   explorerUrl: 'https://arbiscan.io',
   rpcUrl: 'https://arb1.arbitrum.io/rpc'
 }
-const fork = {
-  chainId: 31337,
-  name: 'Arbitrum Fork',
-  currency: 'ETH',
-  explorerUrl: '',
-  rpcUrl: 'http://localhost:8545'
-}
+// const fork = {
+//   chainId: 31337,
+//   name: 'Arbitrum Fork',
+//   currency: 'ETH',
+//   explorerUrl: '',
+//   rpcUrl: 'http://localhost:8545'
+// }
 
 // 3. Create a metadata object
 const metadata = {
@@ -41,7 +41,7 @@ const ethersConfig = defaultConfig({
 if (projectId !== undefined) {
   createWeb3Modal({
     ethersConfig,
-    chains: [fork, mainnet],
+    chains: [mainnet],
     projectId,
     enableAnalytics: true, // Optional - defaults to your Cloud configuration
     enableOnramp: true, // Optional - false as default
