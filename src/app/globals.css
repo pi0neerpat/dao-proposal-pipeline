@@ -265,11 +265,9 @@ ul, ol {
 }
 
 .proposal-page{
-  max-width: 90%;
-  min-width: 70vw;
+  width: 90vw;
   padding: var(--large-container-padding);
   display: grid;
-  justify-content: center;
   align-items: center;
   border-radius: var(--large-container-border-radius);
   border-color: var(--color-3);
@@ -285,6 +283,9 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(2, auto);
   align-items: center;
+  font-size: small;
+  width: 100%;
+  gap: var(--gap);
 }
 
 .proposal-page-description{
@@ -297,6 +298,7 @@ ul, ol {
   color: var(--color-1);
   justify-content: center;
   gap: var(--gap);
+  width: 100%;
 }
 
 .proposal-page-submitted{
@@ -353,6 +355,11 @@ ul, ol {
   color: var(--color-1);
 }
 
+.call-data-list{
+  display: grid;
+  width: 100%;
+}
+
 .call-data-title{
   display: grid;
   border-bottom-color: var(--color-1);
@@ -373,7 +380,6 @@ ul, ol {
   justify-content: center;
   align-items: center;
   gap: var(--gap);
-  font-size: larger;
 }
 
 .call-data-function-column-two{
