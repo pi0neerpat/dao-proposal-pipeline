@@ -360,6 +360,12 @@ ul, ol {
   width: 100%;
 }
 
+.call-data-container{
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  gap: var(--gap);
+}
+
 .call-data-title{
   display: grid;
   border-bottom-color: var(--color-1);
@@ -448,6 +454,21 @@ ul, ol {
 .target-link:hover{
   transform: var(--transition-transform-light);
   filter: var(--transition-filter);
+}
+
+.call-data-raw{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(2, auto);
+  gap: var(--gap);
+}
+
+.call-data-raw-value{
+  display: flex;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .external-link-svg{

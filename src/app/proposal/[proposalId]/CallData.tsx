@@ -17,7 +17,6 @@ interface CallDataProps {
 
 const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal }) => {
   const [decodedArgs, setDecodedArgs] = useState<any[]>([])
-    console.log(currentProposal)
   useEffect(() => {
     const decodedArgs = decodeArguments(calldata)
     setDecodedArgs(decodedArgs)
