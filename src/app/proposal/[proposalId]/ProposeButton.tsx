@@ -15,7 +15,11 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
   const [txError, setTxError] = useState<string | null>(null)
   const [txSuccess, setTxSuccess] = useState<string | null>(null)
 
-  const propose = async (e: any, signer: Signer | null, odGovernor: ODGovernorType | null) => {
+  const propose = async (
+    e: any,
+    signer: Signer | null,
+    odGovernor: ODGovernorType | null
+  ): Promise<void> => {
     e.preventDefault()
     if (odGovernor !== null) {
       setTxWaiting(true)
@@ -28,33 +32,33 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
           proposal.description
         )
         await tx.wait()
-        setTxSuccess(tx.hash.toString())
+        setTxSuccess(tx.hash.toString() as string)
       } catch (error: any) {
         console.error('Error: ' + error)
-        setTxError(error.reason.toString())
+        setTxError(error.reason.toString() as string)
       } finally {
         setTxWaiting(false)
       }
     }
   }
 
-  const exitTxSuccess = (e: any) => {
+  const exitTxSuccess = (e: any): void => {
     e.preventDefault()
     setTxSuccess(null)
   }
 
-  const exitTxError = (e: any) => {
+  const exitTxError = (e: any): void => {
     e.preventDefault()
     setTxError(null)
   }
   // handle clicking outside
   const errorDivRef = useRef<HTMLDivElement>(null)
   const successDivRef = useRef<HTMLDivElement>(null)
-  const handleClickOutside = (event: MouseEvent) => {
-    if (errorDivRef.current && !errorDivRef.current.contains(event.target as Node)) {
+  const handleClickOutside = (event: MouseEvent): void => {
+    if (errorDivRef.current !== null && !errorDivRef.current.contains(event.target as Node)) {
       setTxError(null)
     }
-    if (successDivRef.current && !successDivRef.current.contains(event.target as Node)) {
+    if (successDivRef.current !== null && !successDivRef.current.contains(event.target as Node)) {
       setTxSuccess(null)
     }
   }
@@ -77,8 +81,8 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
                         <Loading/>
                     }
                     {
-                        userVotes &&
-                        proposalThreshold &&
+                        userVotes !== null &&
+                        proposalThreshold !== null &&
                         userVotes < proposalThreshold
                           ? (
                             <button
@@ -93,7 +97,9 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
                             <button
                                 className="propose-button-active"
                                 type="button"
-                                onClick={async (e) => { await propose(e, signer, odGovernor) }}
+                                onClick={(e) => {
+                                  propose(e, signer, odGovernor).catch((error) => { console.error(error) })
+                                }}
                             >
                                 Propose
                             </button>
@@ -103,7 +109,12 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
                 <div className="balances">
                     {
                         (
-                            !address || !provider
+                            (
+                              address === null ||
+                              provider === null ||
+                              address === undefined ||
+                              provider === undefined
+                            )
                               ? (
                                 <div>No Web3 Connection</div>
                                 )
@@ -116,10 +127,10 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
                                     )
                                   : (
                                       (
-                                        address &&
-                                    userVotes !== null &&
-                                    proposalThreshold !== null &&
-                                    userVotes > proposalThreshold
+                                        address !== '' &&
+                                        userVotes !== null &&
+                                        proposalThreshold !== null &&
+                                        userVotes > proposalThreshold
                                       )
                                         ? (
                                     <a

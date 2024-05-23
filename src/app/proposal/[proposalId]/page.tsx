@@ -12,8 +12,6 @@ import decodeCallData from '@/app/lib/decodeCallData'
 import CallData from './CallData'
 import ProposeButton from './ProposeButton'
 import Loading from '@/app/components/Loading'
-import Link from 'next/link'
-import Image from 'next/image'
 
 interface ProposalPageProps {
   params: {
@@ -28,8 +26,9 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
 
   // determin current proposal by id
   const [currentProposal, setCurrentProposal] = useState<ProposalType | null>(null)
-  const getCurrentProposal = () => {
+  const getCurrentProposal = (): any => {
     const currentProposal = proposals.filter((proposal) => {
+      console.log(proposal)
       return proposal.proposalId.toString() === decodeURIComponent(params.proposalId.toString())
     })
     if (currentProposal !== null) {
@@ -37,12 +36,14 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
     }
   }
   useEffect(() => {
-    getCurrentProposal()
+    if (proposals !== null && proposals !== undefined) {
+      getCurrentProposal()
+    }
   }, [proposals])
 
   // get current proposal metadata using current proposal
   const [currentMetadata, setCurrentMetadata] = useState<any | null>(null)
-  const filterCurrentMetadata = (proposalMetadata: any[]) => {
+  const filterCurrentMetadata = (proposalMetadata: any[]): any => {
     const currentMetadata = proposalMetadata.filter((metadata: any) => {
       return metadata.id === currentProposal?.proposalId
     })
@@ -58,20 +59,20 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
 
   // this gets abis for each of our targets so we can decode call data
   const [targetABIs, setTargetABIs] = useState<any[] | null>(null)
-  const pullAllTargetABIs = async (currentProposal: ProposalType) => {
-    if (currentProposal && currentProposal.targets.length > 0) {
+  const pullAllTargetABIs = async (currentProposal: ProposalType): Promise<any> => {
+    if (currentProposal !== null && currentProposal.targets.length > 0) {
       const abiPromises = currentProposal?.targets.map(async (target) => await fetchABI(target))
       let fetchedABIs = await Promise.all(abiPromises)
       fetchedABIs = fetchedABIs.map((abi) => {
         if (abi === undefined) { return null }
-        return JSON.parse(abi)
+        return JSON.parse(abi as string)
       })
       setTargetABIs(fetchedABIs)
     }
   }
   useEffect(() => {
-    if (currentProposal && currentProposal.targets.length > 0) {
-      pullAllTargetABIs(currentProposal)
+    if (currentProposal !== null && currentProposal !== undefined && currentProposal.targets.length > 0) {
+      pullAllTargetABIs(currentProposal).catch((error) => { console.error(error) })
     }
   }, [currentProposal])
 
@@ -79,10 +80,10 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
   const [decodedCallData, setDecodedCallData] = useState<any[]>([])
   useEffect(() => {
     if (
-      currentProposal &&
-            currentProposal?.calldatas.length > 0 &&
-            targetABIs &&
-            targetABIs?.length > 0
+      currentProposal !== null &&
+      currentProposal?.calldatas.length > 0 &&
+      targetABIs !== null &&
+      targetABIs?.length > 0
     ) {
       const decodedCallDatas = currentProposal.calldatas.map((calldata, index) => {
         return decodeCallData(calldata, targetABIs[index])
@@ -172,7 +173,7 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
                                             currentMetadata.proposer !== ''
                                         )
                                           ? (
-                                            `${convertTokensToThousandsK(currentMetadata.forVotes)}`
+                                            `${convertTokensToThousandsK(currentMetadata.forVotes as string)}`
                                             )
                                           : (
                                               ''
@@ -186,7 +187,7 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
                                         currentMetadata.proposer !== ''
                                     )
                                       ? (
-                                        `${convertTokensToThousandsK(currentMetadata.againstVotes)}`
+                                        `${convertTokensToThousandsK(currentMetadata.againstVotes as string)}`
                                         )
                                       : (
                                           ''
@@ -201,7 +202,7 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
                                     )
                                       ? (
                                         `${convertTokensToThousandsK(
-                                            currentMetadata.againstVotes + currentMetadata.forVotes
+                                            (currentMetadata.againstVotes + currentMetadata.forVotes) as string
                                         )}`
                                         )
                                       : (
@@ -215,9 +216,9 @@ const ProposalPage: React.FC<ProposalPageProps> = ({ params }) => {
             }
             <ul className="call-data-list">
                 {
-                    currentProposal &&
+                    currentProposal !== null &&
                     currentProposal?.calldatas.length > 0 &&
-                    decodedCallData &&
+                    decodedCallData !== null &&
                     decodedCallData.length > 0 &&
                     decodedCallData.map((calldata, index) => (
                         <li

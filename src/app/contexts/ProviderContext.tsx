@@ -25,7 +25,7 @@ const ProviderContext = createContext<EtherProviderType | undefined>(undefined)
 
 export const useEtherProviderContext = (): EtherProviderType => {
   const context = useContext(ProviderContext)
-  if (context !== null) {
+  if (context === null || context === undefined) {
     throw new Error('useEtherProviderContext must be used within a ProviderProvider')
   }
   return context

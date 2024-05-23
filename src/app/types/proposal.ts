@@ -1,5 +1,3 @@
-import { BigNumber } from 'ethers'
-
 // proposal objects fetched from github
 export interface ProposalType {
   calldatas: string[]
@@ -8,7 +6,7 @@ export interface ProposalType {
   descriptionHash: string
   network: string
   odGovernor: string
-  proposalId: string
+  proposalId: string | bigint
   proposalType: string
   targets: string[]
   values: number[]

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import type DecodedCallData from '@/app/types/DecodedCallDataType'
 import decodeArguments from '@/app/lib/decodeArguments'
-import { useProposalContext } from '@/app/contexts/ProposalsContext'
 import { type ProposalType } from '@/app/types/proposal'
 import Link from 'next/link'
 import Image from 'next/image'
+
+type Item = Record<string, string | number>
+
+type ArrayItem = Item | string | number
 
 interface CallDataProps {
   calldata: DecodedCallData
@@ -13,8 +16,6 @@ interface CallDataProps {
 }
 
 const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal }) => {
-  const { proposals } = useProposalContext()
-
   const [decodedArgs, setDecodedArgs] = useState<any[]>([])
 
   useEffect(() => {
@@ -72,7 +73,7 @@ const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal })
                                           ? (
                                             <div className="call-data-input-value-array">
                                                 {
-                                                    decodedArgs[inputIndex].map((item: any, arrayIndex: number) => (
+                                                    decodedArgs[inputIndex].map((item: ArrayItem, arrayIndex: number) => (
                                                         <div key={arrayIndex}>
                                                             {
                                                                 typeof item === 'object'
@@ -80,7 +81,7 @@ const CallData: React.FC<CallDataProps> = ({ calldata, index, currentProposal })
                                                                       Object.keys(item).map(key => `${key}: ${item[key]}`).join(', ')
                                                                     )
                                                                   : (
-                                                                    ` ${item} `
+                                                                    ` ${item as string} `
                                                                     )
                                                             }
                                                         </div>
