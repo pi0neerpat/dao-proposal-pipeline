@@ -142,12 +142,12 @@ ul, ol {
   justify-content: center;
   align-items: center;
   padding: var(--large-container-padding);
-  background-color: var(--color-2);
+  background-color: var(--color-1);
   color: var(--color-5);
   border-radius: var(--large-container-border-radius);
   transition: var(--transiton-settings);
   font-weight: 600;
-  box-shadow: 0.25em 0.25em 0.1em var(--color-1);
+  box-shadow: 0.3em 0.3em 0em var(--color-2);
 }
 .proposals-link:hover{
   transform: var(--transition-transform-light);
@@ -594,6 +594,108 @@ ul, ol {
   padding: var(--small-container-padding);
   font-weight: 600;
   border-radius: var(--small-container-border-radius);
+}
+
+.footer-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 35svh;
+}
+
+.footer-column-one{
+  display: grid;
+  grid-template-rows: 25% 75%;
+  padding-left: var(--large-container-padding);
+  gap: var(--gap);
+}
+
+.footer-call-to-action{
+  display: flex;
+  word-wrap: normal;
+  flex-wrap: wrap;
+}
+
+.footer-column-two{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  font-weight: 600;
+}
+
+.projects,
+.socials,
+.resources{
+  display: grid;
+  grid-template-rows: 10% 90%;
+}
+
+.projects-list,
+.projects,
+.socials,
+.resources{
+  display: grid;
+  height: 70%;
+  gap: var(--gap);
+}
+
+.footer-column-three{
+  display: grid;
+  grid-template-rows: 25% 75%;
+  padding-right: var(--large-container-padding);
+  gap: var(--gap);
+}
+
+.link-icons{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.twitter-icon,
+.discord,
+.github{
+  display: grid;
+  justify-content: center;
+}
+
+.twitter-icon>img,
+.discord>img,
+.github>img{
+  transition: var(--transiton-settings);
+}
+.twitter-icon>img:hover,
+.discord>img:hover,
+.github>img:hover{
+  transform: var(--transition-transform);
+  filter: var(--transition-filter);
+}
+
+.launch-app-container{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
+.launch-app{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: var(--small-container-padding) calc(var(--large-container-padding) * 2);
+  background-color: var(--color-1);
+  border-radius: var(--large-container-border-radius);
+  color: var(--color-5);
+  box-shadow: 0.3em 0.3em 0em var(--color-2);
+  transition: var(--transiton-settings);
+  font-weight: 700;
+}
+.launch-app:hover{
+  transform: var(--transition-transform-light);
+  filter: var(--transition-filter);
+}
+
+.projects-title,
+.resources-title,
+.socials-title{
+  color: var(--color-6);
 }
 
 @media only screen and (max-width: 600px) {

@@ -6,6 +6,7 @@ import { Web3Modal } from './contexts/Web3ModalContext'
 import { ProviderProvider } from './contexts/ProviderContext'
 import Navbar from './components/Navbar'
 import React from 'react'
+import Footer from './components/Footer'
 
 const barlow = Barlow({
   subsets: ['latin'],
@@ -79,6 +80,7 @@ export default function RootLayout ({
             <body className={barlow.className}>
               <Navbar/>
               {children}
+              <Footer/>
             </body>
           </html>
         </ProposalProvider>
