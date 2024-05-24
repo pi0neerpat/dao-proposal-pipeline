@@ -25,6 +25,9 @@
     var(--color-4) 100%
   );
   --box-shadow: 0.15em 0.15em 0.2em var(--color-6);
+  --box-shadow-2: 0.3em 0.3em 0em var(--color-2);
+  --font-weight-med: 800;
+  --font-weight-light: 300;
 }
 
 html, body {
@@ -146,8 +149,8 @@ ul, ol {
   color: var(--color-5);
   border-radius: var(--large-container-border-radius);
   transition: var(--transiton-settings);
-  font-weight: 600;
-  box-shadow: 0.3em 0.3em 0em var(--color-2);
+  font-weight: var(--font-weight-med);
+  box-shadow:  var(--box-shadow-2);
 }
 .proposals-link:hover{
   transform: var(--transition-transform-light);
@@ -156,7 +159,7 @@ ul, ol {
 
 .proposals-subsection-title{
   display: grid;
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
   font-size: larger;
   border-bottom-width: var(--thick-border-width);
   border-bottom-color: var(--color-1);
@@ -210,7 +213,7 @@ ul, ol {
 }
 
 .proposal-submitted{
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
   font-size: large;
 }
 
@@ -237,7 +240,7 @@ ul, ol {
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
   gap: var(--gap);
   position: relative;
   left: var(--large-container-padding);
@@ -249,7 +252,7 @@ ul, ol {
   justify-content: center;
   align-items: center;
   color: var(--color-1);
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
   gap: var(--gap);
   position: relative;
   left: var(--large-container-padding);
@@ -259,7 +262,7 @@ ul, ol {
   display: grid;
   justify-content: center;
   align-items: center;
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
   color: var(--color-3);
   font-size: larger;
 }
@@ -291,7 +294,7 @@ ul, ol {
 }
 
 .proposal-page-description{
-  font-weight: 300;
+  font-weight: var(--font-weight-light);
 }
 
 .proposal-page-row-two{
@@ -305,7 +308,7 @@ ul, ol {
 
 .proposal-page-submitted{
   font-size: larger;
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
 }
 
 .proposal-page-vote-details{
@@ -320,7 +323,7 @@ ul, ol {
   justify-content: center;
   align-items: center;
   font-size: x-large;
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
 }
 
 .proposal-page-vote-counts{
@@ -343,7 +346,7 @@ ul, ol {
   grid-template-columns: repeat(3, 40%);
   gap: var(--gap);
   font-size: larger;
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
 }
 
 .proposal-page-vote-counts-values{
@@ -353,7 +356,7 @@ ul, ol {
   grid-template-columns: repeat(3, 40%);
   gap: var(--gap);
   font-size: larger;
-  font-weight: 500;
+  font-weight: var(--font-weight-med);
   color: var(--color-1);
 }
 
@@ -511,7 +514,7 @@ ul, ol {
   color: var(--color-5);
   background-color: var(--color-6);
   font-size: larger;
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
   padding: var(--large-container-padding);
   border-radius: var(--large-container-border-radius);
   box-shadow: var(--box-shadow);
@@ -524,7 +527,7 @@ ul, ol {
   color: var(--color-5);
   background-color: var(--color-1);
   font-size: larger;
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
   padding: var(--large-container-padding);
   border-radius: var(--large-container-border-radius);
   box-shadow: var(--box-shadow);
@@ -569,7 +572,7 @@ ul, ol {
   border-style: none;
   background-color: var(--color-5);
   color: var(--color-1);
-  font-weight: 800;
+  font-weight: var(--font-weight-med);
   transition: var(--transiton-settings);
 }
 .tx-success-exit:hover,
@@ -594,7 +597,7 @@ ul, ol {
   background-color: var(--color-2);
   color: var(--color-5);
   padding: var(--small-container-padding);
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
   border-radius: var(--small-container-border-radius);
 }
 
@@ -622,7 +625,7 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
-  font-weight: 600;
+  font-weight: var(--font-weight-med);
 }
 
 .projects,
@@ -688,7 +691,7 @@ ul, ol {
   color: var(--color-5);
   box-shadow: 0.3em 0.3em 0em var(--color-2);
   transition: var(--transiton-settings);
-  font-weight: 700;
+  font-weight: var(--font-weight-med);
 }
 .launch-app:hover{
   transform: var(--transition-transform-light);
