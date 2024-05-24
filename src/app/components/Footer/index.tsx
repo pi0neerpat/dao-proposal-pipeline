@@ -7,13 +7,18 @@ const Footer: React.FC = () => {
         <div className='footer-container'>
             <div className='footer-column-one'>
                 <div className='footer-logo-and-brand'>
-                    <Image
-                        src='/full-logo-open-dollar.svg'
-                        alt="open-dollar-logo"
-                        width={150}
-                        height={35}
-                        itemType="svg"
-                    />
+                    <Link
+                        href={'https://www.opendollar.com'}
+                        target='_blank'
+                    >
+                        <Image
+                            src='/full-logo-open-dollar.svg'
+                            alt="open-dollar-logo"
+                            width={150}
+                            height={35}
+                            itemType="svg"
+                        />
+                    </Link>
                 </div>
                 <div className='footer-call-to-action'>
                     Leverage your liquid staking tokens with the most flexible stablecoin protocol
