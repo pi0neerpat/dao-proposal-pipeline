@@ -599,6 +599,18 @@ ul, ol {
   padding: var(--small-container-padding);
   font-weight: var(--font-weight-med);
   border-radius: var(--small-container-border-radius);
+  text-align: center;
+}
+
+.disclaimer{
+  font-weight: var(--font-weight-med);
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-wrap: normal;
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .footer-container{
