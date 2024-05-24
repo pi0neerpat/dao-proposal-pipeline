@@ -532,6 +532,7 @@ ul, ol {
   border-radius: var(--large-container-border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transiton-settings);
+  box-shadow: var(--box-shadow-2);
 }
 
 .propose-button-active:hover{
