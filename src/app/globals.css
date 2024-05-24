@@ -277,6 +277,8 @@ ul, ol {
   box-shadow: var(--box-shadow);
   margin-bottom: var(--large-container-padding);
   gap: var(--gap);
+  position: relative;
+  left: 3vw;
 }
 
 .proposal-page-row-one{
