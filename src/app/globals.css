@@ -594,12 +594,13 @@ ul, ol {
   display: grid;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-2);
+  background-color: var(--color-1);
   color: var(--color-5);
   padding: var(--small-container-padding);
   font-weight: var(--font-weight-med);
   border-radius: var(--small-container-border-radius);
   text-align: center;
+  box-shadow: var(--box-shadow-2);
 }
 
 .disclaimer{
