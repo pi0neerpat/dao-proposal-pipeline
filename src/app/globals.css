@@ -602,6 +602,7 @@ ul, ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   height: 35svh;
+  padding-top: var(--large-container-padding);
 }
 
 .footer-column-one{
@@ -825,5 +826,16 @@ ul, ol {
     word-wrap: break-word;
     word-break: break-all;
     padding: var(--large-container-padding);
+  }
+
+  .footer-container{
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: auto;
+    gap: var(--gap);
+  }
+
+  .footer-column-two{
+    gap: var(--gap);
   }
 }
