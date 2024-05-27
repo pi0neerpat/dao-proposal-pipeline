@@ -10,9 +10,6 @@ const Proposals: React.FC = () => {
 
   return (
         <ul className="proposals-list">
-            <div className="proposals-header">
-                <h2>Proposals</h2>
-            </div>
             <div className="proposal-link-container">
                 <Link
                     href={'https://github.com/open-dollar/od-contracts/tree/dev/gov-output/mainnet'}
