@@ -86,12 +86,12 @@ ul, ol {
 
 .navbar-links-list{
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(2, 50%);
   justify-content: center;
   align-items: center;
-  height: 8svh;
+  height: 10svh;
   padding-top: var(--small-container-padding);
-  gap: var(--gap);
+  width: 96vw;
 }
 
 .home-icon{

@@ -7,24 +7,9 @@ const Navbar: React.FC = () => {
   return (
         <div className="navbar">
             <ul className="navbar-links-list">
-                <li className="navbar-link">
-                    <Link
-                        href={'/'}
-                    >
-                        <Image
-                            src="/home-icon.svg"
-                            alt="Home"
-                            width={28}
-                            height={28}
-                            itemType="svg"
-                            className="home-icon"
-                        />
-                    </Link>
-                </li>
                 <li>
                     <Link
-                        href={'https://www.opendollar.com/'}
-                        target="_blank"
+                        href={'/'}
                     >
                         <Image
                             src='/full-logo-open-dollar.svg'
