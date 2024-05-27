@@ -2,7 +2,6 @@
 import React from 'react'
 import Proposal from './Proposal'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useProposalContext } from '@/app/contexts/ProposalsContext'
 
 const Proposals: React.FC = () => {
@@ -10,20 +9,16 @@ const Proposals: React.FC = () => {
 
   return (
         <ul className="proposals-list">
-            <div className="proposal-link-container">
+            <div className="proposals-link">
+                <div className='proposal-link-description-text'>
+                    Pending proposals are fetched from our
+                </div>
                 <Link
                     href={'https://github.com/open-dollar/od-contracts/tree/dev/gov-output/mainnet'}
                     target="_blank"
-                    className="proposals-link"
+                    className="proposal-link"
                 >
-                    Pending proposals are fetched from our GitHub
-                    <Image
-                        src={'/external-link-white.svg'}
-                        alt="link"
-                        width={25}
-                        height={25}
-                        className="external-link-svg"
-                    ></Image>
+                     GitHub
 
                 </Link>
             </div>

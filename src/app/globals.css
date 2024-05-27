@@ -141,18 +141,24 @@ ul, ol {
 .proposals-link{
   display: grid;
   grid-template-columns: repeat(2, auto);
-  gap: var(--gap);
+  gap: 0.2em;
   justify-content: center;
   align-items: center;
   padding: var(--large-container-padding);
   background-color: var(--color-1);
   color: var(--color-5);
   border-radius: var(--large-container-border-radius);
-  transition: var(--transiton-settings);
   font-weight: var(--font-weight-med);
+  font-size: larger;
   box-shadow:  var(--box-shadow-2);
 }
-.proposals-link:hover{
+.proposal-link{
+  transition: var(--transiton-settings);
+  border-bottom-color: var(--color-5);
+  border-bottom-width: var(--thick-border-width);
+  border-bottom-style: solid;
+}
+.proposal-link:hover{
   transform: var(--transition-transform-light);
   filter: var(--transition-filter)
 }
@@ -736,6 +742,10 @@ ul, ol {
   .proposals-list{
     position: relative;
     right: 2vw;
+  }
+
+  .proposals-link{
+    font-size: large;
   }
 
   .proposal-page-row-one{
