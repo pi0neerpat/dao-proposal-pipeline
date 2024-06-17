@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
                         target='_blank'
                     >
                         <Image
-                            src='/full-logo-open-dollar.svg'
+                            src='/od-full-logo-grey.svg'
                             alt="open-dollar-logo"
                             width={150}
                             height={35}

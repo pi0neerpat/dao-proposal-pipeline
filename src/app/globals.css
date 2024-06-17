@@ -652,7 +652,6 @@ ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
-  font-weight: var(--font-weight-med);
 }
 
 .projects,
@@ -729,7 +728,7 @@ ol {
 .projects-title,
 .resources-title,
 .socials-title {
-  color: var(--color-6);
+  text-transform: uppercase;
 }
 
 @media only screen and (max-width: 600px) {
