@@ -656,7 +656,7 @@ ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
 }
 

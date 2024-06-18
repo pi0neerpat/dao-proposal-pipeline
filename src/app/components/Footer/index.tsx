@@ -1,13 +1,13 @@
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
   return (
     <div className="footer-container">
       <div className="footer-column-one">
         <div className="footer-logo-and-brand">
-          <Link href={"https://app.opendollar.com/"} target="_blank">
+          <Link href={'https://app.opendollar.com/'} target="_blank">
             <Image
               src="/od-full-logo-grey.svg"
               alt="open-dollar-logo"
@@ -27,22 +27,22 @@ const Footer: React.FC = () => {
           <div className="projects-title">Projects</div>
           <ul className="projects-list">
             <li className="projects-item">
-              <Link href={"https://app.opendollar.com/"} target="_blank">
+              <Link href={'https://app.opendollar.com/'} target="_blank">
                 Try Testnet Beta
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://docs.opendollar.com/"} target="_blank">
+              <Link href={'https://docs.opendollar.com/'} target="_blank">
                 Docs
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://github.com/open-dollar"} target="_blank">
+              <Link href={'https://github.com/open-dollar'} target="_blank">
                 Github
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://tally.so/r/wa26qX"} target="_blank">
+              <Link href={'https://tally.so/r/wa26qX'} target="_blank">
                 Partner
               </Link>
             </li>
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
           <ul className="projects-list">
             <li className="projects-item">
               <Link
-                href={"https://www.opendollar.com/lite-paper"}
+                href={'https://www.opendollar.com/lite-paper'}
                 target="_blank"
               >
                 Litepaper
@@ -62,7 +62,7 @@ const Footer: React.FC = () => {
             <li className="projects-item">
               <Link
                 href={
-                  "https://mirror.xyz/0x8a81CEeb0a12998616F1aB932cDbc941F0d539E9"
+                  'https://mirror.xyz/0x8a81CEeb0a12998616F1aB932cDbc941F0d539E9'
                 }
                 target="_blank"
               >
@@ -70,12 +70,12 @@ const Footer: React.FC = () => {
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://www.opendollar.com/privacy"} target="_blank">
+              <Link href={'https://www.opendollar.com/privacy'} target="_blank">
                 Privacy Policy
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://www.opendollar.com/terms"} target="_blank">
+              <Link href={'https://www.opendollar.com/terms'} target="_blank">
                 Terms of Service
               </Link>
             </li>
@@ -85,34 +85,28 @@ const Footer: React.FC = () => {
           <div className="socials-title">Socials</div>
           <ul className="projects-list">
             <li className="projects-item">
-              <Link
-                href={"https://discord.opendollar.com"}
-                target="_blank"
-              >
+              <Link href={'https://discord.opendollar.com'} target="_blank">
                 Discord
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://twitter.com/open_dollar"} target="_blank">
+              <Link href={'https://twitter.com/open_dollar'} target="_blank">
                 Twitter
               </Link>
             </li>
             <li className="projects-item">
-              <Link href={"https://t.me/open_dollar"} target="_blank">
+              <Link href={'https://t.me/open_dollar'} target="_blank">
                 Telegram
               </Link>
             </li>
             <li className="projects-item">
-              <Link
-                href={"https://warpcast.com/open-dollar"}
-                target="_blank"
-              >
+              <Link href={'https://warpcast.com/open-dollar'} target="_blank">
                 Farcaster
               </Link>
             </li>
             <li className="projects-item">
               <Link
-                href={"https://debank.com/official/Open_Dollar"}
+                href={'https://debank.com/official/Open_Dollar'}
                 target="_blank"
               >
                 DeBank
@@ -124,7 +118,7 @@ const Footer: React.FC = () => {
       <div className="footer-column-three">
         <div className="launch-app-container">
           <Link
-            href={"https://app.opendollar.com/"}
+            href={'https://app.opendollar.com/'}
             target="_blank"
             className="launch-app"
           >
@@ -133,24 +127,17 @@ const Footer: React.FC = () => {
         </div>
         <div className="link-icons">
           <div className="twitter-icon">
-            <Link href={"https://twitter.com/open_dollar"} target="_blank">
-              <Image
-                src={
-                  "/x.svg"
-                }
-                alt="twitter-icon"
-                width={35}
-                height={35}
-              />
+            <Link href={'https://twitter.com/open_dollar'} target="_blank">
+              <Image src={'/x.svg'} alt="twitter-icon" width={35} height={35} />
             </Link>
           </div>
           <div className="discord">
             <Link
-              href={"https://discord.com/invite/UbTUfuGBrS"}
+              href={'https://discord.com/invite/UbTUfuGBrS'}
               target="_blank"
             >
               <Image
-                src={"/discord.svg"}
+                src={'/discord.svg'}
                 alt="discord-icon"
                 width={35}
                 height={35}
@@ -158,11 +145,9 @@ const Footer: React.FC = () => {
             </Link>
           </div>
           <div className="github">
-            <Link href={"https://github.com/open-dollar"} target="_blank">
+            <Link href={'https://github.com/open-dollar'} target="_blank">
               <Image
-                src={
-                  "/github.svg"
-                }
+                src={'/github.svg'}
                 alt="github-icon"
                 width={35}
                 height={35}
