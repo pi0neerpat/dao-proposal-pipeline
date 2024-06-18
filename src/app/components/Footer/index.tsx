@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
     <div className="footer-container">
       <div className="footer-column-one">
         <div className="footer-logo-and-brand">
-          <Link href={"https://www.opendollar.com"} target="_blank">
+          <Link href={"https://app.opendollar.com/"} target="_blank">
             <Image
               src="/od-full-logo-grey.svg"
               alt="open-dollar-logo"
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
           <div className="projects-title">Projects</div>
           <ul className="projects-list">
             <li className="projects-item">
-              <Link href={"https://app.dev.opendollar.com/"} target="_blank">
+              <Link href={"https://app.opendollar.com/"} target="_blank">
                 Try Testnet Beta
               </Link>
             </li>
@@ -86,7 +86,7 @@ const Footer: React.FC = () => {
           <ul className="projects-list">
             <li className="projects-item">
               <Link
-                href={"https://discord.com/invite/UbTUfuGBrS"}
+                href={"https://discord.opendollar.com"}
                 target="_blank"
               >
                 Discord
@@ -100,6 +100,14 @@ const Footer: React.FC = () => {
             <li className="projects-item">
               <Link href={"https://t.me/open_dollar"} target="_blank">
                 Telegram
+              </Link>
+            </li>
+            <li className="projects-item">
+              <Link
+                href={"https://warpcast.com/open-dollar"}
+                target="_blank"
+              >
+                Farcaster
               </Link>
             </li>
             <li className="projects-item">
