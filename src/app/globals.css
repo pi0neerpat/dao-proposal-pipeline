@@ -57,6 +57,7 @@ body {
   align-items: center;
   overflow-y: auto;
   height: 100svh;
+  align-content: space-between
 }
 
 @keyframes wave {
@@ -655,6 +656,8 @@ ol {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--gap);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .projects,
@@ -674,7 +677,6 @@ ol {
 }
 
 .footer-column-three {
-  
   padding-right: var(--large-container-padding);
   display: flex;
   flex-direction: column;
@@ -739,14 +741,14 @@ ol {
   text-transform: uppercase;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 750px) {
   html {
     justify-content: center;
     width: 100vw;
   }
 
   body {
-    padding: var(--large-container-padding);
+    /* padding: var(--large-container-padding); */
     width: 100vw;
   }
 
@@ -871,13 +873,22 @@ ol {
   }
 
   .footer-container {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: auto;
-    gap: var(--gap);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
+    height: auto;
+    gap: 25px;
   }
 
   .footer-column-two {
+    display: flex;
+    justify-content: space-between;
     gap: var(--gap);
+    padding: var(--large-container-padding);
+  }
+
+  .launch-app {
+    padding: 14px 16px;
+    width: 211px;
   }
 }
