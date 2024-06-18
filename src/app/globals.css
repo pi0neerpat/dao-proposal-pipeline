@@ -636,10 +636,11 @@ ol {
 }
 
 .footer-column-one {
-  display: grid;
-  grid-template-rows: 25% 75%;
   padding-left: var(--large-container-padding);
-  gap: var(--gap);
+}
+
+.footer-logo-and-brand {
+  margin-bottom: var(--gap);
 }
 
 .footer-call-to-action {
