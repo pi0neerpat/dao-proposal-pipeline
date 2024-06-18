@@ -148,7 +148,6 @@ ol {
   gap: 0.2em;
   justify-content: center;
   align-items: center;
-  padding: var(--large-container-padding);
   color: var(--color-1);
   font-weight: var(--font-weight-med);
   font-size: larger;
@@ -747,11 +746,6 @@ ol {
 
   .navbar {
     padding-right: 5vw;
-  }
-
-  .proposals-list {
-    position: relative;
-    right: 2vw;
   }
 
   .proposals-link {
