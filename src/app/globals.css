@@ -31,6 +31,7 @@
   --box-shadow-2: 0.3em 0.3em 0em var(--color-2);
   --font-weight-med: 800;
   --font-weight-light: 300;
+  --media-query-mobile: 750px;
 }
 
 html,
@@ -636,6 +637,7 @@ ol {
 }
 
 .footer-column-one {
+  padding-right: var(--large-container-padding);
   padding-left: var(--large-container-padding);
 }
 
@@ -672,15 +674,20 @@ ol {
 }
 
 .footer-column-three {
-  display: grid;
-  grid-template-rows: 25% 75%;
+  
   padding-right: var(--large-container-padding);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   gap: var(--gap);
+  /* gap: var(--gap); */
 }
 
 .link-icons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: center;
+  gap: 60px;
 }
 
 .twitter-icon,
@@ -703,9 +710,9 @@ ol {
 }
 
 .launch-app-container {
-  display: grid;
-  align-items: center;
+  display: flex;
   justify-content: center;
+  width: fit-content;
 }
 
 .launch-app {
@@ -714,9 +721,9 @@ ol {
   justify-content: center;
   padding: var(--small-container-padding)
     calc(var(--large-container-padding) * 2);
-  background-color: var(--color-1);
+  background-color: var(--color-5);
   border-radius: var(--large-container-border-radius);
-  color: var(--color-5);
+  color: var(--color-1);
   box-shadow: 0.3em 0.3em 0em var(--color-2);
   transition: var(--transiton-settings);
   font-weight: var(--font-weight-med);
