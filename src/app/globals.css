@@ -53,7 +53,6 @@ body {
   width: 100vw;
   animation: wave 40s infinite linear;
   display: grid;
-  justify-content: center;
   align-items: center;
   overflow-y: auto;
   height: 100svh;
