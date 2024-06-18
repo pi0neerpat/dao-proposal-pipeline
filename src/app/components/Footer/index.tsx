@@ -27,11 +27,6 @@ const Footer: React.FC = () => {
           <div className="projects-title">Projects</div>
           <ul className="projects-list">
             <li className="projects-item">
-              <Link href={'https://app.opendollar.com/'} target="_blank">
-                Try Testnet Beta
-              </Link>
-            </li>
-            <li className="projects-item">
               <Link href={'https://docs.opendollar.com/'} target="_blank">
                 Docs
               </Link>
