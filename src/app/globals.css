@@ -5,7 +5,7 @@
   --color-4: #caeaff;
   --color-5: #ffffff;
   --color-6: #5d707f;
-  --color-gradient: "linear-gradient(180deg, #1A74EC 0%, #6396FF 100%)";
+  --color-gradient: 'linear-gradient(180deg, #1A74EC 0%, #6396FF 100%)';
   --thick-border-width: 0.25em;
   --border-width: 1px;
   --transition-duration: 0.6s;
@@ -48,16 +48,15 @@ body {
 
 body {
   color: var(--color-3);
-  font-family: "Barlow", "Open Sans", sans-serif;
+  font-family: 'Barlow', 'Open Sans', sans-serif;
   list-style: none;
   width: 100vw;
   animation: wave 40s infinite linear;
   display: grid;
-  justify-content: center;
   align-items: center;
   overflow-y: auto;
   height: 100svh;
-  align-content: space-between
+  align-content: space-between;
 }
 
 @keyframes wave {
@@ -126,8 +125,6 @@ ol {
 
 .proposals-list {
   display: grid;
-  justify-content: center;
-  align-items: center;
   gap: var(--gap);
   padding: var(--large-container-padding);
 }
@@ -152,12 +149,9 @@ ol {
   justify-content: center;
   align-items: center;
   padding: var(--large-container-padding);
-  background-color: var(--color-1);
-  color: var(--color-5);
-  border-radius: var(--large-container-border-radius);
+  color: var(--color-1);
   font-weight: var(--font-weight-med);
   font-size: larger;
-  box-shadow: var(--box-shadow-2);
 }
 .proposal-link {
   transition: var(--transiton-settings);
@@ -748,7 +742,6 @@ ol {
   }
 
   body {
-    /* padding: var(--large-container-padding); */
     width: 100vw;
   }
 
