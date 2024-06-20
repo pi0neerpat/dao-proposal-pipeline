@@ -8,6 +8,7 @@
   --color-gradient: 'linear-gradient(180deg, #1A74EC 0%, #6396FF 100%)';
   --thick-border-width: 0.25em;
   --border-width: 1px;
+  --border-radius: 4px;
   --transition-duration: 0.6s;
   --transiton-settings: transform var(--transition-duration),
     filter var(--transition-duration);
@@ -29,8 +30,13 @@
   );
   --box-shadow: 0.15em 0.15em 0.2em var(--color-6);
   --box-shadow-2: 0.3em 0.3em 0em var(--color-2);
+  --font-weight-bold: 700;
   --font-weight-med: 800;
   --font-weight-light: 300;
+  --font-size-default: 18px;
+  --font-size-header: 34px;
+  --font-size-subheader: 28px;
+  --font-family-headers: 'Barlow', 'Open Sans', sans-serif;
   --media-query-mobile: 750px;
 }
 
@@ -115,12 +121,9 @@ ol {
 }
 
 .navbar-title {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  border-bottom-width: var(--thick-border-width);
-  border-bottom-color: var(--color-1);
-  border-bottom-style: solid;
+  font-size: var(--font-size-header);
+  color: var(--color-3);
+  font-family: var(--font-family-headers);
 }
 
 .proposals-list {
