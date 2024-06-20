@@ -167,16 +167,13 @@ ol {
     display: grid;
     font-weight: var(--font-weight-med);
     font-size: larger;
-    border-bottom-width: var(--thick-border-width);
-    border-bottom-color: var(--color-1);
-    border-bottom-style: solid;
-    width: 40%;
 }
 
 .pending-proposals-container,
 .submitted-proposals-container {
     display: grid;
     gap: var(--gap);
+    margin-bottom: var(--large-container-padding);
 }
 
 .proposal-list-item {
@@ -220,7 +217,7 @@ ol {
 .proposal-vote-details {
     display: grid;
     grid-template-rows: repeat(3, auto);
-    grid-template-columns: 30%;
+    width: 300px;
     gap: var(--gap);
     align-items: center;
 }
@@ -739,6 +736,16 @@ ol {
 
     .proposals-link {
         font-size: large;
+    }
+
+    .proposal-process {
+        display: grid;
+        grid-template-columns: 100%;
+    }
+
+    .proposal-state {
+        margin-top: 20px;
+        justify-content: flex-start;
     }
 
     .proposal-page-row-one {
