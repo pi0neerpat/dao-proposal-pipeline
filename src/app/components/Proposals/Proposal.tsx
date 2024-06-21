@@ -12,6 +12,8 @@ interface ProposalProps {
 const Proposal: React.FC<ProposalProps> = ({ index }) => {
   const { proposals, proposalMetadata } = useProposalContext();
 
+  
+    console.log('just one', proposals);
   return (
     <Link
       key={index}
