@@ -24,9 +24,9 @@ const Proposal: React.FC<ProposalProps> = ({ index }) => {
                     Proposal ID:{' '}
                     {proposals[index].proposalId.toString().slice(0, 8)}...
                 </div>
-                <h3 className="proposal-description">
+                <div className="proposal-description">
                     {proposals[index].description}
-                </h3>
+                </div>
             </div>
             <div className="proposal-process">
                 {proposalMetadata.length > 0 &&

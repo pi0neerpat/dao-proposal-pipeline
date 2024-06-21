@@ -10,16 +10,15 @@ const Proposals: React.FC = () => {
   return (
         <ul className="proposals-list">
             <div className="proposals-link">
-                <div className='proposal-link-description-text'>
-                    Pending proposals are fetched from our
-                </div>
+                <span className='proposal-link-description-text'>
+                    Pending proposals are fetched from our 
+                </span>
                 <Link
                     href={'https://github.com/open-dollar/od-contracts/tree/dev/gov-output/mainnet'}
                     target="_blank"
                     className="proposal-link"
                 >
-                     GitHub
-
+                     <span>GitHub</span>
                 </Link>
             </div>
             <div className="pending-proposals-container">

@@ -28,7 +28,7 @@
     var(--color-4) 99%,
     var(--color-4) 100%
   );
-  --box-shadow: 0.15em 0.15em 0.2em var(--color-6);
+  --box-shadow: 0px 4px 6px 0px #0d4b9d33;
   --box-shadow-2: 0.3em 0.3em 0em var(--color-2);
   --font-weight-bold: 700;
   --font-weight-med: 800;
@@ -54,7 +54,7 @@ body {
 
 body {
   color: var(--color-3);
-  font-family: 'Barlow', 'Open Sans', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   list-style: none;
   width: 100vw;
   animation: wave 40s infinite linear;
@@ -124,12 +124,14 @@ ol {
   font-size: var(--font-size-header);
   color: var(--color-3);
   font-family: var(--font-family-headers);
+  margin-bottom: 10px;
 }
 
 .proposals-list {
   display: grid;
   gap: var(--gap);
   padding: var(--large-container-padding);
+  padding-top: 0;
 }
 
 .proposals-header {
@@ -139,43 +141,41 @@ ol {
   color: var(--color-1);
 }
 
-.proposal-link-container {
-  display: grid;
-  justify-content: center;
-  align-items: center;
+.proposals-link {
+  font-size: var(--font-size-default);
 }
 
-.proposals-link {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 0.2em;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-1);
-  font-weight: var(--font-weight-med);
-  font-size: larger;
-}
 .proposal-link {
+  margin-left: 5px;
   transition: var(--transiton-settings);
-  border-bottom-color: var(--color-5);
-  border-bottom-width: var(--thick-border-width);
-  border-bottom-style: solid;
+  text-decoration: underline;
+  color: var(--color-6);
 }
 .proposal-link:hover {
   transform: var(--transition-transform-light);
   filter: var(--transition-filter);
 }
 
-.proposals-subsection-title {
-  display: grid;
-  font-weight: var(--font-weight-med);
-  font-size: larger;
+.proposal-id {
+  font-size: var(--font-size-default);
+  margin-bottom: 5px;
 }
 
-.pending-proposals-container,
-.submitted-proposals-container {
+.proposal-description {
+  font-size: var(--font-size-default);
+  font-weight: var(--font-weight-bold);
+  text-transform: ;
+}
+
+.proposals-subsection-title {
   display: grid;
-  gap: var(--gap);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-subheader);
+  margin-bottom: 15px;
+}
+
+.pending-proposals-container {
+  margin-top: 30px;
   margin-bottom: var(--large-container-padding);
 }
 
@@ -183,10 +183,8 @@ ol {
   display: grid;
   grid-template-columns: 100%;
   justify-content: center;
-  padding: var(--large-container-padding);
-  border-radius: var(--large-container-border-radius);
-  border-width: var(--color-3);
-  border-style: solid;
+  padding: 34px;
+  border-radius: var(--border-radius);
   width: 80vw;
   transition: var(--transiton-settings);
   background-color: var(--color-5);
