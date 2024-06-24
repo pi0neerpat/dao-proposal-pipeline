@@ -127,6 +127,33 @@ ol {
   margin-bottom: 10px;
 }
 
+.proposals-container {
+  background-color: var(--color-5);
+  border-radius: 4px;
+}
+
+.proposals-container th, td {
+  text-align: left;
+  padding: 8px;
+  padding-right: 40px;
+}
+
+.proposals-container tr:not(:last-child) {
+  border-bottom: 1px solid var(--color-6);
+}
+
+.proposals-container tr:last-child td {
+  padding-bottom: 26px;
+}
+
+.proposals-container th {
+  padding-top: 25px;
+}
+
+.proposals-container th:first-child, td:first-child {
+  padding-left: 25px;
+}
+
 .proposals-list {
   display: grid;
   gap: var(--gap);

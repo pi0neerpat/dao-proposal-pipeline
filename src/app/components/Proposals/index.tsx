@@ -67,13 +67,13 @@ const Proposals: React.FC = () => {
       </div>
       <div className="pending-proposals-container">
         <div className="proposals-subsection-title">Pending Proposals</div>
-        <div className="pending-proposals">
+        <div className="pending-proposals proposals-container">
           <Table data={pendingProposals!} submitted={false} />
         </div>
       </div>
       <div className="submitted-proposals-container">
         <div className="proposals-subsection-title">Submitted Proposals</div>
-        <div className="submitted-proposals">
+        <div className="submitted-proposals proposals-container">
           <Table data={submittedProposals!} submitted={true} />
         </div>
       </div>
