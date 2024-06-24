@@ -1,20 +1,8 @@
 'use client';
 import React from 'react';
-import Proposal from './Proposal';
 import Link from 'next/link';
 import { useProposalContext } from '@/app/contexts/ProposalsContext';
 import Table from '../Table';
-import convertTokensToThousandsK from '@/app/lib/convertTokensToThousansK';
-
-type Proposal = {
-  id: string;
-  description: string;
-  type: 'Unsubmitted' | 'Submitted';
-  status: 'Executed' | 'Canceled' | 'Pending';
-  forVotes: string;
-  againstVotes: string;
-  totalVotes: string;
-};
 
 const Proposals: React.FC = () => {
   const { proposalMetadata, proposals } = useProposalContext();

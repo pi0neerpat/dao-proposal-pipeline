@@ -91,7 +91,7 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
   });
 
   return (
-    <div className="p-2">
+    <div className="table-container">
       <table>
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

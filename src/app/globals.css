@@ -127,9 +127,22 @@ ol {
   margin-bottom: 10px;
 }
 
-.proposals-container {
+.proposals-container  {
   background-color: var(--color-5);
   border-radius: 4px;
+}
+
+.table-container {
+  overflow-x: auto;
+  width: 100%;
+  
+}
+
+.proposals-container table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  table-layout: auto;
 }
 
 .proposals-container th, td {
