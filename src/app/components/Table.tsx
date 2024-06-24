@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { Tooltip } from 'react-tooltip';
 import ReactDOM from 'react-dom/client';
 
 import {
@@ -39,7 +40,7 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
             <Link
               href={'/proposal/[proposalId]'}
               as={`/proposal/${value}`}
-              className='proposal-link'
+              className="proposal-link"
             >
               {convertedValue}
             </Link>
@@ -49,8 +50,14 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
       columnHelper.accessor('description', {
         header: () => 'Description',
         cell: (info) => {
-          const value = info.getValue();
-          return <>{value}</>;
+          const description = info.getValue();
+          return description.length > 32 ? (
+            <a data-tooltip-id="my-tooltip" data-tooltip-content={description}>
+              {`${description.substring(0, 32)}...`}
+            </a>
+          ) : (
+            <span>{description}</span>
+          );
         },
       }),
     ];
@@ -130,6 +137,10 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
           ))}
         </tbody>
       </table>
+      <Tooltip
+        id="my-tooltip"
+        style={{ width: '300px', background: '#1a74ec' }}
+      />
     </div>
   );
 };

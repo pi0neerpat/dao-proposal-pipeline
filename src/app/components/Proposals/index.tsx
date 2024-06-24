@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useProposalContext } from '@/app/contexts/ProposalsContext';
 import Table from '../Table';
+import { Tooltip } from 'react-tooltip'
 
 const Proposals: React.FC = () => {
   const { proposals } = useProposalContext();
