@@ -1,54 +1,50 @@
-'use client'
+'use client';
 
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
-  type ReactNode
-} from 'react'
-import { type ProposalType } from '../types/proposal'
-import { fetchProposals } from '../lib/fetchProposals'
-import { useEtherProviderContext } from '@/app/contexts/ProviderContext'
-import type ODGovernorType from '@/app/types/ODGovernorType'
+  type ReactNode,
+} from 'react';
+import { type ProposalType } from '../types/proposal';
+import { fetchProposals } from '../lib/fetchProposals';
+import { useEtherProviderContext } from '@/app/contexts/ProviderContext';
+import type ODGovernorType from '@/app/types/ODGovernorType';
 
 interface ProposalContextType {
-  proposals: ProposalType[]
-  setProposals: React.Dispatch<React.SetStateAction<ProposalType[]>>
-  proposalMetadata: any[]
-  mergedProposals: any[]
+  proposals: any[];
+  setProposals: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const ProposalContext = createContext<ProposalContextType>({
   proposals: [],
   setProposals: () => {},
-  proposalMetadata: [],
-  mergedProposals: []
-})
+});
 
-export const useProposalContext = (): ProposalContextType => useContext<ProposalContextType>(ProposalContext)
+export const useProposalContext = (): ProposalContextType =>
+  useContext<ProposalContextType>(ProposalContext);
 
 interface ProposalProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) => {
-  const [proposals, setProposals] = useState<ProposalType[]>([])
-  const [proposalMetadata, setProposalMetadata] = useState<any[]>([])
-  const [mergedProposals, setMergedProposals] = useState<any[]>([])
+export const ProposalProvider: React.FC<ProposalProviderProps> = ({
+  children,
+}) => {
+  const [proposals, setProposals] = useState<any[]>([]);
 
-  const { odGovernor } = useEtherProviderContext()
+  const { odGovernor } = useEtherProviderContext();
 
   const loadData = async (): Promise<void> => {
     try {
-      const fetchedProposals = await fetchProposals() as ProposalType[]
-      setProposals(fetchedProposals)
+      const fetchedProposals = (await fetchProposals()) as ProposalType[];
 
       if (odGovernor) {
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {
-            const proposalId = proposal.proposalId
-            const metadata = await odGovernor.proposals(proposalId)
+            const proposalId = proposal.proposalId;
+            const metadata = await odGovernor.proposals(proposalId);
             const {
               id,
               proposer,
@@ -59,8 +55,8 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
               againstVotes,
               abstainVotes,
               canceled,
-              executed
-            } = metadata
+              executed,
+            } = metadata;
             return {
               id: id.toString(),
               proposer,
@@ -71,8 +67,8 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
               againstVotes: againstVotes.toString(),
               abstainVotes: abstainVotes.toString(),
               canceled,
-              executed
-            }
+              executed,
+            };
           } catch (error: any) {
             if (error.reason.toString() === 'Governor: unknown proposal id') {
               return {
@@ -85,23 +81,24 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
                 againstVotes: '',
                 abstainVotes: '',
                 canceled: '',
-                executed: ''
-              }
+                executed: '',
+              };
             }
-            return null
+            return null;
           }
-        })
+        });
 
-        const metadataArray = await Promise.all(metadataPromises)
-        setProposalMetadata(metadataArray)
-
-        const merged = mergeProposalsWithMetadata(fetchedProposals, metadataArray)
-        setMergedProposals(merged)
+        const metadataArray = await Promise.all(metadataPromises);
+        const merged = mergeProposalsWithMetadata(
+          fetchedProposals,
+          metadataArray
+        );
+        setProposals(merged);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const mergeProposalsWithMetadata = (
     proposals: ProposalType[],
@@ -110,25 +107,25 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) 
     return proposals.map((proposal) => {
       const metadata = proposalMetadata.find(
         (md) => md.id === proposal.proposalId
-      )
+      );
 
       const totalVotes =
         metadata?.forVotes && metadata?.againstVotes
           ? (
-            BigInt(metadata?.forVotes) + BigInt(metadata?.againstVotes)
-          ).toString()
-          : '0'
-      return { ...proposal, ...metadata, totalVotes }
-    })
-  }
+              BigInt(metadata?.forVotes) + BigInt(metadata?.againstVotes)
+            ).toString()
+          : '0';
+      return { ...proposal, ...metadata, totalVotes };
+    });
+  };
 
   useEffect(() => {
-    loadData()
-  }, [odGovernor])
+    loadData();
+  }, [odGovernor]);
 
   return (
-    <ProposalContext.Provider value={{ proposals, setProposals, proposalMetadata, mergedProposals }}>
+    <ProposalContext.Provider value={{ proposals, setProposals }}>
       {children}
     </ProposalContext.Provider>
-  )
-}
+  );
+};

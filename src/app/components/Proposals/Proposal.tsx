@@ -10,7 +10,7 @@ interface ProposalProps {
 }
 
 const Proposal: React.FC<ProposalProps> = ({ index }) => {
-  const { proposals, proposalMetadata } = useProposalContext();
+  const { proposals } = useProposalContext();
 
   
     console.log('just one', proposals);
@@ -30,16 +30,16 @@ const Proposal: React.FC<ProposalProps> = ({ index }) => {
         </div>
       </div>
       <div className="proposal-process">
-        {proposalMetadata.length > 0 &&
-          proposalMetadata[index].proposer !== '' && (
+        {proposals.length > 0 &&
+          proposals[index].proposer !== '' && (
             <div className="proposal-vote-result">
               <div className="proposal-vote-item">
                 <div className="proposal-vote-label">For</div>
                 <div className="proposal-vote-value">
-                  {proposalMetadata.length > 0 &&
-                  proposalMetadata[index].proposer !== ''
+                  {proposals.length > 0 &&
+                  proposals[index].proposer !== ''
                     ? `${convertTokensToThousandsK(
-                        proposalMetadata[index].forVotes as string
+                        proposals[index].forVotes as string
                       )}`
                     : ''}
                 </div>
@@ -48,10 +48,10 @@ const Proposal: React.FC<ProposalProps> = ({ index }) => {
               <div className="proposal-vote-item">
                 <div className="proposal-vote-label">Against</div>
                 <div className="proposal-vote-value">
-                  {proposalMetadata.length > 0 &&
-                  proposalMetadata[index].proposer !== ''
+                  {proposals.length > 0 &&
+                  proposals[index].proposer !== ''
                     ? `${convertTokensToThousandsK(
-                        proposalMetadata[index].againstVotes as string
+                        proposals[index].againstVotes as string
                       )}`
                     : ''}
                 </div>
@@ -60,11 +60,11 @@ const Proposal: React.FC<ProposalProps> = ({ index }) => {
               <div className="proposal-vote-item">
                 <div className="proposal-vote-label">Total</div>
                 <div className="proposal-vote-value">
-                  {proposalMetadata.length > 0 &&
-                  proposalMetadata[index].proposer !== ''
+                  {proposals.length > 0 &&
+                  proposals[index].proposer !== ''
                     ? `${convertTokensToThousandsK(
-                        (proposalMetadata[index].againstVotes +
-                          proposalMetadata[index].forVotes) as string
+                        (proposals[index].againstVotes +
+                            proposals[index].forVotes) as string
                       )}`
                     : ''}
                 </div>
@@ -73,24 +73,24 @@ const Proposal: React.FC<ProposalProps> = ({ index }) => {
               <div className="proposal-vote-item">
                 <div className="proposal-vote-label">Status</div>
                 <div className="proposal-vote-value">
-                  {proposalMetadata.length > 0 &&
-                    proposalMetadata[index].proposer !== '' &&
-                    proposalMetadata[index].executed === true && (
+                  {proposals.length > 0 &&
+                    proposals[index].proposer !== '' &&
+                    proposals[index].executed === true && (
                       <div className="proposal-executed proposal-state">
                         Executed
                       </div>
                     )}
-                  {proposalMetadata.length > 0 &&
-                    proposalMetadata[index].proposer !== '' &&
-                    proposalMetadata[index].cancelled === true && (
+                  {proposals.length > 0 &&
+                    proposals[index].proposer !== '' &&
+                    proposals[index].cancelled === true && (
                       <div className="proposal-cancelled proposal-state">
                         Cancelled
                       </div>
                     )}
-                  {proposalMetadata.length > 0 &&
-                    proposalMetadata[index].proposer !== '' &&
-                    proposalMetadata[index].executed === false &&
-                    proposalMetadata[index].cancelled === false && (
+                  {proposals.length > 0 &&
+                    proposals[index].proposer !== '' &&
+                    proposals[index].executed === false &&
+                    proposals[index].cancelled === false && (
                       <div className="proposal-pending proposal-state">
                         Pending
                       </div>

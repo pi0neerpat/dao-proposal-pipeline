@@ -5,12 +5,12 @@ import { useProposalContext } from '@/app/contexts/ProposalsContext';
 import Table from '../Table';
 
 const Proposals: React.FC = () => {
-  const { mergedProposals } = useProposalContext();
+  const { proposals } = useProposalContext();
 
-  const submittedProposals = mergedProposals.filter(
+  const submittedProposals = proposals.filter(
     (proposal) => proposal.proposer !== ''
   );
-  const pendingProposals = mergedProposals.filter(
+  const pendingProposals = proposals.filter(
     (proposal) => proposal.proposer === ''
   );
 
