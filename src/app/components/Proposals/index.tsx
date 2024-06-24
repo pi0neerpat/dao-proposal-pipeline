@@ -5,31 +5,8 @@ import { useProposalContext } from '@/app/contexts/ProposalsContext';
 import Table from '../Table';
 
 const Proposals: React.FC = () => {
-  const { proposalMetadata, proposals } = useProposalContext();
+  const { mergedProposals } = useProposalContext();
 
-  const mergeProposalsWithMetadata = (
-    proposals: any[],
-    proposalMetadata: any[]
-  ) => {
-    return proposals.map((proposal) => {
-      const metadata = proposalMetadata.find(
-        (md) => md.id === proposal.proposalId
-      );
-      
-      const totalVotes =
-        metadata?.forVotes && metadata?.againstVotes
-          ? (
-              BigInt(metadata?.forVotes) + BigInt(metadata?.againstVotes)
-            ).toString()
-          : '0';
-      return { ...proposal, ...metadata, totalVotes };
-    });
-  };
-
-  const mergedProposals = mergeProposalsWithMetadata(
-    proposals,
-    proposalMetadata
-  );
   const submittedProposals = mergedProposals.filter(
     (proposal) => proposal.proposer !== ''
   );
