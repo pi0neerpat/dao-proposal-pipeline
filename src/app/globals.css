@@ -146,7 +146,8 @@ ol {
 
 .proposals-container th, td {
   text-align: left;
-  padding: 8px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   padding-right: 40px;
 }
 
@@ -154,16 +155,22 @@ ol {
   border-bottom: 1px solid var(--color-6);
 }
 
-.proposals-container tr:last-child td {
-  padding-bottom: 26px;
-}
-
-.proposals-container th {
-  padding-top: 25px;
-}
-
-.proposals-container th:first-child, td:first-child {
+.proposals-container th:first-child{
   padding-left: 25px;
+}
+
+// for all cells except the first one padding left 25px
+.proposals-container td:not(:first-child) {
+  padding-left: 25px;
+  padding-top: 15px;
+}
+
+.proposal-link {
+  padding-left: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 20px;
+  text-decoration: underline;
 }
 
 .proposals-list {
@@ -184,16 +191,6 @@ ol {
   font-size: var(--font-size-default);
 }
 
-.proposal-link {
-  margin-left: 5px;
-  transition: var(--transiton-settings);
-  text-decoration: underline;
-  color: var(--color-6);
-}
-.proposal-link:hover {
-  transform: var(--transition-transform-light);
-  filter: var(--transition-filter);
-}
 
 .proposal-id {
   font-size: var(--font-size-default);

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Link from 'next/link';
 import ReactDOM from 'react-dom/client';
 
 import {
@@ -34,7 +35,15 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
         cell: (info) => {
           const value = info.getValue();
           const convertedValue = value ? value.toString().slice(0, 8) : '';
-          return <>{convertedValue}</>;
+          return (
+            <Link
+              href={'/proposal/[proposalId]'}
+              as={`/proposal/${value}`}
+              className='proposal-link'
+            >
+              {convertedValue}
+            </Link>
+          );
         },
       }),
       columnHelper.accessor('description', {
