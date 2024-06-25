@@ -20,7 +20,7 @@ interface ProposalPageProps {
 }
 
 const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
-  const { proposals, proposalMetadata } = useProposalContext()
+  const { proposals } = useProposalContext()
 
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -52,8 +52,8 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
     }
   }
   useEffect(() => {
-    if (currentProposal !== null && proposalMetadata.length > 0) {
-      filterCurrentMetadata(proposalMetadata)
+    if (currentProposal !== null && proposals.length > 0) {
+      filterCurrentMetadata(proposals)
     }
   }, [currentProposal])
 

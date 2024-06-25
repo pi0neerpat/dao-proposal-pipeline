@@ -1,144 +1,131 @@
-'use client'
+'use client';
 
 import React, {
   createContext,
   useContext,
   useState,
   useEffect,
-  type ReactNode
-} from 'react'
-import { type ProposalType } from '../types/proposal'
-import { fetchProposals } from '../lib/fetchProposals'
-import { useEtherProviderContext } from '@/app/contexts/ProviderContext'
-import type ODGovernorType from '@/app/types/ODGovernorType'
+  type ReactNode,
+} from 'react';
+import { type ProposalType } from '../types/proposal';
+import { fetchProposals } from '../lib/fetchProposals';
+import { useEtherProviderContext } from '@/app/contexts/ProviderContext';
+import type ODGovernorType from '@/app/types/ODGovernorType';
 
 interface ProposalContextType {
-  proposals: ProposalType[]
-  setProposals: React.Dispatch<React.SetStateAction<ProposalType[]>>
-  proposalMetadata: any[]
+  proposals: any[];
+  setProposals: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 const ProposalContext = createContext<ProposalContextType>({
   proposals: [],
   setProposals: () => {},
-  proposalMetadata: []
-})
+});
 
-export const useProposalContext = (): ProposalContextType => useContext<ProposalContextType>(ProposalContext)
+export const useProposalContext = (): ProposalContextType =>
+  useContext<ProposalContextType>(ProposalContext);
 
 interface ProposalProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
-export const ProposalProvider: React.FC<ProposalProviderProps> = ({ children }) => {
-  const [proposals, setProposals] = useState<ProposalType[]>([])
-  const loadData = async (): Promise<any> => {
-    const proposals = await fetchProposals()
-    setProposals(await proposals as ProposalType[])
-  }
+export const ProposalProvider: React.FC<ProposalProviderProps> = ({
+  children,
+}) => {
+  const [proposals, setProposals] = useState<any[]>([]);
 
-  useEffect(() => {
-    loadData().catch((error) => { console.error(error) })
-  }, [])
+  const { odGovernor } = useEtherProviderContext();
 
-  // after data is loaded we want to get the metadata from blockchain
-  const [proposalMetadata, setProposalMetadata] = useState<any[]>([])
+  const loadData = async (): Promise<void> => {
+    try {
+      const fetchedProposals = (await fetchProposals()) as ProposalType[];
 
-  const { odGovernor } = useEtherProviderContext()
-
-  // this function fetches the proposal meta data for each proposal, creates an array of them
-  // returns error if not submitted yet
-  const fetchProposalMetadata = async (
-    proposals: ProposalType[],
-    odGovernor: ODGovernorType
-  ): Promise<any> => {
-    if (proposals === undefined || odGovernor === undefined) return
-    const metadataPromises = proposals.map(async (proposal) => {
-      try {
-        const proposalId = proposal.proposalId
-        // proposalId = ethers.BigNumber.from(proposalId);
-        const metadata = await odGovernor.proposals(proposalId)
-        // handle response object
-        const {
-          id,
-          proposer,
-          eta,
-          startBlock,
-          endBlock,
-          forVotes,
-          againstVotes,
-          abstainVotes,
-          canceled,
-          executed
-        } = metadata
-        return {
-          id: id.toString(),
-          proposer,
-          eta: eta.toString(),
-          startBlock: startBlock.toString(),
-          endBlock: endBlock.toString(),
-          forVotes: forVotes.toString(),
-          againstVotes: againstVotes.toString(),
-          abstainVotes: abstainVotes.toString(),
-          canceled,
-          executed
-        }
-      } catch (error: any) {
-        // this is the case where the proposal has not been submitted
-        if (error.reason.toString() === 'Governor: unknown proposal id') {
-          // default null response object
-          const {
-            id,
-            proposer,
-            eta,
-            startBlock,
-            endBlock,
-            forVotes,
-            againstVotes,
-            abstainVotes,
-            canceled,
-            executed
-          } = {
-            id: proposal.proposalId,
-            proposer: '',
-            eta: '',
-            startBlock: '',
-            endBlock: '',
-            forVotes: '',
-            againstVotes: '',
-            abstainVotes: '',
-            canceled: '',
-            executed: ''
+      if (odGovernor) {
+        const metadataPromises = fetchedProposals.map(async (proposal) => {
+          try {
+            const proposalId = proposal.proposalId;
+            const metadata = await odGovernor.proposals(proposalId);
+            const {
+              id,
+              proposer,
+              eta,
+              startBlock,
+              endBlock,
+              forVotes,
+              againstVotes,
+              abstainVotes,
+              canceled,
+              executed,
+            } = metadata;
+            return {
+              id: id.toString(),
+              proposer,
+              eta: eta.toString(),
+              startBlock: startBlock.toString(),
+              endBlock: endBlock.toString(),
+              forVotes: forVotes.toString(),
+              againstVotes: againstVotes.toString(),
+              abstainVotes: abstainVotes.toString(),
+              canceled,
+              executed,
+            };
+          } catch (error: any) {
+            if (error.reason.toString() === 'Governor: unknown proposal id') {
+              return {
+                id: proposal.proposalId,
+                proposer: '',
+                eta: '',
+                startBlock: '',
+                endBlock: '',
+                forVotes: '',
+                againstVotes: '',
+                abstainVotes: '',
+                canceled: '',
+                executed: '',
+              };
+            }
+            return null;
           }
-          return {
-            id: id.toString(),
-            proposer,
-            eta: eta.toString(),
-            startBlock: startBlock.toString(),
-            endBlock: endBlock.toString(),
-            forVotes: forVotes.toString(),
-            againstVotes: againstVotes.toString(),
-            abstainVotes: abstainVotes.toString(),
-            canceled,
-            executed
-          }
-        };
-        return null
+        });
+
+        const metadataArray = await Promise.all(metadataPromises);
+        const merged = mergeProposalsWithMetadata(
+          fetchedProposals,
+          metadataArray
+        );
+        setProposals(merged);
       }
-    })
-
-    const metadataArray = await Promise.all(metadataPromises)
-    setProposalMetadata(metadataArray)
-  }
-  useEffect(() => {
-    if (proposals.length > 0 && odGovernor !== null) {
-      fetchProposalMetadata(proposals, odGovernor).catch((error) => { console.log(error) })
+    } catch (error) {
+      console.error(error);
     }
-  }, [proposals, odGovernor])
+  };
+
+  const mergeProposalsWithMetadata = (
+    proposals: ProposalType[],
+    proposalMetadata: any[]
+  ) => {
+    return proposals.map((proposal) => {
+      const metadata = proposalMetadata.find(
+        (md) => md.id === proposal.proposalId
+      );
+
+      const totalVotes =
+        metadata?.forVotes && metadata?.againstVotes
+          ? (
+              BigInt(metadata?.forVotes) + BigInt(metadata?.againstVotes)
+            ).toString()
+          : '0';
+      return { ...proposal, ...metadata, totalVotes };
+    });
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [odGovernor]);
 
   return (
-    <ProposalContext.Provider value={{ proposals, setProposals, proposalMetadata }}>
+    <ProposalContext.Provider value={{ proposals, setProposals }}>
       {children}
     </ProposalContext.Provider>
-  )
-}
+  );
+};
