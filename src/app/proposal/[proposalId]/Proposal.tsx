@@ -234,7 +234,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </ul>
         </div>
       </div>
-      <div className="propose-button-container">
+      <div className="">
         {currentMetadata !== null && currentMetadata.proposer === '' && (
           <ProposeButton proposal={currentProposal} />
         )}

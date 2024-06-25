@@ -309,7 +309,8 @@ ol {
 }
 
 .proposal-page {
-  width: 1330px;
+  max-width: 1330px;
+  padding: var(--large-container-padding);
   margin-left: auto;
   margin-right: auto;
 
@@ -692,13 +693,11 @@ ol {
 }
 
 .disclaimer {
-  font-weight: var(--font-weight-med);
-  font-size: large;
-  display: flex;
-  justify-content: center;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--color-7);
+  
   align-items: center;
-  word-wrap: normal;
-  flex-wrap: wrap;
   text-align: center;
 }
 
@@ -838,6 +837,10 @@ ol {
     justify-content: flex-start;
   }
 
+  .proposal-page-block-row {
+    flex-direction: column;
+  }
+
   .proposal-page-row-one {
     display: grid;
     grid-template-rows: repeat(2, auto);
@@ -918,10 +921,7 @@ ol {
   }
 
   .propose-button-container {
-    width: 85%;
-    justify-content: center;
-    position: relative;
-    right: 2vw;
+    
   }
 
   .balances {
