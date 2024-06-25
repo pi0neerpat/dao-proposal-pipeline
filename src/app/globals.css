@@ -308,14 +308,14 @@ ol {
   position: relative;
 }
 
-.proposal-page {
-  width: 90vw;
-  padding: var(--large-container-padding);
-  
-  
+.propoal-page {
+  max-width: 880px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.proposal-page-container {
   border-radius: 4px;
-  
-  
   background-color: var(--color-5);
   box-shadow: var(--box-shadow);
   margin-bottom: var(--large-container-padding);
@@ -323,7 +323,25 @@ ol {
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  /* left: 3vw; */
+  padding: 20px;
+
+  font-size: var(--font-size-default);
+  color: var(--color-7);
+
+
+}
+
+.proposal-page-title {
+  font-size: var(--font-size-subheader);
+}
+
+.proposal-page-label {
+  font-weight: 400;
+}
+
+.proposal-page-value {
+  font-weight: 700;
+  color: var(--color-1);
 }
 
 .proposal-page-row-one {
@@ -481,6 +499,16 @@ ol {
   flex-wrap: wrap;
   word-break: break-all;
   overflow-wrap: break-word;
+}
+
+.input-line {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
 }
 
 .targets-title,
@@ -837,9 +865,7 @@ ol {
   }
 
   .call-data-container {
-    display: grid;
-    max-width: 100%;
-    padding-right: 5vw;
+    
   }
 
   .call-data-title {
