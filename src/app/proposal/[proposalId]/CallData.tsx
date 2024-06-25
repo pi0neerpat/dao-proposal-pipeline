@@ -35,19 +35,20 @@ const CallData: React.FC<CallDataProps> = ({
 
       <div className="proposal-page-item">
         <div className="proposal-page-label">Target</div>
-        <div className="proposal-page-value">
+        <div className="proposal-page-value call-data-link">
           <Link
             href={`https://arbiscan.io/address/${currentProposal.targets[
               index
             ].toString()}`}
             target="_blank"
+            className='call-data-link'
           >
             {currentProposal.targets[index].toString()}
             <Image
               src={'/external-link.svg'}
               alt="link"
-              width={25}
-              height={25}
+              width={20}
+              height={20}
             ></Image>
           </Link>
         </div>

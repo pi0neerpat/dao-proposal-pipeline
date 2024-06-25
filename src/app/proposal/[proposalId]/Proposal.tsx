@@ -115,112 +115,125 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
 
   return (
     <div className="proposal-page">
-      <h3 className="proposal-page-title">Proposal Details</h3>
-      <div className="proposal-page-container">
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Description</div>
-          <div className="proposal-page-value">
-            {currentProposal?.description}
-          </div>
-        </div>
-
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Proposal ID</div>
-          <div className="proposal-page-value">
-            {currentProposal?.proposalId.toString().slice(0, 8)}
-          </div>
-        </div>
-
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Type</div>
-          <div className="proposal-page-value">
-            {currentProposal?.proposalType}
-          </div>
-        </div>
-
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Status</div>
-          <div className="proposal-page-value">
-            {currentMetadata !== null && currentMetadata.proposer === ''
-              ? 'Unsubmitted'
-              : 'Submitted'}
-          </div>
-        </div>
-      </div>
-
-      <h3 className="proposal-page-title">Calldata</h3>
-      <div className="proposal-page-container">
-        <ul className="call-data-list">
-          {currentProposal !== null &&
-            currentProposal?.calldatas.length > 0 &&
-            decodedCallData !== null &&
-            decodedCallData.length > 0 &&
-            decodedCallData.map((calldata, index) => (
-              <li className="call-data" key={index}>
-                <CallData
-                  calldata={calldata}
-                  index={index}
-                  currentProposal={currentProposal}
-                />
-              </li>
-            ))}
-        </ul>
-      </div>
-
-      {currentMetadata !== null && currentMetadata.proposer !== '' && (
-        <div className="proposal-page-vote-details">
-          <div className="proposal-page-vote-state">
-            {currentMetadata !== null &&
-              currentMetadata.proposer !== '' &&
-              currentMetadata.executed === true && (
-                <div className="proposal-page-executed">Executed</div>
-              )}
-            {currentMetadata !== null &&
-              currentMetadata.proposer !== '' &&
-              currentMetadata.cancelled === true && (
-                <div className="proposal-page-cancelled">Cancelled</div>
-              )}
-            {currentMetadata !== null &&
-              currentMetadata.proposer !== '' &&
-              currentMetadata.executed === false &&
-              currentMetadata.cancelled === false && (
-                <div className="proposal-page-pending">Pending</div>
-              )}
-          </div>
-          <div className="proposal-page-vote-counts">
-            <div className="proposal-page-vote-counts-labels">
-              <div className="proposal-page-vote-counts-label">For</div>
-              <div className="proposal-page-vote-counts-label">Against</div>
-              <div className="proposal-page-vote-counts-label">Total</div>
+      <div className='proposal-page-block-row'>
+        <div className="proposal-page-block">
+          <h3 className="proposal-page-title">Proposal Details</h3>
+          <div className="proposal-page-container">
+            <div className="proposal-page-item">
+              <div className="proposal-page-label">Description</div>
+              <div className="proposal-page-value">
+                {currentProposal?.description}
+              </div>
             </div>
-            <div className="proposal-page-vote-counts-values">
-              <div className="proposal-page-votes-for">
-                {currentMetadata !== null && currentMetadata.proposer !== ''
-                  ? `${convertTokensToThousandsK(
-                      currentMetadata.forVotes as string
-                    )}`
-                  : ''}
+
+            <div className="proposal-page-item">
+              <div className="proposal-page-label">Proposal ID</div>
+              <div className="proposal-page-value">
+                {currentProposal?.proposalId.toString().slice(0, 8)}
               </div>
-              <div className="proposal-page-votes-against">
-                {currentMetadata !== null && currentMetadata.proposer !== ''
-                  ? `${convertTokensToThousandsK(
-                      currentMetadata.againstVotes as string
-                    )}`
-                  : ''}
+            </div>
+
+            <div className="proposal-page-item">
+              <div className="proposal-page-label">Type</div>
+              <div className="proposal-page-value">
+                {currentProposal?.proposalType}
               </div>
-              <div className="proposal-page-votes-total">
-                {currentMetadata !== null && currentMetadata.proposer !== ''
-                  ? `${convertTokensToThousandsK(
-                      (currentMetadata.againstVotes +
-                        currentMetadata.forVotes) as string
-                    )}`
-                  : ''}
+            </div>
+
+            <div className="proposal-page-item">
+              <div className="proposal-page-label">Status</div>
+              <div className="proposal-page-value">
+                {currentMetadata !== null && currentMetadata.proposer === ''
+                  ? 'Unsubmitted'
+                  : 'Submitted'}
               </div>
             </div>
           </div>
         </div>
-      )}
 
+        {currentMetadata !== null && currentMetadata.proposer !== '' && (
+          <div className="proposal-page-block">
+            <h3 className="proposal-page-title">Voting</h3>
+            <div className="proposal-page-container">
+              <div className="proposal-page-item">
+                <div className="proposal-page-label">Status</div>
+                <div className="proposal-page-value">
+                  {currentMetadata !== null &&
+                    currentMetadata.proposer !== '' &&
+                    currentMetadata.executed === true && (
+                      <div className="proposal-page-executed">Executed</div>
+                    )}
+                  {currentMetadata !== null &&
+                    currentMetadata.proposer !== '' &&
+                    currentMetadata.cancelled === true && (
+                      <div className="proposal-page-cancelled">Cancelled</div>
+                    )}
+                  {currentMetadata !== null &&
+                    currentMetadata.proposer !== '' &&
+                    currentMetadata.executed === false &&
+                    currentMetadata.cancelled === false && (
+                      <div className="proposal-page-pending">Pending</div>
+                    )}
+                </div>
+              </div>
+
+              <div className="proposal-page-item">
+                <div className="proposal-page-label">For</div>
+                <div className="proposal-page-value">
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
+                    ? `${convertTokensToThousandsK(
+                        currentMetadata.forVotes as string
+                      )}`
+                    : ''}
+                </div>
+              </div>
+
+              <div className="proposal-page-item">
+                <div className="proposal-page-label">Against</div>
+                <div className="proposal-page-value">
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
+                    ? `${convertTokensToThousandsK(
+                        currentMetadata.againstVotes as string
+                      )}`
+                    : ''}
+                </div>
+              </div>
+
+              <div className="proposal-page-item">
+                <div className="proposal-page-label">Total</div>
+                <div className="proposal-page-value">
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
+                    ? `${convertTokensToThousandsK(
+                        (currentMetadata.againstVotes +
+                          currentMetadata.forVotes) as string
+                      )}`
+                    : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="proposal-page-block">
+        <h3 className="proposal-page-title">Calldata</h3>
+        <div className="proposal-page-container">
+          <ul className="call-data-list">
+            {currentProposal !== null &&
+              currentProposal?.calldatas.length > 0 &&
+              decodedCallData !== null &&
+              decodedCallData.length > 0 &&
+              decodedCallData.map((calldata, index) => (
+                <li className="call-data" key={index}>
+                  <CallData
+                    calldata={calldata}
+                    index={index}
+                    currentProposal={currentProposal}
+                  />
+                </li>
+              ))}
+          </ul>
+        </div>
+      </div>
       <div className="propose-button-container">
         {currentMetadata !== null && currentMetadata.proposer === '' && (
           <ProposeButton proposal={currentProposal} />
