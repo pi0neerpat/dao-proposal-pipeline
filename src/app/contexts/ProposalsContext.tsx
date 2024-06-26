@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, {
   createContext,
@@ -6,11 +6,11 @@ import React, {
   useState,
   useEffect,
   type ReactNode,
-} from 'react';
-import { type ProposalType } from '../types/proposal';
-import { fetchProposals } from '../lib/fetchProposals';
-import { useEtherProviderContext } from '@/app/contexts/ProviderContext';
-import type ODGovernorType from '@/app/types/ODGovernorType';
+} from "react";
+import { type ProposalType } from "../types/proposal";
+import { fetchProposals } from "../lib/fetchProposals";
+import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
+import type ODGovernorType from "@/app/types/ODGovernorType";
 
 interface ProposalContextType {
   proposals: any[];
@@ -70,18 +70,18 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
               executed,
             };
           } catch (error: any) {
-            if (error.reason.toString() === 'Governor: unknown proposal id') {
+            if (error.reason.toString() === "Governor: unknown proposal id") {
               return {
                 id: proposal.proposalId,
-                proposer: '',
-                eta: '',
-                startBlock: '',
-                endBlock: '',
-                forVotes: '',
-                againstVotes: '',
-                abstainVotes: '',
-                canceled: '',
-                executed: '',
+                proposer: "",
+                eta: "",
+                startBlock: "",
+                endBlock: "",
+                forVotes: "",
+                againstVotes: "",
+                abstainVotes: "",
+                canceled: "",
+                executed: "",
               };
             }
             return null;
@@ -114,7 +114,7 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
           ? (
               BigInt(metadata?.forVotes) + BigInt(metadata?.againstVotes)
             ).toString()
-          : '0';
+          : "0";
       return { ...proposal, ...metadata, totalVotes };
     });
   };
