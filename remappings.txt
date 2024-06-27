@@ -3,6 +3,7 @@
 @defi-wonderland/solidity-utils/=node_modules/@defi-wonderland/solidity-utils/solidity/
 
 @opendollar/contracts/=node_modules/@opendollar/contracts/src/contracts/
+@opendollar/script/=node_modules/@opendollar/contracts/script/
 @opendollar/interfaces/=node_modules/@opendollar/contracts/src/interfaces/
 @opendollar/libraries/=node_modules/@opendollar/contracts/src/libraries/
 @opendollar/test/=node_modules/@opendollar/contracts/test/

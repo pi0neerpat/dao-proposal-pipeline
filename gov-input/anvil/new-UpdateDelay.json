@@ -1,0 +1,10 @@
+{
+"chainid": 31337,
+"description": "update timelock controller delay",
+"network": "anvil",
+"TimelockController_Address": "",
+"ODGovernor_Address": "",
+"proposalType": "UpdateDelay",
+"ProtocolToken_Address": "",
+"newDelay": 86400
+}

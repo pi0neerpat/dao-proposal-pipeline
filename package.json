@@ -18,6 +18,7 @@
   "scripts": {
     "build": "forge build",
     "coverage": "forge coverage",
+    "propose": "./tasks/governanceManager.sh",
     "lint:check": "yarn lint:sol && forge fmt --check",
     "lint:fix": "sort-package-json && forge fmt && yarn lint:sol --fix",
     "lint:sol": "cross-env solhint 'src/**/*.sol' 'test/**/*.sol'",
@@ -26,7 +27,11 @@
   },
   "dependencies": {
     "@opendollar/contracts": "0.0.0-e31c2151",
-    "@openzeppelin/contracts": "4.9.6"
+    "@openzeppelin/contracts": "4.9.6",
+    "@openzeppelin/contracts-upgradeable": "4.9.6",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.12.0",
+    "forge-std": "https://github.com/foundry-rs/forge-std.git#e8a047e3f40f13fa37af6fe14e6e06283d9a060e"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
