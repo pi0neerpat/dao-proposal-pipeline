@@ -36,7 +36,10 @@ function findAddress(currentJson) {
     currentJson.network.slice(1);
 
   if (target == "Sepolia" || target == "Mainnet") {
-    filePath = path.join(__dirname, `../script/${target}Contracts.s.sol`);
+    filePath = path.join(
+      __dirname,
+      `../node_modules/@opendollar/contracts/script/${target}Contracts.s.sol`
+    );
   } else if (target == "Anvil") {
     filePath = path.join(
       __dirname,
