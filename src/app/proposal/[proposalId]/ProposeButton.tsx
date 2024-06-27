@@ -82,34 +82,12 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
 
   return (
     <div className="propose-container">
-      <div className="disclaimer proposal-page-container">
+      <div className="disclaimer">
         When making a proposal, your voting power must remain above the
         threshold until the vote is passed and queued for execution, otherwise
         the proposal may be canceled
       </div>
       <div className="button-and-balance">
-        <div className="button-container">
-          {(userVotes === null || proposalThreshold === null) && <Loading />}
-          {userVotes !== null &&
-          proposalThreshold !== null &&
-          userVotes < proposalThreshold ? (
-            <button className="propose-button" type="button" disabled>
-              Not Enough Votes to Propose
-            </button>
-          ) : (
-            <button
-              className="propose-button-active"
-              type="button"
-              onClick={(e) => {
-                propose(e, signer, odGovernor).catch((error) => {
-                  console.error(error);
-                });
-              }}
-            >
-              Propose
-            </button>
-          )}
-        </div>
         <div className="balances">
           {address === null ||
           provider === null ||
@@ -143,6 +121,28 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
                 6
               )}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
             </a>
+          )}
+        </div>
+        <div className="button-container">
+          {(userVotes === null || proposalThreshold === null) && <Loading />}
+          {userVotes !== null &&
+          proposalThreshold !== null &&
+          userVotes < proposalThreshold ? (
+            <button className="propose-button" type="button" disabled>
+              Propose
+            </button>
+          ) : (
+            <button
+              className="propose-button-active"
+              type="button"
+              onClick={(e) => {
+                propose(e, signer, odGovernor).catch((error) => {
+                  console.error(error);
+                });
+              }}
+            >
+              Propose
+            </button>
           )}
         </div>
       </div>

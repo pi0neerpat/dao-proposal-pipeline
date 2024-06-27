@@ -577,7 +577,9 @@ ol {
 }
 
 .propose-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   justify-content: center;
   align-items: center;
 }
@@ -600,10 +602,12 @@ ol {
   justify-content: center;
   align-items: center;
   color: var(--color-5);
+  opacity: 0.5;
   background-color: var(--color-6);
   font-size: larger;
   font-weight: var(--font-weight-med);
-  padding: var(--large-container-padding);
+  padding: 20px 20px;
+  width: 258px;
   border-radius: var(--large-container-border-radius);
   box-shadow: var(--box-shadow);
 }
@@ -680,16 +684,9 @@ ol {
 }
 
 .balances {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-1);
-  color: var(--color-5);
-  padding: var(--small-container-padding);
-  font-weight: var(--font-weight-med);
-  border-radius: var(--small-container-border-radius);
-  text-align: center;
-  box-shadow: var(--box-shadow-2);
+  font-size: var(--font-size-default);
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .disclaimer {
