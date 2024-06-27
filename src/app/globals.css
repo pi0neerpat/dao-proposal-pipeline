@@ -577,46 +577,47 @@ ol {
 }
 
 .propose-container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .button-and-balance {
   display: grid;
   align-items: center;
   justify-content: center;
-  gap: var(--gap);
-}
-
-.button-container {
-  display: grid;
-  align-items: center;
-  justify-content: center;
+  gap: 20px;
 }
 
 .propose-button {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  color: var(--color-5);
-  background-color: var(--color-6);
-  font-size: larger;
-  font-weight: var(--font-weight-med);
-  padding: var(--large-container-padding);
-  border-radius: var(--large-container-border-radius);
-  box-shadow: var(--box-shadow);
-}
-
-.propose-button-active {
+  width: 258px;
+  padding: 20px 20px;
   display: grid;
   justify-content: center;
   align-items: center;
   color: var(--color-5);
   background-color: var(--color-1);
-  font-size: larger;
+  font-size: 20px;
   font-weight: var(--font-weight-med);
-  padding: var(--large-container-padding);
+  border-radius: var(--large-container-border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transiton-settings);
+  box-shadow: var(--box-shadow-2);
+  opacity: 0.5;
+}
+
+.propose-button-active {
+  width: 258px;
+  padding: 20px 20px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-5);
+  background-color: var(--color-1);
+  font-size: 20px;
+  font-weight: var(--font-weight-med);
   border-radius: var(--large-container-border-radius);
   box-shadow: var(--box-shadow);
   transition: var(--transiton-settings);
@@ -680,16 +681,13 @@ ol {
 }
 
 .balances {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-1);
-  color: var(--color-5);
-  padding: var(--small-container-padding);
-  font-weight: var(--font-weight-med);
-  border-radius: var(--small-container-border-radius);
-  text-align: center;
-  box-shadow: var(--box-shadow-2);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-1);  
+  background-color: #1A74EC33;
+  border-radius: 4px;
+  padding: 15px 20px 15px 18px;
+  border-left: 3px solid var(--color-1);
 }
 
 .disclaimer {
@@ -697,8 +695,8 @@ ol {
   font-size: 20px;
   color: var(--color-7);
   
-  align-items: center;
-  text-align: center;
+  margin-bottom: 20px;
+  text-align: start;
 }
 
 .footer-container {

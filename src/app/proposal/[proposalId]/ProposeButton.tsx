@@ -82,11 +82,6 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
 
   return (
     <div className="propose-container">
-      <div className="disclaimer proposal-page-container">
-        When making a proposal, your voting power must remain above the
-        threshold until the vote is passed and queued for execution, otherwise
-        the proposal may be canceled
-      </div>
       <div className="button-and-balance">
         <div className="button-container">
           {(userVotes === null || proposalThreshold === null) && <Loading />}
@@ -94,7 +89,7 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
           proposalThreshold !== null &&
           userVotes < proposalThreshold ? (
             <button className="propose-button" type="button" disabled>
-              Not Enough Votes to Propose
+              Propose
             </button>
           ) : (
             <button
@@ -122,27 +117,19 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
             userVotes !== null &&
             proposalThreshold !== null &&
             userVotes > proposalThreshold ? (
-            <a
-              href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <div>
               {`${address?.slice(
                 0,
                 6
               )}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
-            </a>
+            </div>
           ) : (
-            <a
-              href={`https://arbiscan.io/address/${process.env.NEXT_PUBLIC_OD_GOVERNANCE_TOKEN}`}
-              target="_blank"
-              rel="noreferrer"
-            >
+            <div>
               {`You Do NOT Have Enough Votes to Propose. (${address?.slice(
                 0,
                 6
               )}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
-            </a>
+            </div>
           )}
         </div>
       </div>
@@ -188,6 +175,11 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
           </a>
         </div>
       )}
+      <div className="disclaimer">
+        When making a proposal, your voting power must remain above the
+        threshold until the vote is passed and queued for execution, otherwise
+        the proposal may be canceled.
+      </div>
     </div>
   );
 };

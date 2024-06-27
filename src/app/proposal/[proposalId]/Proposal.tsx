@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useProposalContext } from "@/app/contexts/ProposalsContext";
-import { type ProposalType } from "@/app/types/proposal";
-import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
-import fetchABI from "@/app/lib/fetchABI";
-import decodeCallData from "@/app/lib/decodeCallData";
-import CallData from "./CallData";
-import ProposeButton from "./ProposeButton";
-import Loading from "@/app/components/Loading";
-import React, { useState, useEffect } from "react";
-import Simluation from "./Simulation";
+import { useProposalContext } from '@/app/contexts/ProposalsContext';
+import { type ProposalType } from '@/app/types/proposal';
+import convertTokensToThousandsK from '@/app/lib/convertTokensToThousansK';
+import fetchABI from '@/app/lib/fetchABI';
+import decodeCallData from '@/app/lib/decodeCallData';
+import CallData from './CallData';
+import ProposeButton from './ProposeButton';
+import Loading from '@/app/components/Loading';
+import React, { useState, useEffect } from 'react';
+import Simluation from './Simulation';
 
 interface ProposalPageProps {
   params: {
@@ -144,15 +144,15 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
             <div className="proposal-page-item">
               <div className="proposal-page-label">Status</div>
               <div className="proposal-page-value">
-                {currentMetadata !== null && currentMetadata.proposer === ""
-                  ? "Unsubmitted"
-                  : "Submitted"}
+                {currentMetadata !== null && currentMetadata.proposer === ''
+                  ? 'Unsubmitted'
+                  : 'Submitted'}
               </div>
             </div>
           </div>
         </div>
 
-        {currentMetadata !== null && currentMetadata.proposer !== "" && (
+        {currentMetadata !== null && currentMetadata.proposer !== '' && (
           <div className="proposal-page-block">
             <h3 className="proposal-page-title">Voting</h3>
             <div className="proposal-page-container">
@@ -160,17 +160,17 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
                 <div className="proposal-page-label">Status</div>
                 <div className="proposal-page-value">
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.executed === true && (
                       <div className="proposal-page-executed">Executed</div>
                     )}
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.cancelled === true && (
                       <div className="proposal-page-cancelled">Cancelled</div>
                     )}
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.executed === false &&
                     currentMetadata.cancelled === false && (
                       <div className="proposal-page-pending">Pending</div>
@@ -181,34 +181,34 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
               <div className="proposal-page-item">
                 <div className="proposal-page-label">For</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         currentMetadata.forVotes as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
 
               <div className="proposal-page-item">
                 <div className="proposal-page-label">Against</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         currentMetadata.againstVotes as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
 
               <div className="proposal-page-item">
                 <div className="proposal-page-label">Total</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         (currentMetadata.againstVotes +
                           currentMetadata.forVotes) as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
             </div>
@@ -235,7 +235,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </ul>
         </div>
       </div>
-      {currentMetadata !== null && currentMetadata.proposer === "" && (
+      {currentMetadata !== null && currentMetadata.proposer === '' && (
         <div className="proposal-page-block">
           <h3 className="proposal-page-title">Simulation</h3>
           <div className="proposal-page-container">
@@ -243,11 +243,14 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </div>
         </div>
       )}
-      <div className="">
-        {currentMetadata !== null && currentMetadata.proposer === "" && (
-          <ProposeButton proposal={currentProposal} />
-        )}
-      </div>
+      {currentMetadata !== null && currentMetadata.proposer === '' && (
+        <div className="proposal-page-block">
+          <h3 className="proposal-page-title">Propose</h3>
+          <div className="proposal-page-container">
+            <ProposeButton proposal={currentProposal} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
