@@ -10,6 +10,7 @@ import ProposeButton from './ProposeButton';
 import Loading from '@/app/components/Loading';
 import React, { useState, useEffect } from 'react';
 import Simluation from './Simulation';
+import Loader from '@/app/components/Loader';
 
 interface ProposalPageProps {
   params: {
@@ -112,8 +113,8 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
 
   if (loading) {
     return (
-      <div className='proposal-page container'>
-        <Loading />
+      <div className='proposal-page container loader-container'>
+        <Loader width='160px'/>
       </div>
     );
   }
