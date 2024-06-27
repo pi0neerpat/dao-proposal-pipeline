@@ -48,6 +48,10 @@ body {
   background-image: var(--background-gradient);
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   color: var(--color-3);
   font-family: var(--font-open-sans);
@@ -62,7 +66,6 @@ body {
   padding-right: 20px;
   margin-left: auto;
   margin-right: auto; 
-  width: 100%;
 }
 
 @keyframes wave {
@@ -90,7 +93,7 @@ ol {
 }
 
 .navbar {
-  
+  width: 100%;
 }
 
 .navbar-links-list {
@@ -139,7 +142,6 @@ ol {
 
 .proposals-container table {
   border-collapse: collapse;
-  min-width: 600px;
   table-layout: auto;
 }
 
@@ -196,7 +198,6 @@ ol {
 }
 
 .proposals-subsection-title {
-  display: grid;
   font-family: var(--font-barlow);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-subheader);
@@ -279,16 +280,6 @@ ol {
   flex-direction: column;
 }
 
-.proposal-votes-detail-labels {
-  /* display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: center;
-  align-items: center;
-  font-weight: var(--font-weight-med);
-  gap: var(--gap);
-  position: relative; */
-}
-
 .proposal-vote-detail-values {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -301,11 +292,7 @@ ol {
 }
 
 .proposal-page {
-  max-width: 1330px;
   min-height: 100vh;
-  padding: var(--large-container-padding);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .proposal-page-block-row {
@@ -322,7 +309,6 @@ ol {
   background-color: var(--color-5);
   box-shadow: var(--box-shadow);
   margin-bottom: var(--large-container-padding);
-  gap: var(--gap);
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -349,15 +335,7 @@ ol {
 .proposal-page-value {
   font-weight: 700;
   color: var(--color-1);
-}
-
-.proposal-page-row-one {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  align-items: center;
-  font-size: small;
-  width: 100%;
-  gap: var(--gap);
+  word-break: break-all;
 }
 
 .proposal-page-description {
@@ -442,6 +420,7 @@ ol {
 
 .call-data-link {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 5px;
   text-decoration: underline;
@@ -745,7 +724,6 @@ ol {
   justify-content: flex-start;
   align-items: center;
   gap: var(--gap);
-  /* gap: var(--gap); */
 }
 
 .link-icons {
@@ -804,19 +782,6 @@ ol {
 }
 
 @media only screen and (max-width: 750px) {
-  html {
-    justify-content: center;
-    width: 100vw;
-  }
-
-  body {
-    width: 100vw;
-  }
-
-  .navbar {
-    padding-right: 5vw;
-  }
-
   .proposals-link {
     font-size: large;
   }
@@ -830,13 +795,6 @@ ol {
     flex-direction: column;
   }
 
-  .proposal-page-row-one {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: auto;
-    width: 100vw;
-  }
-
   .proposal-page-description {
     display: flex;
     flex-wrap: wrap;
@@ -845,41 +803,9 @@ ol {
     padding-right: 25vw;
   }
 
-  .proposal-page-row-two {
-    display: grid;
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: auto;
-    justify-content: left;
-  }
-
   .proposal-page-vote-details {
-    grid-template-columns: repeat(1, auto);
-    grid-template-rows: repeat(2, auto);
-    width: 85vw;
     height: auto;
-    gap: var(--gap);
     align-items: center;
-  }
-
-  .proposal-page-vote-counts {
-    width: 85vw;
-    align-items: center;
-  }
-
-  .call-data-title {
-    width: 60%;
-    padding-right: 5vw;
-  }
-
-  .call-data-function-column-one {
-    width: 100vw;
-    grid-template-rows: repeat(3, auto);
-  }
-
-  .call-data-row-one {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: repeat(2, auto);
   }
 
   .target-link,
@@ -891,22 +817,11 @@ ol {
     padding-right: 5vw;
   }
 
-  .call-data-function-column-two {
-    justify-content: center;
-    width: 85%;
-  }
-
-  .call-data-raw {
-    grid-template-rows: repeat(2, auto);
-    grid-template-columns: auto;
-  }
-
   .call-data-raw-value {
     display: flex;
     flex-wrap: wrap;
     word-wrap: break-word;
     word-break: break-all;
-    width: 85%;
   }
 
   .propose-button-container {

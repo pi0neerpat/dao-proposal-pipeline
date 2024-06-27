@@ -112,14 +112,14 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
 
   if (loading) {
     return (
-      <div className='proposal-page'>
+      <div className='proposal-page container'>
         <Loading />
       </div>
     );
   }
 
   return (
-    <div className="proposal-page">
+    <div className="proposal-page container">
       <div className="proposal-page-block-row">
         <div className="proposal-page-block">
           <h3 className="proposal-page-title">Proposal Details</h3>
