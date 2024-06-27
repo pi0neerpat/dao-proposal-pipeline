@@ -16,7 +16,7 @@ const Proposals: React.FC = () => {
   );
 
   return (
-    <div className="proposals-list">
+    <div className="proposals-list container">
       <div className="proposals-link">
         <span className="proposal-link-description-text">
           Pending proposals are fetched from our

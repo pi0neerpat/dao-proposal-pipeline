@@ -111,7 +111,11 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
   }, [targetABIs]);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className='proposal-page'>
+        <Loading />
+      </div>
+    );
   }
 
   return (
