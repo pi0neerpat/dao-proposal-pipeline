@@ -178,7 +178,7 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
       <div className="disclaimer">
         When making a proposal, your voting power must remain above the
         threshold until the vote is passed and queued for execution, otherwise
-        the proposal may be canceled
+        the proposal may be canceled.
       </div>
     </div>
   );
