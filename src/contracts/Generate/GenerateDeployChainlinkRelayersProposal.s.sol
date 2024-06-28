@@ -30,7 +30,7 @@ contract GenerateDeployChainlinkRelayersProposal is Generator, JSONScript {
 
     for (uint256 i; i < len; i++) {
       string memory index = Strings.toString(i);
-      address feed = json.readAddress(string(abi.encodePacked('.objectArray[', index, '].chainlinkFeed')));
+      address feed = json.readAddress(string(abi.encodePacked('.objectArray[', index, '].chainlinkPriceFeed')));
       uint256 interval = json.readUint(string(abi.encodePacked('.objectArray[', index, '].oracleInterval')));
       chainlinkFeed.push(feed);
       oracleInterval.push(interval);
