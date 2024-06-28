@@ -129,7 +129,6 @@ async function predictAddressAndWriteToFile(currentJson, provider) {
         symbol: currentJson.objectArray[i].symbol,
         address: predictedAddresses[i],
       });
-      console.log(currentJson);
     }
   } else if (currentJson.proposalType == "DeployDelayedOracles") {
     let numberOfAddresses = currentJson.arrayLength;
