@@ -25,5 +25,7 @@
       "staleThreshold": "86400",
       "gracePeriod": "3600"
     }
-  ]
+  ],
+  "arrayLength": "3",
+  "PredictedRelayerAddresses": []
 }
