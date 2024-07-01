@@ -3,7 +3,7 @@ import { type ProposalType } from '../types/proposal'
 // this script fetches proposal data from github
 const fetchProposalNames = async (): Promise<any> => {
   const response = await fetch(
-    'https://api.github.com/repos/open-dollar/od-contracts/contents/gov-output/mainnet'
+    'https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet'
   )
   const data = await response.json()
   return data.map((file: any) => ({

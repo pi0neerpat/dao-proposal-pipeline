@@ -27,7 +27,6 @@ type Proposal = {
 const columnHelper = createColumnHelper<Proposal>();
 
 const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
-  console.log('data', data);
 
   const columns = React.useMemo(() => {
     const cols = [
