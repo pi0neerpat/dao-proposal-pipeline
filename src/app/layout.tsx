@@ -69,9 +69,9 @@ export default function RootLayout({
               <title>Open Dollar Governance Proposals</title>
             </head>
             <body>
-              <Navbar />
-              {children}
-              <Footer />
+                <Navbar />
+                {children}
+                <Footer />
             </body>
           </html>
         </ProposalProvider>

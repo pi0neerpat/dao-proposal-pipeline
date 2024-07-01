@@ -37,9 +37,11 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
   const { odGovernor } = useEtherProviderContext();
 
   const loadData = async (): Promise<void> => {
+    console.log("Loading data")
     try {
+      console.log("Fetching proposals")
       const fetchedProposals = (await fetchProposals()) as ProposalType[];
-
+      console.log("Fetched proposals", fetchedProposals)
       if (odGovernor) {
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {

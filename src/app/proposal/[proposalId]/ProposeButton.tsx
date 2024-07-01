@@ -82,9 +82,13 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
 
   return (
     <div className="propose-container">
+      <div className="disclaimer">
+        When making a proposal, your voting power must remain above the
+        threshold until the vote is passed and queued for execution, otherwise
+        the proposal may be canceled.
+      </div>
       <div className="button-and-balance">
         <div className="button-container">
-          {(userVotes === null || proposalThreshold === null) && <Loading />}
           {userVotes !== null &&
           proposalThreshold !== null &&
           userVotes < proposalThreshold ? (
@@ -175,11 +179,6 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
           </a>
         </div>
       )}
-      <div className="disclaimer">
-        When making a proposal, your voting power must remain above the
-        threshold until the vote is passed and queued for execution, otherwise
-        the proposal may be canceled.
-      </div>
     </div>
   );
 };
