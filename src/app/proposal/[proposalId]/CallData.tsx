@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import type DecodedCallData from '@/app/types/DecodedCallDataType';
-import decodeArguments from '@/app/lib/decodeArguments';
-import { type ProposalType } from '@/app/types/proposal';
-import Link from 'next/link';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import type DecodedCallData from "@/app/types/DecodedCallDataType";
+import decodeArguments from "@/app/lib/decodeArguments";
+import { type ProposalType } from "@/app/types/proposal";
+import Link from "next/link";
+import Image from "next/image";
 
 type Item = Record<string, string | number>;
 
@@ -25,12 +25,11 @@ const CallData: React.FC<CallDataProps> = ({
     const decodedArgs = decodeArguments(calldata);
     setDecodedArgs(decodedArgs);
   }, [calldata]);
-
+  console.log(calldata);
   return (
     <div className="call-data-container" key={index}>
-      <div className="proposal-page-item">
-        <div className="proposal-page-label">Function</div>
-        <div className="proposal-page-value">{calldata.signature}</div>
+      <div className="proposal-page-function-title">
+        {`${index + 1}. ${calldata.name}`}
       </div>
 
       <div className="proposal-page-item">
@@ -41,11 +40,11 @@ const CallData: React.FC<CallDataProps> = ({
               index
             ].toString()}`}
             target="_blank"
-            className='call-data-link'
+            className="call-data-link"
           >
             {currentProposal.targets[index].toString()}
             <Image
-              src={'/external-link.svg'}
+              src={"/external-link.svg"}
               alt="link"
               width={20}
               height={20}
@@ -76,7 +75,7 @@ const CallData: React.FC<CallDataProps> = ({
             calldata.functionFragment.inputs.map((input, inputIndex) => (
               <div key={inputIndex} className="input-line">
                 <p>
-                  <strong>{input.name}</strong>
+                  <strong>{input.name}: </strong>
                 </p>
                 <div className="call-data-input-value">
                   {Array.isArray(decodedArgs[inputIndex]) ? (
@@ -84,10 +83,10 @@ const CallData: React.FC<CallDataProps> = ({
                       {decodedArgs[inputIndex].map(
                         (item: ArrayItem, arrayIndex: number) => (
                           <div key={arrayIndex}>
-                            {typeof item === 'object'
+                            {typeof item === "object"
                               ? Object.keys(item)
                                   .map((key) => `${key}: ${item[key]}`)
-                                  .join(', ')
+                                  .join(", ")
                               : ` ${item as string} `}
                           </div>
                         )

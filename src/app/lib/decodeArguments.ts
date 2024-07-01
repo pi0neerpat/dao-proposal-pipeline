@@ -1,40 +1,37 @@
-import type DecodedCallData from '../types/DecodedCallDataType'
-import {
-  type BytesLike,
-  ethers
-} from 'ethers'
+import type DecodedCallData from "../types/DecodedCallDataType";
+import { type BytesLike, ethers } from "ethers";
 
-function decodeArguments (callData: DecodedCallData): any[] {
-  const { args, functionFragment } = callData
-  const inputs = functionFragment.inputs
-  const decodedArgs = []
+function decodeArguments(callData: DecodedCallData): any[] {
+  const { args, functionFragment } = callData;
+  const inputs = functionFragment.inputs;
+  const decodedArgs = [];
 
   for (let i = 0; i < args.length; i++) {
-    const arg = args[i]
-    const inputType = inputs[i].type
-    let decodedArg
+    const arg = args[i];
+    const inputType = inputs[i].type;
+    let decodedArg;
     // brute force handle different data types
-    if (inputType.startsWith('uint') || inputType.startsWith('int')) {
-      decodedArg = ethers.BigNumber.from(arg).toString()
-    } else if (inputType === 'address') {
-      decodedArg = ethers.utils.getAddress(ethers.utils.hexZeroPad((arg as BytesLike), 32))
-    } else if (inputType === 'bool') {
-      decodedArg = ethers.utils.hexValue(arg as BytesLike) === '0x01'
-    } else if (inputType === 'bytes') {
-      decodedArg = arg
-    } else if (inputType === 'bytes32') {
-      decodedArg = ethers.utils.parseBytes32String(arg as BytesLike)
-    } else if (inputType.startsWith('string')) {
-      decodedArg = ethers.utils.toUtf8String(arg as BytesLike)
+    if (inputType.startsWith("uint") || inputType.startsWith("int")) {
+      decodedArg = ethers.BigNumber.from(arg).toString();
+    } else if (inputType === "address") {
+      decodedArg = ethers.utils.getAddress(arg);
+    } else if (inputType === "bool") {
+      decodedArg = ethers.utils.hexValue(arg as BytesLike) === "0x01";
+    } else if (inputType === "bytes") {
+      decodedArg = arg;
+    } else if (inputType === "bytes32") {
+      decodedArg = ethers.utils.parseBytes32String(arg as BytesLike);
+    } else if (inputType.startsWith("string")) {
+      decodedArg = ethers.utils.toUtf8String(arg as BytesLike);
     } else {
       // Handle other types here
-      decodedArg = arg
+      decodedArg = arg;
     }
 
-    decodedArgs.push(decodedArg)
+    decodedArgs.push(decodedArg);
   }
 
-  return decodedArgs
+  return decodedArgs;
 }
 
-export default decodeArguments
+export default decodeArguments;

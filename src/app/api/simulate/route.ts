@@ -101,7 +101,7 @@ interface ProposalType {
 
 const fetchProposals = async () => {
   const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-contracts/contents/gov-output/mainnet"
+    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet"
   );
   const data = await response.json();
   const proposalNames = data.map((file: any) => ({
