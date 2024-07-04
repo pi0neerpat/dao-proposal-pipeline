@@ -89,8 +89,8 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     oracleRelayer = json.readAddress(string(abi.encodePacked('.OracleRelayer_Address:')));
 
     _cahCParams.minimumBid = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minimumBid')));
-    _cahCParams.minDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minimumDiscount')));
-    _cahCParams.maxDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.maximumDiscount')));
+    _cahCParams.minDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minDiscount')));
+    _cahCParams.maxDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.maxDiscount')));
     _cahCParams.perSecondDiscountUpdateRate =
       json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.perSecondDiscountUpdateRate')));
 

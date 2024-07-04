@@ -1,8 +1,8 @@
 {
   "CollateralAuctionHouseParams": {
-    "maximumDiscount": "8",
+    "maxDiscount": "8",
     "minimumBid": "9",
-    "minimumDiscount": "10",
+    "minDiscount": "10",
     "perSecondDiscountUpdateRate": "11"
   },
   "GlobalSettlement_Address": "0xdb27222024d1AfcB826397d2542812bA5D427f6D",
@@ -57,14 +57,5 @@
     "0x2C3C51Eed16F6eAe6CF2607fFF5753dE6cc48Aa5",
     "0x2C3C51Eed16F6eAe6CF2607fFF5753dE6cc48Aa5"
   ],
-  "values": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]
+  "values": [0, 0, 0, 0, 0, 0, 0, 0]
 }
