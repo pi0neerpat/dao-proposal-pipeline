@@ -25,47 +25,47 @@ const CallData: React.FC<CallDataProps> = ({
     calldata && setDecodedArgs(decodeArguments(calldata));
   }, [calldata]);
   return (
-    <>
-      {calldata && <div className="call-data-container" key={index}>
-        <div className="proposal-page-function-title">
-          {`${index + 1}. ${calldata.name}`}
-        </div>
+    <div className="call-data-container" key={index}>
+      <div className="proposal-page-function-title">
+        {calldata ? `${index + 1}. ${calldata.name}` : `${index + 1}`}
+      </div>
 
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Target</div>
-          <div className="proposal-page-value call-data-link">
-            <Link
-              href={`https://arbiscan.io/address/${currentProposal.targets[
-                index
-              ].toString()}`}
-              target="_blank"
-              className="call-data-link"
-            >
-              {currentProposal.targets[index].toString()}
-              <Image
-                src={'/external-link.svg'}
-                alt="link"
-                width={20}
-                height={20}
-              ></Image>
-            </Link>
-          </div>
+      <div className="proposal-page-item">
+        <div className="proposal-page-label">Target</div>
+        <div className="proposal-page-value call-data-link">
+          <Link
+            href={`https://arbiscan.io/address/${currentProposal.targets[
+              index
+            ].toString()}`}
+            target="_blank"
+            className="call-data-link"
+          >
+            {currentProposal.targets[index].toString()}
+            <Image
+              src={'/external-link.svg'}
+              alt="link"
+              width={20}
+              height={20}
+            ></Image>
+          </Link>
         </div>
+      </div>
 
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Value</div>
-          <div className="proposal-page-value">
-            {currentProposal.values[index]}
-          </div>
+      <div className="proposal-page-item">
+        <div className="proposal-page-label">Value</div>
+        <div className="proposal-page-value">
+          {currentProposal.values[index]}
         </div>
+      </div>
 
-        <div className="proposal-page-item">
-          <div className="proposal-page-label">Raw Call Data</div>
-          <div className="proposal-page-value call-data-raw-value">
-            {currentProposal.calldatas[index].toString()}
-          </div>
+      <div className="proposal-page-item">
+        <div className="proposal-page-label">Raw Call Data</div>
+        <div className="proposal-page-value call-data-raw-value">
+          {currentProposal.calldatas[index].toString()}
         </div>
+      </div>
 
+      {calldata && (
         <div className="proposal-page-item">
           <div className="proposal-page-label">Inputs</div>
           <div className="proposal-page-value">
@@ -99,8 +99,8 @@ const CallData: React.FC<CallDataProps> = ({
               ))}
           </div>
         </div>
-      </div>}
-    </>
+      )}
+    </div>
   );
 };
 

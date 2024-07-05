@@ -10,7 +10,6 @@ import React, {
 import { type ProposalType } from "../types/proposal";
 import { fetchProposals } from "../lib/fetchProposals";
 import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
-import type ODGovernorType from "@/app/types/ODGovernorType";
 
 interface ProposalContextType {
   proposals: any[];
