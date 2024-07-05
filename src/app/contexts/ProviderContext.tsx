@@ -55,7 +55,6 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
         // signer
         signer = ethersProvider.getSigner();
       } else {
-        console.log("Using RPC provider", process.env.NEXT_PUBLIC_ARBITRUM_RPC);
         ethersProvider = new ethers.providers.JsonRpcProvider(
           process.env.NEXT_PUBLIC_ARBITRUM_RPC
         );

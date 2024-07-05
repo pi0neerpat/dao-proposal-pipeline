@@ -10,7 +10,6 @@ import React, {
 import { type ProposalType } from "../types/proposal";
 import { fetchProposals } from "../lib/fetchProposals";
 import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
-import type ODGovernorType from "@/app/types/ODGovernorType";
 
 interface ProposalContextType {
   proposals: any[];
@@ -37,11 +36,8 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
   const { odGovernor } = useEtherProviderContext();
 
   const loadData = async (): Promise<void> => {
-    console.log("Loading data")
     try {
-      console.log("Fetching proposals")
       const fetchedProposals = (await fetchProposals()) as ProposalType[];
-      console.log("Fetched proposals", fetchedProposals)
       if (odGovernor) {
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {
