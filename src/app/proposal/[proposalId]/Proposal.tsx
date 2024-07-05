@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useProposalContext } from "@/app/contexts/ProposalsContext";
-import { type ProposalType } from "@/app/types/proposal";
-import convertTokensToThousandsK from "@/app/lib/convertTokensToThousansK";
-import fetchABI from "@/app/lib/fetchABI";
-import decodeCallData from "@/app/lib/decodeCallData";
-import CallData from "./CallData";
-import ProposeButton from "./ProposeButton";
-import Loading from "@/app/components/Loading";
-import React, { useState, useEffect } from "react";
-import Simluation from "./Simulation";
-import Loader from "@/app/components/Loader";
+import { useProposalContext } from '@/app/contexts/ProposalsContext';
+import { type ProposalType } from '@/app/types/proposal';
+import convertTokensToThousandsK from '@/app/lib/convertTokensToThousansK';
+import fetchABI from '@/app/lib/fetchABI';
+import decodeCallData from '@/app/lib/decodeCallData';
+import CallData from './CallData';
+import ProposeButton from './ProposeButton';
+import Loading from '@/app/components/Loading';
+import React, { useState, useEffect } from 'react';
+import Simluation from './Simulation';
+import Loader from '@/app/components/Loader';
 
 interface ProposalPageProps {
   params: {
@@ -19,17 +19,20 @@ interface ProposalPageProps {
 }
 
 const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
-  const { proposals } = useProposalContext();
-
+  const [decodedCallData, setDecodedCallData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-
-  // determin current proposal by id
+  const [currentMetadata, setCurrentMetadata] = useState<any | null>(null);
   const [currentProposal, setCurrentProposal] = useState<ProposalType | null>(
     null
   );
+  const [targetABIs, setTargetABIs] = useState<any[] | null>(null);
+
+  const { proposals } = useProposalContext();
+
+  // determin current proposal by id
+
   const getCurrentProposal = (): any => {
     const currentProposal = proposals.filter((proposal) => {
-      console.log(proposal);
       return (
         proposal.proposalId.toString() ===
         decodeURIComponent(params.proposalId.toString())
@@ -46,7 +49,6 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
   }, [proposals]);
 
   // get current proposal metadata using current proposal
-  const [currentMetadata, setCurrentMetadata] = useState<any | null>(null);
   const filterCurrentMetadata = (proposalMetadata: any[]): any => {
     const currentMetadata = proposalMetadata.filter((metadata: any) => {
       return metadata.id === currentProposal?.proposalId;
@@ -62,7 +64,6 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
   }, [currentProposal]);
 
   // this gets abis for each of our targets so we can decode call data
-  const [targetABIs, setTargetABIs] = useState<any[] | null>(null);
   const pullAllTargetABIs = async (
     currentProposal: ProposalType
   ): Promise<any> => {
@@ -80,6 +81,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
       setTargetABIs(fetchedABIs);
     }
   };
+
   useEffect(() => {
     if (
       currentProposal !== null &&
@@ -93,7 +95,6 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
   }, [currentProposal]);
 
   // this makes our calldatas from our currentMetadata a human readable format
-  const [decodedCallData, setDecodedCallData] = useState<any[]>([]);
   useEffect(() => {
     if (
       currentProposal !== null &&
@@ -149,15 +150,15 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
             <div className="proposal-page-item">
               <div className="proposal-page-label">Status</div>
               <div className="proposal-page-value">
-                {currentMetadata !== null && currentMetadata.proposer === ""
-                  ? "Unsubmitted"
-                  : "Submitted"}
+                {currentMetadata !== null && currentMetadata.proposer === ''
+                  ? 'Unsubmitted'
+                  : 'Submitted'}
               </div>
             </div>
           </div>
         </div>
 
-        {currentMetadata !== null && currentMetadata.proposer !== "" && (
+        {currentMetadata !== null && currentMetadata.proposer !== '' && (
           <div className="proposal-page-block">
             <h3 className="proposal-page-title">Voting</h3>
             <div className="proposal-page-container">
@@ -165,17 +166,17 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
                 <div className="proposal-page-label">Status</div>
                 <div className="proposal-page-value">
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.executed === true && (
                       <div className="proposal-page-executed">Executed</div>
                     )}
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.cancelled === true && (
                       <div className="proposal-page-cancelled">Cancelled</div>
                     )}
                   {currentMetadata !== null &&
-                    currentMetadata.proposer !== "" &&
+                    currentMetadata.proposer !== '' &&
                     currentMetadata.executed === false &&
                     currentMetadata.cancelled === false && (
                       <div className="proposal-page-pending">Pending</div>
@@ -186,34 +187,34 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
               <div className="proposal-page-item">
                 <div className="proposal-page-label">For</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         currentMetadata.forVotes as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
 
               <div className="proposal-page-item">
                 <div className="proposal-page-label">Against</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         currentMetadata.againstVotes as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
 
               <div className="proposal-page-item">
                 <div className="proposal-page-label">Total</div>
                 <div className="proposal-page-value">
-                  {currentMetadata !== null && currentMetadata.proposer !== ""
+                  {currentMetadata !== null && currentMetadata.proposer !== ''
                     ? `${convertTokensToThousandsK(
                         (currentMetadata.againstVotes +
                           currentMetadata.forVotes) as string
                       )}`
-                    : ""}
+                    : ''}
                 </div>
               </div>
             </div>
@@ -240,7 +241,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </ul>
         </div>
       </div>
-      {currentMetadata !== null && currentMetadata.proposer === "" && (
+      {currentMetadata !== null && currentMetadata.proposer === '' && (
         <div className="proposal-page-block">
           <h3 className="proposal-page-title">Simulation</h3>
           <div className="proposal-page-container">
@@ -248,7 +249,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </div>
         </div>
       )}
-      {currentMetadata !== null && currentMetadata.proposer === "" && (
+      {currentMetadata !== null && currentMetadata.proposer === '' && (
         <div className="proposal-page-block">
           <h3 className="proposal-page-title">Propose</h3>
           <div className="proposal-page-container">
