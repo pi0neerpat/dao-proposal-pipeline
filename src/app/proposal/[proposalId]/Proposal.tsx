@@ -7,7 +7,6 @@ import fetchABI from '@/app/lib/fetchABI';
 import decodeCallData from '@/app/lib/decodeCallData';
 import CallData from './CallData';
 import ProposeButton from './ProposeButton';
-import Loading from '@/app/components/Loading';
 import React, { useState, useEffect } from 'react';
 import Simluation from './Simulation';
 import Loader from '@/app/components/Loader';
