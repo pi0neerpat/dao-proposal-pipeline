@@ -64,20 +64,23 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
   }, [currentProposal]);
 
   // this gets abis for each of our targets so we can decode call data
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   const pullAllTargetABIs = async (
     currentProposal: ProposalType
   ): Promise<any> => {
     if (currentProposal !== null && currentProposal.targets.length > 0) {
-      const abiPromises = currentProposal?.targets.map(
-        async (target) => await fetchABI(target)
-      );
-      let fetchedABIs = await Promise.all(abiPromises);
-      fetchedABIs = fetchedABIs.map((abi) => {
-        if (abi === undefined) {
-          return null;
+      const fetchedABIs = [];
+      for (const target of currentProposal.targets) {
+        try {
+          const abi = await fetchABI(target);
+          fetchedABIs.push(abi ? JSON.parse(abi as string) : null);
+        } catch (error) {
+          fetchedABIs.push(null);
         }
-        return JSON.parse(abi as string);
-      });
+        await delay(200); // Adding a 200ms delay between each request
+      }
       setTargetABIs(fetchedABIs);
     }
   };
