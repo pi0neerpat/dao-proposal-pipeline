@@ -1,35 +1,52 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
+import { fetchProposals } from "../../lib/fetchProposals";
+import { type ProposalType } from "../../types/proposal";
 
-const OD_GOVERNOR_ADDRESS = "0xf704735CE81165261156b41D33AB18a08803B86F";
 const TIMELOCK_CONTROLLER_ADDRESS =
   "0x7A528eA3E06D85ED1C22219471Cf0b1851943903";
+const TENDERLY_API_URL =
+  "https://api.tenderly.co/api/v1/account/11/project/sodamachine";
+const NETWORK_ID = 42161;
+
+const TENDERLY_HEADERS = {
+  "Content-Type": "application/json",
+  Accept: "application/json",
+  "X-Access-Key": process.env.TENDERLY_API_KEY,
+};
 
 export async function GET(request: any) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
+    const fork = searchParams.get("fork");
+
     const proposals = await fetchProposals();
-    const proposal = proposals.find((proposal) => proposal.proposalId === id);
+    const proposal = proposals.find(
+      (proposal: any) => proposal.proposalId === id
+    );
     if (!proposal)
       return NextResponse.json({ message: "Proposal not found", status: 404 });
 
-    const simulations = await simulate(proposal);
-    fs.writeFileSync("simulations.json", JSON.stringify(simulations, null, 2));
-    const urls = simulations.map(
-      (simulation) =>
-        `https://www.tdly.co/shared/simulation/${simulation.simulation.id}`
-    );
+    if (fork) {
+      const forkUrl = await forkAndExecute(proposal);
+      return NextResponse.json({ url: forkUrl }, { status: 200 });
+    } else {
+      const simulations = await simulate(proposal);
+      const urls = simulations.map(
+        (item: any) =>
+          `https://www.tdly.co/shared/simulation/${item.simulation.id}`
+      );
 
-    return NextResponse.json({ simulations: urls }, { status: 200 });
+      return NextResponse.json({ simulations: urls }, { status: 200 });
+    }
   } catch (error: any) {
     console.error(error);
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
 
-const makeSimulationPublic = async (id: string) => {
-  const url = `https://api.tenderly.co/api/v1/account/11/project/sodamachine/simulations/${id}/share`;
+const postTenderly = async (url: string, body: any) => {
   const options: any = {
     method: "POST",
     headers: {
@@ -38,11 +55,32 @@ const makeSimulationPublic = async (id: string) => {
       "X-Access-Key": process.env.TENDERLY_API_KEY,
     },
   };
+  let response = null;
+  if (body)
+    response = await fetch(url, { ...options, body: JSON.stringify(body) });
+  else response = await fetch(url, options);
+  console.log(url);
+  console.log(response.status);
+  console.log(response.statusText);
+  if (response.error) throw response.error.message;
+  if (response.status === 204) return response;
+  return response.json();
+};
 
+const getTenderly = async (url: string) => {
+  const options: any = {
+    method: "GET",
+    headers: TENDERLY_HEADERS,
+  };
+  const response = await fetch(url, options);
+  if (response.error) throw response.error.message;
+  return response.json();
+};
+
+const makeSimulationPublic = async (id: string) => {
   try {
-    const response = await fetch(url, options);
-    if (response.status !== 204)
-      throw new Error("Failed to make simulation public");
+    const url = `${TENDERLY_API_URL}/simulations/${id}/share`;
+    await postTenderly(url, null);
   } catch (error) {
     console.error(error);
     throw error;
@@ -52,9 +90,9 @@ const makeSimulationPublic = async (id: string) => {
 const simulate = async (proposal: ProposalType) => {
   try {
     let transactions = [];
-    for (let i = 0; i < proposal.targets.length; i++) {
+    for (let i = 0; i < 1; i++) {
       transactions.push({
-        network_id: "42161",
+        network_id: NETWORK_ID,
         from: TIMELOCK_CONTROLLER_ADDRESS,
         to: proposal.targets[i],
         input: proposal.calldatas[i],
@@ -65,24 +103,13 @@ const simulate = async (proposal: ProposalType) => {
       });
     }
 
-    const url =
-      "https://api.tenderly.co/api/v1/account/11/project/sodamachine/simulate-bundle";
-    const options: any = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-Access-Key": process.env.TENDERLY_API_KEY,
-      },
-      body: JSON.stringify({ simulations: transactions }),
-    };
+    const url = `${TENDERLY_API_URL}/simulate-bundle`;
 
-    const response = await fetch(url, options);
-    const data = await response.json();
-    if (data.error) throw data.error.message;
+    const data = await postTenderly(url, { simulations: transactions });
 
     for (const result of data.simulation_results) {
-      await makeSimulationPublic(result.simulation.id);
+      if (result.simulation.id)
+        await makeSimulationPublic(result.simulation.id);
     }
 
     return data.simulation_results;
@@ -92,50 +119,54 @@ const simulate = async (proposal: ProposalType) => {
   }
 };
 
-interface ProposalType {
-  calldatas: string[];
-  chainid: number;
-  description: string;
-  descriptionHash: string;
-  network: string;
-  odGovernor: string;
-  proposalId: string | bigint;
-  proposalType: string;
-  targets: string[];
-  values: number[];
-  arrayLength?: number; // This key is optional (shows up in the second proposal but not the first)
-}
+const fork = async (proposal: ProposalType) => {
+  const url = `${TENDERLY_API_URL}/vnets`;
 
-const fetchProposals = async () => {
-  const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet?ref=main"
-  );
+  const body = {
+    display_name: `OD Proposal: ${proposal.description}`,
+    slug: proposal.slug,
+    fork_config: {
+      network_id: NETWORK_ID,
+    },
+    virtual_network_config: {
+      chain_config: {
+        chain_id: NETWORK_ID,
+      },
+    },
+    explorer_page_config: {
+      enabled: true,
+      verification_visibility: "src",
+    },
+  };
+  const vnetData = await postTenderly(url, body);
+  if (vnetData.error) throw vnetData.error.message;
+  return vnetData;
+};
 
-  const data = await response.json();
-  const proposalNames = data.map((file: any) => ({
-    name: file.name,
-    download_url: file.download_url,
-  }));
-  const proposals: ProposalType[] = [];
-  for (let i = 0; i < proposalNames.length; i++) {
-    let response = await fetch(proposalNames[i].download_url as string);
-    // response as json converts proposal id to scientific notation and rounds it :(
-    const data = await response.text();
-    let proposalIdString: string | undefined | bigint = "";
-    const lines = data.split("\n");
-    lines.forEach((line) => {
-      const [key, value] = line.split(":").map((part) => part.trim());
-      if (key === '"proposalId"') {
-        // remove hanging comma
-        proposalIdString = BigInt(value.slice(0, -1));
-        proposalIdString = proposalIdString.toString();
-      }
-    });
-    response = await fetch(proposalNames[i].download_url as string);
-    const proposalData: ProposalType = await response.json();
-
-    proposalData.proposalId = proposalIdString;
-    proposals.push(proposalData);
+const executeForkProposal = async (proposal: ProposalType, vnetId: string) => {
+  const url = `${TENDERLY_API_URL}/vnets/${vnetId}/transactions`;
+  for (let i = 0; i < proposal.targets.length; i++) {
+    const body = {
+      callArgs: {
+        from: TIMELOCK_CONTROLLER_ADDRESS,
+        to: proposal.targets[i],
+        data: proposal.calldatas[i],
+        value: `0x${Number(proposal.values[i]).toString(16)}`,
+      },
+    };
+    await postTenderly(url, body);
   }
-  return proposals;
+};
+
+const forkAndExecute = async (proposal: ProposalType) => {
+  try {
+    const vnetData = await fork(proposal);
+
+    await executeForkProposal(proposal, vnetData.id);
+
+    return `https://dashboard.tenderly.co/11/sodamachine/testnet/${vnetData.id}`;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 };
