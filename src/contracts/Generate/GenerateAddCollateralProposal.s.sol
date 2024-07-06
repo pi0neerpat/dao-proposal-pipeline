@@ -128,8 +128,6 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
       targets[3] = taxCollector;
       targets[4] = liquidationEngine;
       targets[5] = oracleRelayer;
-      targets[6] = safeEngine;
-      targets[7] = safeEngine;
     }
     // No values needed
     uint256[] memory values = new uint256[](8);
@@ -140,8 +138,6 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
       values[3] = 0;
       values[4] = 0;
       values[5] = 0;
-      values[6] = 0;
-      values[7] = 0;
     }
     // Get calldata for:
 
@@ -163,11 +159,6 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     );
     calldatas[5] = abi.encodeWithSelector(
       IModifiablePerCollateral.initializeCollateralType.selector, newCType, abi.encode(_oracleCParams)
-    );
-    calldatas[6] =
-      abi.encodeWithSelector(IAuthorizable.addAuthorization.selector, _liquidationEngineCParams.collateralAuctionHouse);
-    calldatas[7] = abi.encodeWithSelector(
-      ISAFEEngine.approveSAFEModification.selector, _liquidationEngineCParams.collateralAuctionHouse
     );
 
     // Get the descriptionHash
