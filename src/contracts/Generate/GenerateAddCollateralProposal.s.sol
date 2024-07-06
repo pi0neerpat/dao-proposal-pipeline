@@ -120,7 +120,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     ODGovernor gov = ODGovernor(payable(governanceAddress));
     IGlobalSettlement globalSettlement = IGlobalSettlement(globalSettlementAddress);
 
-    address[] memory targets = new address[](8);
+    address[] memory targets = new address[](6);
     {
       targets[0] = address(globalSettlement.collateralJoinFactory());
       targets[1] = address(globalSettlement.collateralAuctionHouseFactory());
@@ -130,7 +130,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
       targets[5] = oracleRelayer;
     }
     // No values needed
-    uint256[] memory values = new uint256[](8);
+    uint256[] memory values = new uint256[](6);
     {
       values[0] = 0;
       values[1] = 0;
@@ -141,7 +141,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     }
     // Get calldata for:
 
-    bytes[] memory calldatas = new bytes[](8);
+    bytes[] memory calldatas = new bytes[](6);
 
     calldatas[0] = abi.encodeWithSelector(ICollateralJoinFactory.deployCollateralJoin.selector, newCType, newCAddress);
 
