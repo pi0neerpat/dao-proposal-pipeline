@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import fs from "fs";
 
 const OD_GOVERNOR_ADDRESS = "0xf704735CE81165261156b41D33AB18a08803B86F";
 const TIMELOCK_CONTROLLER_ADDRESS =
@@ -11,12 +12,10 @@ export async function GET(request: any) {
     const proposals = await fetchProposals();
     const proposal = proposals.find((proposal) => proposal.proposalId === id);
     if (!proposal)
-      return NextResponse.json(
-        { message: "Proposal not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ message: "Proposal not found", status: 404 });
 
     const simulations = await simulate(proposal);
+    fs.writeFileSync("simulations.json", JSON.stringify(simulations, null, 2));
     const urls = simulations.map(
       (simulation) =>
         `https://www.tdly.co/shared/simulation/${simulation.simulation.id}`
@@ -24,6 +23,7 @@ export async function GET(request: any) {
 
     return NextResponse.json({ simulations: urls }, { status: 200 });
   } catch (error: any) {
+    console.error(error);
     return NextResponse.json({ message: error.message }, { status: 500 });
   }
 }
@@ -45,22 +45,15 @@ const makeSimulationPublic = async (id: string) => {
       throw new Error("Failed to make simulation public");
   } catch (error) {
     console.error(error);
+    throw error;
   }
 };
 
 const simulate = async (proposal: ProposalType) => {
-  let simulations = [];
-  for (let i = 0; i < proposal.targets.length; i++) {
-    const url =
-      "https://api.tenderly.co/api/v1/account/11/project/sodamachine/simulate";
-    const options: any = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "X-Access-Key": process.env.TENDERLY_API_KEY,
-      },
-      body: JSON.stringify({
+  try {
+    let transactions = [];
+    for (let i = 0; i < proposal.targets.length; i++) {
+      transactions.push({
         network_id: "42161",
         from: TIMELOCK_CONTROLLER_ADDRESS,
         to: proposal.targets[i],
@@ -69,20 +62,34 @@ const simulate = async (proposal: ProposalType) => {
         save: true,
         save_if_fails: true,
         simulation_type: "full",
-      }),
+      });
+    }
+
+    const url =
+      "https://api.tenderly.co/api/v1/account/11/project/sodamachine/simulate-bundle";
+    const options: any = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "X-Access-Key": process.env.TENDERLY_API_KEY,
+      },
+      body: JSON.stringify({ simulations: transactions }),
     };
 
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      await makeSimulationPublic(data.simulation.id);
-      simulations.push(data);
-    } catch (error) {
-      console.error(error);
-      throw new Error("Failed to get simulation data");
+    const response = await fetch(url, options);
+    const data = await response.json();
+    if (data.error) throw data.error.message;
+
+    for (const result of data.simulation_results) {
+      await makeSimulationPublic(result.simulation.id);
     }
+
+    return data.simulation_results;
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
-  return simulations;
 };
 
 interface ProposalType {
@@ -101,20 +108,20 @@ interface ProposalType {
 
 const fetchProposals = async () => {
   const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet"
+    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet?ref=main"
   );
+
   const data = await response.json();
   const proposalNames = data.map((file: any) => ({
     name: file.name,
     download_url: file.download_url,
   }));
-
   const proposals: ProposalType[] = [];
   for (let i = 0; i < proposalNames.length; i++) {
     let response = await fetch(proposalNames[i].download_url as string);
     // response as json converts proposal id to scientific notation and rounds it :(
     const data = await response.text();
-    let proposalIdString: string | undefined | bigint;
+    let proposalIdString: string | undefined | bigint = "";
     const lines = data.split("\n");
     lines.forEach((line) => {
       const [key, value] = line.split(":").map((part) => part.trim());
@@ -126,9 +133,7 @@ const fetchProposals = async () => {
     });
     response = await fetch(proposalNames[i].download_url as string);
     const proposalData: ProposalType = await response.json();
-    if (proposalIdString === undefined) {
-      proposalIdString = "";
-    }
+
     proposalData.proposalId = proposalIdString;
     proposals.push(proposalData);
   }
