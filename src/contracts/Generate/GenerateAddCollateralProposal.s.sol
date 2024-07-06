@@ -164,11 +164,10 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     calldatas[5] = abi.encodeWithSelector(
       IModifiablePerCollateral.initializeCollateralType.selector, newCType, abi.encode(_oracleCParams)
     );
-    calldatas[6] = abi.encodeWithSelector(
-      IAuthorizable.addAuthorization.selector, abi.encode(_liquidationEngineCParams.collateralAuctionHouse)
-    );
+    calldatas[6] =
+      abi.encodeWithSelector(IAuthorizable.addAuthorization.selector, _liquidationEngineCParams.collateralAuctionHouse);
     calldatas[7] = abi.encodeWithSelector(
-      ISAFEEngine.approveSAFEModification.selector, abi.encode(_liquidationEngineCParams.collateralAuctionHouse)
+      ISAFEEngine.approveSAFEModification.selector, _liquidationEngineCParams.collateralAuctionHouse
     );
 
     // Get the descriptionHash
