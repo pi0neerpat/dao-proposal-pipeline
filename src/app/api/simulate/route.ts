@@ -62,7 +62,6 @@ const postTenderly = async (url: string, body: any) => {
   console.log(url);
   console.log(response.status);
   console.log(response.statusText);
-  if (response.error) throw response.error.message;
   if (response.status === 204) return response;
   return response.json();
 };
@@ -73,7 +72,6 @@ const getTenderly = async (url: string) => {
     headers: TENDERLY_HEADERS,
   };
   const response = await fetch(url, options);
-  if (response.error) throw response.error.message;
   return response.json();
 };
 
