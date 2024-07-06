@@ -30,9 +30,9 @@
     "liquidationCRatio": "7"
   },
   "CollateralAuctionHouseParams": {
-    "maximumDiscount": "8",
+    "maxDiscount": "8",
     "minimumBid": "9",
-    "minimumDiscount": "10",
+    "minDiscount": "10",
     "perSecondDiscountUpdateRate": "11"
   }
 }
