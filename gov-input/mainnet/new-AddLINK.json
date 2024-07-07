@@ -13,26 +13,26 @@
   "TaxCollector_Address": "",
   "GlobalSettlement_Address": "",
   "SAFEEngineCollateralParams": {
-    "collateralDebtCeiling": "TBD",
-    "collateralDebtFloor": "TBD"
+    "collateralDebtCeiling": "250000000000000000000000000000000000000000000000000",
+    "collateralDebtFloor": "200000000000000000000000000000000000000000000000"
   },
   "TaxCollectorCollateralParams": {
-    "stabilityFee": "TBD"
+    "stabilityFee": "5000000000472114805215157978"
   },
   "LiquidationEngineCollateralParams": {
     "newCAHChild": "",
-    "liquidationPenalty": "TBD",
-    "liquidationQuantity": "TBD"
+    "liquidationPenalty": "15000000000000000000",
+    "liquidationQuantity": "50000000000000000000000000000"
   },
   "OracleRelayerCollateralParams": {
-    "delayedOracle": "TBD",
-    "safetyCRatio": "TBD",
-    "liquidationCRatio": "TBD"
+    "delayedOracle": "",
+    "safetyCRatio": "2000000000000000000000000000",
+    "liquidationCRatio": "1900000000000000000000000000"
   },
   "CollateralAuctionHouseParams": {
-    "maxDiscount": "TBD",
-    "minimumBid": "TBD",
-    "minDiscount": "TBD",
+    "maxDiscount": "1500000000000000000",
+    "minimumBid": "100000000000000000000",
+    "minDiscount": "1000000000000000000",
     "perSecondDiscountUpdateRate": "999998607628240538157433861"
   }
 }
