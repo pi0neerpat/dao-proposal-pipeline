@@ -244,23 +244,21 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </ul>
         </div>
       </div>
-      {currentMetadata !== null && currentMetadata.proposer === "" && (
-        <div className="proposal-page-block">
-          <h3 className="proposal-page-title">Simulation</h3>
-          <div className="proposal-page-container">
-            <Simluation proposalId={currentMetadata.id} />
-            <Fork proposalId={currentMetadata.id} />
-          </div>
+
+      <div className="proposal-page-block">
+        <h3 className="proposal-page-title">Simulation</h3>
+        <div className="proposal-page-container">
+          <Simluation proposalId={currentMetadata.id} />
+          <Fork proposalId={currentMetadata.id} />
         </div>
-      )}
-      {currentMetadata !== null && currentMetadata.proposer === "" && (
-        <div className="proposal-page-block">
-          <h3 className="proposal-page-title">Propose</h3>
-          <div className="proposal-page-container">
-            <ProposeButton proposal={currentProposal} />
-          </div>
+      </div>
+
+      <div className="proposal-page-block">
+        <h3 className="proposal-page-title">Propose</h3>
+        <div className="proposal-page-container">
+          <ProposeButton proposal={currentProposal} />
         </div>
-      )}
+      </div>
     </div>
   );
 };
