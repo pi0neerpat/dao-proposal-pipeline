@@ -20,8 +20,8 @@
     "stabilityFee": "1000000000472114805215157978"
   },
   "TaxReceiver": {
-    "StabilityFeeTreasury_Address": "",
-    "canTakeBackTax": false,
+    "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
+    "canTakeBackTax": true,
     "taxPercentage": "500000000000000000"
   },
   "LiquidationEngineCollateralParams": {

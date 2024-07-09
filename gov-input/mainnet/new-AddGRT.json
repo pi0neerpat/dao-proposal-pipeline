@@ -20,7 +20,7 @@
     "stabilityFee": "TBD"
   },
   "TaxReceiver": {
-    "StabilityFeeTreasury_Address": "",
+    "receiver": "",
     "canTakeBackTax": false,
     "taxPercentage": ""
   },
