@@ -10,7 +10,7 @@ contract JSONScript is Script {
   /// @dev This must be called after serializing proposal specific details
   /// @return jsonOutput the string JSON output to be written to file
   function _buildProposalParamsJSON(
-    uint256 proposalId,
+    string memory proposalId,
     string memory objectKey,
     address[] memory targets,
     uint256[] memory values,
@@ -19,7 +19,7 @@ contract JSONScript is Script {
     bytes32 descriptionHash
   ) internal returns (string memory jsonOutput) {
     _serializeCurrentJson(objectKey);
-    vm.serializeUint(objectKey, 'proposalId', proposalId);
+    vm.serializeString(objectKey, 'proposalId', proposalId);
     vm.serializeAddress(objectKey, 'targets', targets);
     vm.serializeUint(objectKey, 'values', values);
     vm.serializeBytes(objectKey, 'calldatas', calldatas);

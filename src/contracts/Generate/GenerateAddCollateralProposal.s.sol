@@ -186,16 +186,37 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     // Get the descriptionHash
     bytes32 descriptionHash = keccak256(bytes(description));
 
+    // stacc too dank
+    FileNameStrings memory fileNameStrings;
+
     // Propose the action to add the collateral type
-    uint256 proposalId = gov.hashProposal(targets, values, calldatas, descriptionHash);
-    string memory stringProposalId = vm.toString(proposalId / 10 ** 69);
+    fileNameStrings.proposalIdUint = gov.hashProposal(targets, values, calldatas, descriptionHash);
+    fileNameStrings.shortProposalId = vm.toString(fileNameStrings.proposalIdUint / 10 ** 69);
+    fileNameStrings.proposalId = vm.toString(fileNameStrings.proposalIdUint);
+
+    (fileNameStrings.year, fileNameStrings.month, fileNameStrings.day) = timestampToDate(block.timestamp);
+    fileNameStrings.formattedDate = string.concat(
+      vm.toString(fileNameStrings.month), '_', vm.toString(fileNameStrings.day), '_', vm.toString(fileNameStrings.year)
+    );
 
     {
       string memory objectKey = 'PROPOSE_ADD_COLLATERAL_KEY';
       // Build the JSON output
-      string memory builtProp =
-        _buildProposalParamsJSON(proposalId, objectKey, targets, values, calldatas, description, descriptionHash);
-      vm.writeJson(builtProp, string.concat('./gov-output/', _network, '/add-collateral-', stringProposalId, '.json'));
+      string memory builtProp = _buildProposalParamsJSON(
+        fileNameStrings.proposalId, objectKey, targets, values, calldatas, description, descriptionHash
+      );
+      vm.writeJson(
+        builtProp,
+        string.concat(
+          './gov-output/',
+          _network,
+          '/add-collateral-',
+          fileNameStrings.formattedDate,
+          '-',
+          fileNameStrings.shortProposalId,
+          '.json'
+        )
+      );
     }
   }
 
