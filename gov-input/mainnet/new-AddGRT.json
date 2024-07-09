@@ -19,6 +19,11 @@
   "TaxCollectorCollateralParams": {
     "stabilityFee": "TBD"
   },
+  "TaxReceiver": {
+    "StabilityFeeTreasury_Address": "",
+    "canTakeBackTax": false,
+    "taxPercentage": ""
+  },
   "LiquidationEngineCollateralParams": {
     "newCAHChild": "",
     "liquidationPenalty": "TBD",

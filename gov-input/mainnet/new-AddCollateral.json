@@ -19,6 +19,11 @@
   "TaxCollectorCollateralParams": {
     "stabilityFee": "1000000000000000000000000000"
   },
+  "TaxReceiver": {
+    "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
+    "canTakeBackTax": true,
+    "taxPercentage": "200000000000000000"
+  },
   "LiquidationEngineCollateralParams": {
     "newCAHChild": "0x293b702362918e990Dd5f48a80fB139FeAd64263",
     "liquidationPenalty": "1000000000000000000",
