@@ -3,7 +3,7 @@
   "description": "add secondary tax receiver for WETH",
   "network": "mainnet",
   "proposalType": "TargetsAndCalldata",
-  "ODGovernor_Address": "",
+  "ODGovernor_Address": "0xf704735CE81165261156b41D33AB18a08803B86F",
   "objectArray": [
     {
       "target": "0xc93F938A95488a03b976A15B20fAcFD52D087fB2",

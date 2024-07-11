@@ -35,6 +35,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
   address public liquidationEngine;
   address public oracleRelayer;
   address public newCAddress;
+  address public delegatee;
 
   ICollateralAuctionHouse.CollateralAuctionHouseParams internal _cahCParams;
   ISAFEEngine.SAFEEngineCollateralParams internal _SAFEEngineCollateralParams;
@@ -97,6 +98,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     taxCollector = json.readAddress(string(abi.encodePacked('.TaxCollector_Address:')));
     liquidationEngine = json.readAddress(string(abi.encodePacked('.LiquidationEngine_Address:')));
     oracleRelayer = json.readAddress(string(abi.encodePacked('.OracleRelayer_Address:')));
+    delegatee = json.readAddress(string(abi.encodePacked('.Delegatee')));
 
     _cahCParams.minimumBid = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minimumBid')));
     _cahCParams.minDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minDiscount')));
@@ -158,9 +160,13 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     // Get calldata for:
 
     bytes[] memory calldatas = new bytes[](7);
-
-    calldatas[0] = abi.encodeWithSelector(ICollateralJoinFactory.deployCollateralJoin.selector, newCType, newCAddress);
-
+    if (delegatee != address(0)) {
+      calldatas[0] = abi.encodeWithSelector(
+        ICollateralJoinFactory.deployDelegatableCollateralJoin.selector, newCType, newCAddress, delegatee
+      );
+    } else {
+      calldatas[0] = abi.encodeWithSelector(ICollateralJoinFactory.deployCollateralJoin.selector, newCType, newCAddress);
+    }
     calldatas[1] = abi.encodeWithSelector(
       IModifiablePerCollateral.initializeCollateralType.selector, newCType, abi.encode(_cahCParams)
     );
