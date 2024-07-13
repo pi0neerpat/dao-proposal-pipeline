@@ -48,9 +48,9 @@ contract JSONScript is Script {
     descriptionHash = vm.parseJsonBytes32(jsonFile, '.descriptionHash');
   }
 
-  /// @notice Parses the params required for execution from a json file
-  /// @return proposalId the proposal to execute json output file
-  function _parseProposalId(string memory jsonFile) internal pure returns (uint256 proposalId) {
-    proposalId = vm.parseJsonUint(jsonFile, '.proposalId');
-  }
+  // /// @notice Parses the params required for execution from a json file
+  // /// @return proposalId the proposal to execute json output file
+  // function _parseProposalId(string memory jsonFile) internal pure returns (uint256 proposalId) {
+  //   proposalId = vm.parseJsonUint(jsonFile, '.proposalId');
+  // }
 }

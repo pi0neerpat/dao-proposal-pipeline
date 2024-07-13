@@ -23,7 +23,7 @@
   "TaxReceiver": {
     "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
     "canTakeBackTax": true,
-    "taxPercentage": "200000000000000000"
+    "taxPercentage": "500000000000000000"
   },
   "LiquidationEngineCollateralParams": {
     "newCAHChild": "0xb043A91C26b79620aaa06C02Ddcd78F3649b27CF",
@@ -40,5 +40,6 @@
     "minimumBid": "2",
     "minDiscount": "3",
     "perSecondDiscountUpdateRate": "999998607628240538157433861"
-  }
+  },
+  "proposalId": ""
 }
