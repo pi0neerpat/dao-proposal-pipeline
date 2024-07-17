@@ -20,7 +20,7 @@
     "stabilityFee": "1000000000000000000000000000"
   },
   "LiquidationEngineCollateralParams": {
-    "newCAHChild": "0x293b702362918e990Dd5f48a80fB139FeAd64263",
+    "newCAHChild": "",
     "liquidationPenalty": "1000000000000000000",
     "liquidationQuantity": "1000000000000000000000000000000000000000000000"
   },
