@@ -35,10 +35,12 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
   address public liquidationEngine;
   address public oracleRelayer;
   address public newCAddress;
+  address public delegatee;
 
   ICollateralAuctionHouse.CollateralAuctionHouseParams internal _cahCParams;
   ISAFEEngine.SAFEEngineCollateralParams internal _SAFEEngineCollateralParams;
   ITaxCollector.TaxCollectorCollateralParams internal _taxCollectorCParams;
+  ITaxCollector.TaxReceiver internal _taxReceiver;
   ILiquidationEngine.LiquidationEngineCollateralParams internal _liquidationEngineCParams;
   IOracleRelayer.OracleRelayerCollateralParams internal _oracleCParams;
 
@@ -52,6 +54,15 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
   //     struct TaxCollectorCollateralParams {
   //      Per collateral stability fee
   //        uint256 /* RAY */ stabilityFee;
+  // }
+
+  //   struct TaxReceiver {
+  //   // the secondary tax receiver.  normally the StabilityFeeTreasury
+  //   address receiver;
+  //   // Whether this receiver can accept a negative rate (taking SF from it)
+  //   bool /* bool    */ canTakeBackTax;
+  //   // Percentage of SF allocated to this receiver
+  //   uint256 /* WAD % */ taxPercentage;
   // }
 
   //   struct LiquidationEngineCollateralParams {
@@ -87,6 +98,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     taxCollector = json.readAddress(string(abi.encodePacked('.TaxCollector_Address:')));
     liquidationEngine = json.readAddress(string(abi.encodePacked('.LiquidationEngine_Address:')));
     oracleRelayer = json.readAddress(string(abi.encodePacked('.OracleRelayer_Address:')));
+    delegatee = json.readAddress(string(abi.encodePacked('.Delegatee')));
 
     _cahCParams.minimumBid = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minimumBid')));
     _cahCParams.minDiscount = json.readUint(string(abi.encodePacked('.CollateralAuctionHouseParams.minDiscount')));
@@ -101,6 +113,10 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
 
     _taxCollectorCParams.stabilityFee =
       json.readUint(string(abi.encodePacked('.TaxCollectorCollateralParams.stabilityFee')));
+
+    _taxReceiver.receiver = json.readAddress(string(abi.encodePacked('.TaxReceiver.receiver')));
+    _taxReceiver.canTakeBackTax = json.readBool(string(abi.encodePacked('.TaxReceiver.canTakeBackTax')));
+    _taxReceiver.taxPercentage = json.readUint(string(abi.encodePacked('.TaxReceiver.taxPercentage')));
 
     _liquidationEngineCParams.collateralAuctionHouse =
       json.readAddress(string(abi.encodePacked('.LiquidationEngineCollateralParams.newCAHChild')));
@@ -120,7 +136,7 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     ODGovernor gov = ODGovernor(payable(governanceAddress));
     IGlobalSettlement globalSettlement = IGlobalSettlement(globalSettlementAddress);
 
-    address[] memory targets = new address[](6);
+    address[] memory targets = new address[](7);
     {
       targets[0] = address(globalSettlement.collateralJoinFactory());
       targets[1] = address(globalSettlement.collateralAuctionHouseFactory());
@@ -128,9 +144,10 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
       targets[3] = taxCollector;
       targets[4] = liquidationEngine;
       targets[5] = oracleRelayer;
+      targets[6] = taxCollector;
     }
     // No values needed
-    uint256[] memory values = new uint256[](6);
+    uint256[] memory values = new uint256[](7);
     {
       values[0] = 0;
       values[1] = 0;
@@ -138,13 +155,18 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
       values[3] = 0;
       values[4] = 0;
       values[5] = 0;
+      values[6] = 0;
     }
     // Get calldata for:
 
-    bytes[] memory calldatas = new bytes[](6);
-
-    calldatas[0] = abi.encodeWithSelector(ICollateralJoinFactory.deployCollateralJoin.selector, newCType, newCAddress);
-
+    bytes[] memory calldatas = new bytes[](7);
+    if (delegatee != address(0)) {
+      calldatas[0] = abi.encodeWithSelector(
+        ICollateralJoinFactory.deployDelegatableCollateralJoin.selector, newCType, newCAddress, delegatee
+      );
+    } else {
+      calldatas[0] = abi.encodeWithSelector(ICollateralJoinFactory.deployCollateralJoin.selector, newCType, newCAddress);
+    }
     calldatas[1] = abi.encodeWithSelector(
       IModifiablePerCollateral.initializeCollateralType.selector, newCType, abi.encode(_cahCParams)
     );
@@ -160,20 +182,47 @@ contract GenerateAddCollateralProposal is Generator, JSONScript {
     calldatas[5] = abi.encodeWithSelector(
       IModifiablePerCollateral.initializeCollateralType.selector, newCType, abi.encode(_oracleCParams)
     );
+    calldatas[6] = abi.encodeWithSelector(
+      IModifiablePerCollateral.modifyParameters.selector,
+      newCType,
+      bytes32(abi.encodePacked('secondaryTaxReceiver')),
+      abi.encode(_taxReceiver)
+    );
 
     // Get the descriptionHash
     bytes32 descriptionHash = keccak256(bytes(description));
 
+    // stacc too dank
+    FileNameStrings memory fileNameStrings;
+
     // Propose the action to add the collateral type
-    uint256 proposalId = gov.hashProposal(targets, values, calldatas, descriptionHash);
-    string memory stringProposalId = vm.toString(proposalId / 10 ** 69);
+    fileNameStrings.proposalIdUint = gov.hashProposal(targets, values, calldatas, descriptionHash);
+    fileNameStrings.shortProposalId = vm.toString(fileNameStrings.proposalIdUint / 10 ** 69);
+    fileNameStrings.proposalId = vm.toString(fileNameStrings.proposalIdUint);
+
+    (fileNameStrings.year, fileNameStrings.month, fileNameStrings.day) = timestampToDate(block.timestamp);
+    fileNameStrings.formattedDate = string.concat(
+      vm.toString(fileNameStrings.month), '_', vm.toString(fileNameStrings.day), '_', vm.toString(fileNameStrings.year)
+    );
 
     {
       string memory objectKey = 'PROPOSE_ADD_COLLATERAL_KEY';
       // Build the JSON output
-      string memory builtProp =
-        _buildProposalParamsJSON(proposalId, objectKey, targets, values, calldatas, description, descriptionHash);
-      vm.writeJson(builtProp, string.concat('./gov-output/', _network, '/add-collateral-', stringProposalId, '.json'));
+      string memory builtProp = _buildProposalParamsJSON(
+        fileNameStrings.proposalId, objectKey, targets, values, calldatas, description, descriptionHash
+      );
+      vm.writeJson(
+        builtProp,
+        string.concat(
+          './gov-output/',
+          _network,
+          '/add-collateral-',
+          fileNameStrings.formattedDate,
+          '-',
+          fileNameStrings.shortProposalId,
+          '.json'
+        )
+      );
     }
   }
 

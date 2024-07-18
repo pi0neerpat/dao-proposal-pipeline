@@ -72,8 +72,7 @@ function generateProposal() {
   echo "$COMMAND_PATH"
   CALLDATA=$(cast calldata "run(string)" $CAST_PATH)
   forge script $COMMAND_PATH -s $CALLDATA --fork-url $ARB_MAINNET_RPC --unlocked 0x7a528ea3e06d85ed1c22219471cf0b1851943903
-  # simulate $COMMAND_PATH $CALLDATA $RPC_ENDPOINT $PRIVATE_KEY
-
+  echo "$(node tasks/parseProposalOutputs.js $NETWORK)"
 }
 
 function delegate() {
