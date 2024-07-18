@@ -1,0 +1,15 @@
+{
+  "chainid": 42161,
+  "description": "Enable the redemption rate controller mechanism",
+  "network": "mainnet",
+  "proposalType": "ModifyParameters",
+  "objectArray": [
+    {
+      "target": "0x7404fc1F3796748FAE17011b57Fad9713185c1d6",
+      "param": "systemCoinOracle",
+      "type": "address",
+      "data": "0x4617Feb8B72167c3b8253a1327CddE44e54670Ce"
+    }
+  ],
+  "arrayLength": "1"
+}

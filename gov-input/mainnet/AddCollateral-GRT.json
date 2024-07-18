@@ -1,0 +1,31 @@
+{
+  "chainid": "42161",
+  "description": "New vault type - GRT",
+  "network": "mainnet",
+  "newCollateralAddress": "0x9623063377ad1b27544c965ccd7342f7ea7e88c7",
+  "newCollateralType": "GRT",
+  "proposalType": "AddCollateral",
+  "SAFEEngineCollateralParams": {
+    "collateralDebtCeiling": "100000000000000000000000000000000000000000000000000",
+    "collateralDebtFloor": "200000000000000000000000000000000000000000000000"
+  },
+  "TaxCollectorCollateralParams": {
+    "stabilityFee": "1000000001547125957863212448"
+  },
+  "LiquidationEngineCollateralParams": {
+    "newCAHChild": "",
+    "liquidationPenalty": "15000000000000000000",
+    "liquidationQuantity": "50000000000000000000000000000000000000000000000000"
+  },
+  "OracleRelayerCollateralParams": {
+    "delayedOracle": "0x6DD333e5Ec2381768007b8D27Ce5EA6887EecF4f",
+    "safetyCRatio": "2000000000000000000000000000",
+    "liquidationCRatio": "1900000000000000000000000000"
+  },
+  "CollateralAuctionHouseParams": {
+    "maxDiscount": "1500000000000000000",
+    "minimumBid": "100000000000000000000",
+    "minDiscount": "1000000000000000000",
+    "perSecondDiscountUpdateRate": "999985752120000000000000000"
+  }
+}
