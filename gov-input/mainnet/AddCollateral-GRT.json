@@ -5,15 +5,28 @@
   "newCollateralAddress": "0x9623063377ad1b27544c965ccd7342f7ea7e88c7",
   "newCollateralType": "GRT",
   "proposalType": "AddCollateral",
+  "ProtocolToken_Address": "",
+  "ODGovernor_Address": "",
+  "SAFEEngine_Address": "",
+  "OracleRelayer_Address": "",
+  "LiquidationEngine_Address": "",
+  "TaxCollector_Address": "",
+  "GlobalSettlement_Address": "",
+  "Delegatee": "0x0000000000000000000000000000000000000000",
   "SAFEEngineCollateralParams": {
     "collateralDebtCeiling": "100000000000000000000000000000000000000000000000000",
     "collateralDebtFloor": "200000000000000000000000000000000000000000000000"
+  },
+  "TaxReceiver": {
+    "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
+    "canTakeBackTax": true,
+    "taxPercentage": "50000000000000000000"
   },
   "TaxCollectorCollateralParams": {
     "stabilityFee": "1000000001547125957863212448"
   },
   "LiquidationEngineCollateralParams": {
-    "newCAHChild": "",
+    "newCAHChild": "0xb043A91C26b79620aaa06C02Ddcd78F3649b27CF",
     "liquidationPenalty": "15000000000000000000",
     "liquidationQuantity": "50000000000000000000000000000000000000000000000000"
   },
