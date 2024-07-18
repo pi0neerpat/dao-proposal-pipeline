@@ -13,14 +13,15 @@
   "TaxCollector_Address": "",
   "GlobalSettlement_Address": "",
   "Delegatee": "0x0000000000000000000000000000000000000000",
+  "CollateralAuctionHouseParams": {
+    "minimumBid": "100000000000000000000",
+    "minDiscount": "1000000000000000000",
+    "maxDiscount": "1500000000000000000",
+    "perSecondDiscountUpdateRate": "999985752120000000000000000"
+  },
   "SAFEEngineCollateralParams": {
     "collateralDebtCeiling": "100000000000000000000000000000000000000000000000000",
     "collateralDebtFloor": "200000000000000000000000000000000000000000000000"
-  },
-  "TaxReceiver": {
-    "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
-    "canTakeBackTax": true,
-    "taxPercentage": "50000000000000000000"
   },
   "TaxCollectorCollateralParams": {
     "stabilityFee": "1000000001547125957863212448"
@@ -35,10 +36,9 @@
     "safetyCRatio": "2000000000000000000000000000",
     "liquidationCRatio": "1900000000000000000000000000"
   },
-  "CollateralAuctionHouseParams": {
-    "maxDiscount": "1500000000000000000",
-    "minimumBid": "100000000000000000000",
-    "minDiscount": "1000000000000000000",
-    "perSecondDiscountUpdateRate": "999985752120000000000000000"
+  "TaxReceiver": {
+    "receiver": "0x9C86C719Aa29D426C50Ee3BAEd40008D292b02CF",
+    "canTakeBackTax": true,
+    "taxPercentage": "500000000000000000"
   }
 }
