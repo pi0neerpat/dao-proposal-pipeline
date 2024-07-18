@@ -43,7 +43,7 @@
   "network": "mainnet",
   "newCollateralAddress": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
   "newCollateralType": "WETH",
-  "proposalId": 97290491579890362738323444422626923608004417491310716055050700511259453325225,
+  "proposalId": "97290491579890362738323444422626923608004417491310716055050700511259453325225",
   "proposalType": "AddCollateral",
   "targets": [
     "0xa83c0f1e9eD8E383919Dde0fC90744ae370EB7B3",
@@ -53,12 +53,5 @@
     "0x17e546dDCE2EA8A74Bd667269457A2e80b309965",
     "0x7404fc1F3796748FAE17011b57Fad9713185c1d6"
   ],
-  "values": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]
+  "values": [0, 0, 0, 0, 0, 0]
 }
