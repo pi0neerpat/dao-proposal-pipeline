@@ -88,7 +88,6 @@ const makeSimulationPublic = async (id: string) => {
 
 const simulate = async (proposal: ProposalType) => {
   try {
-    console.log(proposal);
     let transactions = [];
     for (let i = 0; i < proposal.targets.length; i++) {
       transactions.push({

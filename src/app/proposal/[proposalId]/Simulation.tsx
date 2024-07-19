@@ -14,7 +14,6 @@ const Simulation = ({ proposalId }: { proposalId: string }) => {
     try {
       const response = await fetch(`/api/simulate?id=${proposalId}`);
       const data = await response.json();
-      console.log(data);
       if (data.simulations) setSimulations(data.simulations);
       else setError(data.message);
     } catch (error) {

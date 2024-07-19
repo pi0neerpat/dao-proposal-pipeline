@@ -80,8 +80,6 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
     };
   }, []);
 
-  console.log(userVotes, proposalThreshold);
-
   const Status = () => (
     <div className="balances">
       {address === null ||
