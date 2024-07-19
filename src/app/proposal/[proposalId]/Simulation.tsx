@@ -5,14 +5,19 @@ import Image from "next/image";
 const Simulation = ({ proposalId }: { proposalId: string }) => {
   const [loading, setLoading] = useState(false);
   const [urls, setUrls] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSimulation = async () => {
     setLoading(true);
+    setError(null);
+
     try {
       const response = await fetch(`/api/simulate?id=${proposalId}`);
       const data = await response.json();
-      setUrls(data.simulations);
+      if (data.simulation) setUrls(data.simulations);
+      else setError(data.message);
     } catch (error) {
+      setError(`${error}`);
       console.error("Error occurred during simulation:", error);
     } finally {
       setLoading(false);
@@ -24,6 +29,7 @@ const Simulation = ({ proposalId }: { proposalId: string }) => {
       <button onClick={handleSimulation} disabled={loading}>
         {loading ? "Loading..." : "Simulate"}
       </button>
+      {error && <p>{error}</p>}
       {urls?.length > 0 && (
         <ul>
           {urls.map((url, index) => (
