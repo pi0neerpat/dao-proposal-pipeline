@@ -40,8 +40,8 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
   >(null);
   const [signer, setSigner] = useState<Signer | null>(null);
   const [odGovernor, setOdGovernor] = useState<ODGovernorType | null>(null);
-  const [userVotes, setUserVotes] = useState<string | null>(null);
-  const [proposalThreshold, setProposalThreshold] = useState<string | null>(
+  const [userVotes, setUserVotes] = useState<Number | null>(null);
+  const [proposalThreshold, setProposalThreshold] = useState<Number | null>(
     null
   );
 
@@ -74,7 +74,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
         proposalThreshold.toString(),
         18
       );
-      setProposalThreshold(proposalThresholdFormatted);
+      setProposalThreshold(Number(proposalThresholdFormatted));
 
       if (signer) {
         // get user votes
@@ -86,7 +86,9 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
         const userVotes: string = await protocolToken.getVotes(
           await signer.getAddress()
         );
-        setUserVotes(userVotes.toString());
+        const parsedUserVotes = ethers.utils.formatUnits(userVotes, 18);
+
+        setUserVotes(Number(parsedUserVotes));
         setSigner(signer);
       }
     } catch (error) {

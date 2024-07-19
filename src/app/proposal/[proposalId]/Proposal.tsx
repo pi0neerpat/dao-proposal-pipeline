@@ -246,7 +246,9 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
       <div className="proposal-page-block">
         <h3 className="proposal-page-title">Simulate</h3>
         <div className="proposal-page-container">
+          Simulate the proposal passing using Tenderly.
           <Simluation proposalId={currentMetadata.id} />
+          Fork Arbitrum and execute the proposal to get a virtual testnet RPC.
           <Fork proposalId={currentMetadata.id} />
         </div>
       </div>

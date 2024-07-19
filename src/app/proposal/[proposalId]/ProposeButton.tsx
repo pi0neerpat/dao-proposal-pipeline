@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useEtherProviderContext } from '@/app/contexts/ProviderContext';
-import type ODGovernorType from '@/app/types/ODGovernorType';
-import { type Signer } from 'ethers';
-import Loading from '@/app/components/Loading';
+import React, { useState, useEffect, useRef } from "react";
+import { useEtherProviderContext } from "@/app/contexts/ProviderContext";
+import type ODGovernorType from "@/app/types/ODGovernorType";
+import { type Signer } from "ethers";
+import Loading from "@/app/components/Loading";
 
 const ProposeButton: React.FC<any> = ({ proposal }) => {
   const {
@@ -27,7 +27,7 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
     if (odGovernor !== null) {
       setTxWaiting(true);
       try {
-        const proposeSignature = 'propose(address[],uint256[],bytes[],string)';
+        const proposeSignature = "propose(address[],uint256[],bytes[],string)";
         const tx = await odGovernor
           ?.connect(signer)
           [proposeSignature](
@@ -39,7 +39,7 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
         await tx.wait();
         setTxSuccess(tx.hash.toString() as string);
       } catch (error: any) {
-        console.error('Error: ' + error);
+        console.error("Error: " + error);
         setTxError(error.reason.toString() as string);
       } finally {
         setTxWaiting(false);
@@ -74,19 +74,45 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
     }
   };
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  console.log(userVotes, proposalThreshold);
+
+  const Status = () => (
+    <div className="balances">
+      {address === null ||
+      provider === null ||
+      address === undefined ||
+      provider === undefined ? (
+        <div>No Web3 Connection</div>
+      ) : userVotes === null || proposalThreshold === null ? (
+        <Loading />
+      ) : (
+        address !== "" &&
+        userVotes !== null &&
+        proposalThreshold !== null && (
+          <div>
+            {userVotes > proposalThreshold
+              ? "You have enough voting power!"
+              : "You do NOT have enough voting power."}
+
+            {` You have ${userVotes.toFixed(0)} votes.`}
+          </div>
+        )
+      )}
+    </div>
+  );
+
   return (
     <div className="propose-container">
-      <div className="disclaimer">
-        When making a proposal, your voting power must remain above the
-        threshold until the vote is passed and queued for execution, otherwise
-        the proposal may be canceled.
-      </div>
+      Voting power must remain above the minimum proposal threshold until the
+      vote is passed and queued.
+      <br /> <i>Minimum proposal threshold: {proposalThreshold?.toFixed(0)}</i>
+      <Status />
       <div className="button-and-balance">
         <div className="button-container">
           {userVotes !== null &&
@@ -107,33 +133,6 @@ const ProposeButton: React.FC<any> = ({ proposal }) => {
             >
               Propose
             </button>
-          )}
-        </div>
-        <div className="balances">
-          {address === null ||
-          provider === null ||
-          address === undefined ||
-          provider === undefined ? (
-            <div>No Web3 Connection</div>
-          ) : userVotes === null || proposalThreshold === null ? (
-            <Loading />
-          ) : address !== '' &&
-            userVotes !== null &&
-            proposalThreshold !== null &&
-            userVotes > proposalThreshold ? (
-            <div>
-              {`${address?.slice(
-                0,
-                6
-              )}... Has ${userVotes} Votes (${proposalThreshold} Votes Required to Propose)`}
-            </div>
-          ) : (
-            <div>
-              {`You Do NOT Have Enough Votes to Propose. (${address?.slice(
-                0,
-                6
-              )}... Has ${userVotes} Votes, Need at Least ${proposalThreshold})`}
-            </div>
           )}
         </div>
       </div>
