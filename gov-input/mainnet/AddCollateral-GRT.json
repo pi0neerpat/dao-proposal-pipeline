@@ -16,7 +16,7 @@
   "CollateralAuctionHouseParams": {
     "minimumBid": "100000000000000000000",
     "minDiscount": "1000000000000000000",
-    "maxDiscount": "1500000000000000000",
+    "maxDiscount": "850000000000000000",
     "perSecondDiscountUpdateRate": "999985752120000000000000000"
   },
   "SAFEEngineCollateralParams": {
