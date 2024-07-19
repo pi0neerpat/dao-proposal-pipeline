@@ -10,7 +10,6 @@ function decodeArguments(callData: DecodedCallData): any[] {
     const arg = args[i];
     const inputType = inputs[i].type;
     let decodedArg;
-    // brute force handle different data types
     if (inputType.startsWith("uint") || inputType.startsWith("int")) {
       decodedArg = ethers.BigNumber.from(arg).toString();
     } else if (inputType === "address") {
@@ -18,7 +17,7 @@ function decodeArguments(callData: DecodedCallData): any[] {
     } else if (inputType === "bool") {
       decodedArg = ethers.utils.hexValue(arg as BytesLike) === "0x01";
     } else if (inputType === "bytes") {
-      decodedArg = arg;
+      decodedArg = arg.split("0x")[1]?.match(/.{1,64}/g);
     } else if (inputType === "bytes32") {
       decodedArg = ethers.utils.parseBytes32String(arg as BytesLike);
     } else if (inputType.startsWith("string")) {

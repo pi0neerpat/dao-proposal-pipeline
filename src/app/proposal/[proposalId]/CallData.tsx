@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import type DecodedCallData from '@/app/types/DecodedCallDataType';
-import decodeArguments from '@/app/lib/decodeArguments';
-import { type ProposalType } from '@/app/types/proposal';
-import Link from 'next/link';
-import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+import type DecodedCallData from "@/app/types/DecodedCallDataType";
+import decodeArguments from "@/app/lib/decodeArguments";
+import { type ProposalType } from "@/app/types/proposal";
+import Link from "next/link";
+import Image from "next/image";
 
 type Item = Record<string, string | number>;
 
@@ -24,6 +24,22 @@ const CallData: React.FC<CallDataProps> = ({
   useEffect(() => {
     calldata && setDecodedArgs(decodeArguments(calldata));
   }, [calldata]);
+
+  const methodId = currentProposal.calldatas[index].slice(0, 10);
+  const args = currentProposal.calldatas[index].slice(10)?.match(/.{1,64}/g);
+  const formattedCallData = (
+    <p>
+      MethodID: {methodId}
+      <br />
+      {args?.map((arg, i) => (
+        <>
+          {`[${i}]: ${arg}`}
+          <br />
+        </>
+      ))}
+    </p>
+  );
+
   return (
     <div className="call-data-container" key={index}>
       <div className="proposal-page-function-title">
@@ -42,7 +58,7 @@ const CallData: React.FC<CallDataProps> = ({
           >
             {currentProposal.targets[index].toString()}
             <Image
-              src={'/external-link.svg'}
+              src={"/external-link.svg"}
               alt="link"
               width={20}
               height={20}
@@ -61,7 +77,7 @@ const CallData: React.FC<CallDataProps> = ({
       <div className="proposal-page-item">
         <div className="proposal-page-label">Raw Call Data</div>
         <div className="proposal-page-value call-data-raw-value">
-          {currentProposal.calldatas[index].toString()}
+          {formattedCallData}
         </div>
       </div>
 
@@ -82,17 +98,19 @@ const CallData: React.FC<CallDataProps> = ({
                         {decodedArgs[inputIndex].map(
                           (item: ArrayItem, arrayIndex: number) => (
                             <div key={arrayIndex}>
-                              {typeof item === 'object'
+                              {typeof item === "object"
                                 ? Object.keys(item)
                                     .map((key) => `${key}: ${item[key]}`)
-                                    .join(', ')
+                                    .join(", ")
                                 : ` ${item as string} `}
                             </div>
                           )
                         )}
                       </div>
                     ) : (
-                      <div>{decodedArgs[inputIndex]}</div>
+                      <div className="call-data-input-value-array">
+                        {decodedArgs[inputIndex]}
+                      </div>
                     )}
                   </div>
                 </div>

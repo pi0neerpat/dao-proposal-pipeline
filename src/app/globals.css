@@ -384,6 +384,7 @@ ol {
 }
 
 .proposal-page-value {
+  font-family: monospace;
   word-break: break-all;
   margin:3px 0 0 22px;
 }
@@ -470,6 +471,8 @@ ol {
 }
 
 .call-data-link {
+  font-family: monospace;
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -477,6 +480,7 @@ ol {
 }
 
 .call-data-row-one {
+  
   display: grid;
   grid-template-columns: 60% 40%;
   gap: var(--gap);
@@ -517,15 +521,20 @@ ol {
   gap: var(--gap);
   justify-content: left;
   align-items: center;
+  
 }
 
 .targets-and-values-row {
+  
   display: grid;
   grid-template-columns: 50% 50%;
   justify-content: center;
   gap: var(--gap);
 }
 
+.call-data-input-value-array{ 
+    font-family: monospace;
+}
 .call-data-input-value > div {
   display: flex;
   flex-wrap: wrap;
@@ -548,23 +557,16 @@ ol {
   align-items: center;
   gap: var(--gap);
   transition: var(--transiton-settings);
+  
 }
 .target-link:hover {
   transform: var(--transition-transform-light);
   filter: var(--transition-filter);
 }
 
-.call-data-raw {
-  display: grid;
-}
-
 .call-data-raw-value {
-  display: flex;
-  flex-wrap: wrap;
-  word-wrap: break-word;
-  word-break: break-all;
+  font-family: monospace;
 }
-
 
 .external-link-svg {
   display: grid;

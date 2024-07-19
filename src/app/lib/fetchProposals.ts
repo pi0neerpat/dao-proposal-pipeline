@@ -18,7 +18,6 @@ export const fetchProposals = async (): Promise<any> => {
   for (let i = 0; i < proposalNames.length; i++) {
     const response = await fetch(proposalNames[i].download_url as string);
     const proposalData: ProposalType = await response.json();
-    console.log(proposalData);
     proposalData.slug = proposalNames[i].name.split(".")[0];
     proposals.push(proposalData);
   }
