@@ -1,18 +1,18 @@
-'use client';
-import React from 'react';
-import Link from 'next/link';
-import { useProposalContext } from '@/app/contexts/ProposalsContext';
-import Table from '../Table';
-import { Tooltip } from 'react-tooltip'
+"use client";
+import React from "react";
+import Link from "next/link";
+import { useProposalContext } from "@/app/contexts/ProposalsContext";
+import Table from "../Table";
+import { Tooltip } from "react-tooltip";
 
 const Proposals: React.FC = () => {
   const { proposals } = useProposalContext();
 
   const submittedProposals = proposals.filter(
-    (proposal) => proposal.proposer !== ''
+    (proposal) => proposal.proposer !== ""
   );
   const pendingProposals = proposals.filter(
-    (proposal) => proposal.proposer === ''
+    (proposal) => proposal.proposer === ""
   );
 
   return (
@@ -23,7 +23,7 @@ const Proposals: React.FC = () => {
         </span>
         <Link
           href={
-            'https://github.com/open-dollar/od-contracts/tree/dev/gov-output/mainnet'
+            "https://github.com/open-dollar/od-governance-manager/tree/main/gov-output/mainnet"
           }
           target="_blank"
           className="proposal-link"
