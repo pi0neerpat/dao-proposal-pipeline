@@ -43,11 +43,11 @@ const CallData: React.FC<CallDataProps> = ({
   return (
     <div className="call-data-container" key={index}>
       <div className="proposal-page-function-title">
-        {calldata ? `${index + 1}. ${calldata.name}` : `${index + 1}`}
+        Step {index + 1}. {calldata?.name}
       </div>
 
       <div className="proposal-page-item">
-        <div className="proposal-page-label">Target</div>
+        <div className="proposal-page-label">Target:</div>
         <div className="proposal-page-value call-data-link">
           <Link
             href={`https://arbiscan.io/address/${currentProposal.targets[
@@ -68,14 +68,14 @@ const CallData: React.FC<CallDataProps> = ({
       </div>
 
       <div className="proposal-page-item">
-        <div className="proposal-page-label">Value</div>
+        <div className="proposal-page-label">Value:</div>
         <div className="proposal-page-value">
           {currentProposal.values[index]}
         </div>
       </div>
 
       <div className="proposal-page-item">
-        <div className="proposal-page-label">Raw Call Data</div>
+        <div className="proposal-page-label">Raw Calldata: </div>
         <div className="proposal-page-value call-data-raw-value">
           {formattedCallData}
         </div>
@@ -83,18 +83,16 @@ const CallData: React.FC<CallDataProps> = ({
 
       {calldata && (
         <div className="proposal-page-item">
-          <div className="proposal-page-label">Inputs</div>
+          <div className="proposal-page-label">Decoded Calldata: </div>
           <div className="proposal-page-value">
             {calldata.functionFragment.inputs.length > 0 &&
               decodedArgs.length > 0 &&
               calldata.functionFragment.inputs.map((input, inputIndex) => (
-                <div key={inputIndex} className="input-line">
-                  <p>
-                    <strong>{input.name}: </strong>
-                  </p>
-                  <div className="call-data-input-value">
+                <div key={inputIndex} className="call-data-input-value">
+                  {input.name}:{" "}
+                  <>
                     {Array.isArray(decodedArgs[inputIndex]) ? (
-                      <div className="call-data-input-value-array">
+                      <div>
                         {decodedArgs[inputIndex].map(
                           (item: ArrayItem, arrayIndex: number) => (
                             <div key={arrayIndex}>
@@ -108,11 +106,9 @@ const CallData: React.FC<CallDataProps> = ({
                         )}
                       </div>
                     ) : (
-                      <div className="call-data-input-value-array">
-                        {decodedArgs[inputIndex]}
-                      </div>
+                      <div>{decodedArgs[inputIndex]}</div>
                     )}
-                  </div>
+                  </>
                 </div>
               ))}
           </div>

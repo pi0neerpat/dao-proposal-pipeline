@@ -17,7 +17,10 @@ function decodeArguments(callData: DecodedCallData): any[] {
     } else if (inputType === "bool") {
       decodedArg = ethers.utils.hexValue(arg as BytesLike) === "0x01";
     } else if (inputType === "bytes") {
-      decodedArg = arg.split("0x")[1]?.match(/.{1,64}/g);
+      decodedArg = arg
+        .split("0x")[1]
+        ?.match(/.{1,64}/g)
+        ?.map((str, i) => `[${i}]: ${str}`);
     } else if (inputType === "bytes32") {
       decodedArg = ethers.utils.parseBytes32String(arg as BytesLike);
     } else if (inputType.startsWith("string")) {

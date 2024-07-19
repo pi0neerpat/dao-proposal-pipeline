@@ -127,7 +127,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
     <div className="proposal-page container">
       <div className="proposal-page-block-row">
         <div className="proposal-page-block">
-          <h3 className="proposal-page-title">Proposal Details</h3>
+          <h3 className="proposal-page-title">Overview</h3>
           <div className="proposal-page-container">
             <div className="proposal-page-item">
               <div className="proposal-page-label">Description</div>
@@ -225,28 +225,26 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
         )}
       </div>
       <div className="proposal-page-block">
-        <h3 className="proposal-page-title">Calldata</h3>
-        <div className="proposal-page-container">
-          <ul className="call-data-list">
-            {currentProposal !== null &&
-              currentProposal?.calldatas.length > 0 &&
-              decodedCallData !== null &&
-              decodedCallData.length > 0 &&
-              decodedCallData.map((calldata, index) => (
-                <li className="call-data" key={index}>
-                  <CallData
-                    calldata={calldata}
-                    index={index}
-                    currentProposal={currentProposal}
-                  />
-                </li>
-              ))}
-          </ul>
-        </div>
+        <h3 className="proposal-page-title">Execution</h3>
+        <ul className="call-data-list">
+          {currentProposal !== null &&
+            currentProposal?.calldatas.length > 0 &&
+            decodedCallData !== null &&
+            decodedCallData.length > 0 &&
+            decodedCallData.map((calldata, index) => (
+              <li className="call-data" key={index}>
+                <CallData
+                  calldata={calldata}
+                  index={index}
+                  currentProposal={currentProposal}
+                />
+              </li>
+            ))}
+        </ul>
       </div>
 
       <div className="proposal-page-block">
-        <h3 className="proposal-page-title">Simulation</h3>
+        <h3 className="proposal-page-title">Simulate</h3>
         <div className="proposal-page-container">
           <Simluation proposalId={currentMetadata.id} />
           <Fork proposalId={currentMetadata.id} />
