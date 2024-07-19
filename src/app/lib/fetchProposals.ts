@@ -1,9 +1,13 @@
 import { type ProposalType } from "../types/proposal";
 
 // this script fetches proposal data from github
-const fetchProposalNames = async (): Promise<any> => {
+const fetchProposalNames = async (noCache: boolean): Promise<any> => {
+  let headers = noCache ? { "cache-Control": "no-cache" } : {}; // Server side must be no-cache, otherwise Github will return old data!
   const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet?ref=main"
+    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet?ref=main",
+    {
+      headers,
+    }
   );
   const data = await response.json();
   return data.map((file: any) => ({
@@ -12,8 +16,8 @@ const fetchProposalNames = async (): Promise<any> => {
   }));
 };
 
-export const fetchProposals = async (): Promise<any> => {
-  const proposalNames = await fetchProposalNames();
+export const fetchProposals = async (noCache: boolean): Promise<any> => {
+  const proposalNames = await fetchProposalNames(noCache);
   const proposals: ProposalType[] = [];
   for (let i = 0; i < proposalNames.length; i++) {
     const response = await fetch(proposalNames[i].download_url as string);

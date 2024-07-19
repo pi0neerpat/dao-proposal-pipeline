@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const Simulation = ({ proposalId }: { proposalId: string }) => {
   const [loading, setLoading] = useState(false);
-  const [urls, setUrls] = useState<string[]>([]);
+  const [simulations, setSimulations] = useState<any[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const handleSimulation = async () => {
@@ -14,7 +14,8 @@ const Simulation = ({ proposalId }: { proposalId: string }) => {
     try {
       const response = await fetch(`/api/simulate?id=${proposalId}`);
       const data = await response.json();
-      if (data.simulation) setUrls(data.simulations);
+      console.log(data);
+      if (data.simulations) setSimulations(data.simulations);
       else setError(data.message);
     } catch (error) {
       setError(`${error}`);
@@ -26,16 +27,25 @@ const Simulation = ({ proposalId }: { proposalId: string }) => {
 
   return (
     <div>
-      <button onClick={handleSimulation} disabled={loading}>
-        {loading ? "Loading..." : "Simulate"}
+      <button
+        className="simulate-button"
+        onClick={handleSimulation}
+        disabled={loading}
+      >
+        {loading ? "Loading..." : "Simulate Steps"}
       </button>
       {error && <p>{error}</p>}
-      {urls?.length > 0 && (
+      {simulations?.length > 0 && (
         <ul>
-          {urls.map((url, index) => (
-            <li key={index} className="proposal-page-value call-data-link">
-              <Link href={url} target="_blank" className="call-data-link">
-                {url}
+          {simulations.map((simulation, index) => (
+            <li key={index} className="call-data-link">
+              {index + 1}. {simulation.simulation.status ? "✅" : "❌"}{" "}
+              <Link
+                href={simulation.url}
+                target="_blank"
+                className="call-data-link"
+              >
+                {simulation.simulation.method}{" "}
                 <Image
                   src={"/external-link.svg"}
                   alt="link"

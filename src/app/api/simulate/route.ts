@@ -21,7 +21,7 @@ export async function GET(request: any) {
     const id = searchParams.get("id");
     const fork = searchParams.get("fork");
 
-    const proposals = await fetchProposals();
+    const proposals = await fetchProposals(true);
     const proposal = proposals.find(
       (proposal: any) => proposal.proposalId === id
     );
@@ -33,12 +33,13 @@ export async function GET(request: any) {
       return NextResponse.json({ url: forkUrl }, { status: 200 });
     } else {
       const simulations = await simulate(proposal);
-      const urls = simulations.map(
-        (item: any) =>
-          `https://www.tdly.co/shared/simulation/${item.simulation.id}`
-      );
 
-      return NextResponse.json({ simulations: urls }, { status: 200 });
+      const responseData = simulations.map((item: any) => ({
+        url: `https://www.tdly.co/shared/simulation/${item.simulation.id}`,
+        ...item,
+      }));
+
+      return NextResponse.json({ simulations: responseData }, { status: 200 });
     }
   } catch (error: any) {
     console.error(error);
@@ -87,8 +88,9 @@ const makeSimulationPublic = async (id: string) => {
 
 const simulate = async (proposal: ProposalType) => {
   try {
+    console.log(proposal);
     let transactions = [];
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < proposal.targets.length; i++) {
       transactions.push({
         network_id: NETWORK_ID,
         from: TIMELOCK_CONTROLLER_ADDRESS,

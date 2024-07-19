@@ -25,13 +25,17 @@ const Fork = ({ proposalId }: { proposalId: string }) => {
 
   return (
     <div>
-      <button onClick={handleFork} disabled={loading}>
-        {loading ? "Loading..." : "Fork"}
+      <button
+        className="simulate-button"
+        onClick={handleFork}
+        disabled={loading}
+      >
+        {loading ? "Loading..." : "Fork Network"}
       </button>
       {error && <p>{error}</p>}
       {url && (
         <ul>
-          <li className="proposal-page-value call-data-link">
+          <li className="call-data-link">
             <Link href={url} target="_blank" className="call-data-link">
               {url}
               <Image

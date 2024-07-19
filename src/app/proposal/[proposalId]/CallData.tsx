@@ -30,11 +30,10 @@ const CallData: React.FC<CallDataProps> = ({
   const formattedCallData = (
     <p>
       MethodID: {methodId}
-      <br />
       {args?.map((arg, i) => (
         <>
-          {`[${i}]: ${arg}`}
           <br />
+          {`[${i}]: ${arg}`}
         </>
       ))}
     </p>
