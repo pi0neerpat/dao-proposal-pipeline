@@ -37,7 +37,7 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
 
   const loadData = async (): Promise<void> => {
     try {
-      const fetchedProposals = (await fetchProposals()) as ProposalType[];
+      const fetchedProposals = (await fetchProposals(false)) as ProposalType[];
       if (odGovernor) {
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {

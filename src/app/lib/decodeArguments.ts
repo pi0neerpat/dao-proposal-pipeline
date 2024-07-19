@@ -20,7 +20,7 @@ function decodeArguments(callData: DecodedCallData): any[] {
       decodedArg = arg
         .split("0x")[1]
         ?.match(/.{1,64}/g)
-        ?.map((str, i) => `[${i}]: ${str}`);
+        ?.map((str: any, i: any) => `[${i}]: ${str}`);
     } else if (inputType === "bytes32") {
       decodedArg = ethers.utils.parseBytes32String(arg as BytesLike);
     } else if (inputType.startsWith("string")) {
