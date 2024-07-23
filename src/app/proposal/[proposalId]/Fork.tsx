@@ -18,6 +18,7 @@ const Fork = ({ proposalId }: { proposalId: string }) => {
       else setError(data.message);
     } catch (error) {
       console.error("Error occurred during simulation:", error);
+      setError(`${error}`);
     } finally {
       setLoading(false);
     }

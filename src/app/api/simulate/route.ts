@@ -43,7 +43,7 @@ export async function GET(request: any) {
     }
   } catch (error: any) {
     console.error(error);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: `Error: ${error}` }, { status: 500 });
   }
 }
 
@@ -123,7 +123,7 @@ const fork = async (proposal: ProposalType) => {
 
   const body = {
     display_name: `OD Proposal: ${proposal.description}`,
-    slug: proposal.slug,
+    slug: proposal.slug.replace(/[^a-zA-Z0-9-]/g, "").slice(-7),
     fork_config: {
       network_id: NETWORK_ID,
     },
