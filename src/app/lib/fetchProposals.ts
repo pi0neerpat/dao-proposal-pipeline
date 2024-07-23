@@ -6,7 +6,7 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
   let headers: any = noCache
     ? {
         "cache-Control": "no-cache",
-        // Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
+        Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
       }
     : {};
