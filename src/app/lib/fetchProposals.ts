@@ -11,7 +11,7 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
       }
     : {};
   const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet?ref=main",
+    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet",
     {
       headers,
     }
