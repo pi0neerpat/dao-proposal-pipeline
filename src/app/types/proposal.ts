@@ -12,4 +12,5 @@ export interface ProposalType {
   values: number[];
   slug: string;
   arrayLength?: number; // This key is optional (shows up in the second proposal but not the first)
+  details: string;
 }

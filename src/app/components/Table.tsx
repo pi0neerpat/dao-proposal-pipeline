@@ -1,15 +1,15 @@
-import * as React from 'react';
-import Link from 'next/link';
-import { Tooltip } from 'react-tooltip';
-import ReactDOM from 'react-dom/client';
+import * as React from "react";
+import Link from "next/link";
+import { Tooltip } from "react-tooltip";
+import ReactDOM from "react-dom/client";
 
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table';
-import convertTokensToThousandsK from '../lib/convertTokensToThousansK';
+} from "@tanstack/react-table";
+import convertTokensToThousandsK from "../lib/convertTokensToThousansK";
 
 type Proposal = {
   id: string;
@@ -27,17 +27,16 @@ type Proposal = {
 const columnHelper = createColumnHelper<Proposal>();
 
 const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
-
   const columns = React.useMemo(() => {
     const cols = [
-      columnHelper.accessor('id', {
-        header: () => 'Proposal ID',
+      columnHelper.accessor("id", {
+        header: () => "Proposal ID",
         cell: (info) => {
           const value = info.getValue();
-          const convertedValue = value ? value.toString().slice(0, 8) : '';
+          const convertedValue = value ? value.toString().slice(0, 8) : "";
           return (
             <Link
-              href={'/proposal/[proposalId]'}
+              href={"/proposal/[proposalId]"}
               as={`/proposal/${value}`}
               className="proposal-link"
             >
@@ -46,14 +45,17 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
           );
         },
       }),
-      columnHelper.accessor('description', {
-        header: () => 'Description',
+      columnHelper.accessor("description", {
+        header: () => "Description",
         cell: (info) => {
           const description = info.getValue();
           return description.length > 32 ? (
-            <a data-tooltip-id="my-tooltip" data-tooltip-content={description}>
+            <div
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content={description}
+            >
               {`${description.substring(0, 32)}...`}
-            </a>
+            </div>
           ) : (
             <span>{description}</span>
           );
@@ -63,33 +65,33 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
 
     if (submitted) {
       cols.push(
-        columnHelper.accessor('forVotes', {
-          header: () => 'For Votes',
+        columnHelper.accessor("forVotes", {
+          header: () => "For Votes",
           cell: (info) => {
             const value = info.getValue();
             const convertedValue = value
               ? convertTokensToThousandsK(value)
-              : '';
+              : "";
             return <>{convertedValue}</>;
           },
         }),
-        columnHelper.accessor('againstVotes', {
-          header: () => 'Against Votes',
+        columnHelper.accessor("againstVotes", {
+          header: () => "Against Votes",
           cell: (info) => {
             const value = info.getValue();
             const convertedValue = value
               ? convertTokensToThousandsK(value)
-              : '';
+              : "";
             return <>{convertedValue}</>;
           },
         }),
-        columnHelper.accessor('totalVotes', {
-          header: () => 'Total Votes',
+        columnHelper.accessor("totalVotes", {
+          header: () => "Total Votes",
           cell: (info) => {
             const value = info.getValue();
             const convertedValue = value
               ? convertTokensToThousandsK(value)
-              : '';
+              : "";
             return <>{convertedValue}</>;
           },
         })
@@ -138,7 +140,7 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
       </table>
       <Tooltip
         id="my-tooltip"
-        style={{ width: '300px', background: '#1a74ec' }}
+        style={{ width: "300px", background: "#1a74ec" }}
       />
     </div>
   );

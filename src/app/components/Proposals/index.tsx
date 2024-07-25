@@ -21,15 +21,14 @@ const Proposals: React.FC = () => {
         <span className="proposal-link-description-text">
           Pending proposals are fetched from our
         </span>
-        <Link
+        <a
           href={
             "https://github.com/open-dollar/od-governance-manager/tree/main/gov-output/mainnet"
           }
           target="_blank"
-          className="proposal-link"
         >
-          <span>GitHub</span>
-        </Link>
+          GitHub
+        </a>
       </div>
       <div className="pending-proposals-container">
         <div className="proposals-subsection-title">Pending Proposals</div>

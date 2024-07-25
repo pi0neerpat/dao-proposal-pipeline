@@ -11,6 +11,7 @@ import React, { useState, useEffect } from "react";
 import Simluation from "./Simulation";
 import Loader from "@/app/components/Loader";
 import Fork from "./Fork";
+import { marked } from "marked";
 
 interface ProposalPageProps {
   params: {
@@ -224,6 +225,20 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </div>
         )}
       </div>
+      {currentMetadata.details ? (
+        <div className="proposal-page-block">
+          <h3 className="proposal-page-title">Description</h3>
+          <div className="proposal-page-container">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: marked.parse(currentProposal.details),
+              }}
+            />
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="proposal-page-block">
         <h3 className="proposal-page-title">Execution</h3>
         <ul className="call-data-list">

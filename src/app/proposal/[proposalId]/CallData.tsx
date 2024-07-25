@@ -74,7 +74,7 @@ const CallData: React.FC<CallDataProps> = ({
       </div>
 
       <div className="proposal-page-item">
-        <div className="proposal-page-label">Raw Calldata: </div>
+        <div className="proposal-page-label">Calldata: </div>
         <div className="proposal-page-value call-data-raw-value">
           {formattedCallData}
         </div>

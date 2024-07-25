@@ -8,6 +8,7 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
         "cache-Control": "no-cache",
         Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
+        Accept: "application/vnd.github+json",
       }
     : {};
   const response = await fetch(
