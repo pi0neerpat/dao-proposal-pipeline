@@ -120,10 +120,9 @@ const simulate = async (proposal: ProposalType) => {
 
 const fork = async (proposal: ProposalType) => {
   const url = `${TENDERLY_API_URL}/vnets`;
-
   const body = {
-    display_name: `OD Proposal: ${proposal.description}`,
-    slug: proposal.slug.replace(/[^a-zA-Z0-9-]/g, "").slice(-7),
+    display_name: `OD Proposal: ${proposal.description.slice(0, 30)}`,
+    slug: proposal.slug.replace(/[^a-zA-Z0-9-]/g, "").slice(-8),
     fork_config: {
       network_id: NETWORK_ID,
     },

@@ -124,6 +124,9 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
     );
   }
 
+  const details = currentProposal?.description.split("\n").slice(1).join("\n");
+  const title = currentProposal?.description.split("\n")[0];
+
   return (
     <div className="proposal-page container">
       <div className="proposal-page-block-row">
@@ -132,9 +135,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           <div className="proposal-page-container">
             <div className="proposal-page-item">
               <div className="proposal-page-label">Description</div>
-              <div className="proposal-page-value">
-                {currentProposal?.description}
-              </div>
+              <div className="proposal-page-value">{title}</div>
             </div>
 
             <div className="proposal-page-item">
@@ -225,13 +226,13 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           </div>
         )}
       </div>
-      {currentMetadata.details ? (
+      {details ? (
         <div className="proposal-page-block">
           <h3 className="proposal-page-title">Description</h3>
           <div className="proposal-page-container">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(currentProposal?.details || "") as string,
+                __html: marked.parse(details || "") as string,
               }}
             />
           </div>
