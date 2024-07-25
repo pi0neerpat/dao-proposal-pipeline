@@ -231,7 +231,7 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
           <div className="proposal-page-container">
             <div
               dangerouslySetInnerHTML={{
-                __html: marked.parse(currentProposal.details),
+                __html: marked.parse(currentProposal?.details || "") as string,
               }}
             />
           </div>
