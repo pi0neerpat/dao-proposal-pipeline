@@ -22,11 +22,15 @@ if (currentJson.objectArray != undefined) {
   });
 }
 
+const PROPOSAL_TYPES_NEEDING_PREDICTION = [
+  "DeployChainlinkRelayers",
+  "DeployDelayedOracle",
+  "DeployDenominatedOracle",
+  "AddCollateral"
+]
+
 if (
-  currentJson.proposalType == "DeployChainlinkRelayers" ||
-  currentJson.proposalType == "DeployDelayedOracle" ||
-  currentJson.proposalType == "DeployDenominatedOracle" ||
-  currentJson.proposalType == "AddCollateral"
+  PROPOSAL_TYPES_NEEDING_PREDICTION.includes(currentJson.proposalType)
 ) {
   const [signer, provider] = getNetwork(network);
   if (signer && provider) {
@@ -57,10 +61,11 @@ function getNetwork(network) {
 }
 
 async function predictAddress(currentJson, provider) {
+  const { proposalType, arrayLength } = currentJson
   let factoryAddress;
-  let nonce;
-  let numberOfAddressesToPredict;
-  if (currentJson.proposalType == "AddCollateral") {
+  let numberOfAddressesToPredict = arrayLength;
+
+  if (proposalType == "AddCollateral") {
     const contractJSON = JSON.parse(
       fs.readFileSync(
         path.join(
@@ -69,50 +74,31 @@ async function predictAddress(currentJson, provider) {
         )
       )
     );
-
     const globalSettlement = new ethers.Contract(
       currentJson.GlobalSettlement_Address,
       contractJSON.abi,
       provider
     );
-
     factoryAddress = await globalSettlement.collateralAuctionHouseFactory();
-
-    nonce = await provider.getTransactionCount(factoryAddress);
-
     numberOfAddressesToPredict = 1;
-  } else if (currentJson.proposalType == "DeployChainlinkRelayers") {
+  } else if (proposalType == "DeployChainlinkRelayers") {
     factoryAddress = currentJson.ChainlinkRelayerFactory_Address;
-
-    nonce = await provider.getTransactionCount(factoryAddress);
-
-    numberOfAddressesToPredict = currentJson.arrayLength;
-  } else if (currentJson.proposalType == "DeployDelayedOracle") {
+  } else if (proposalType == "DeployDelayedOracle") {
     factoryAddress = currentJson.DelayedOracleFactory_Address;
-
-    nonce = await provider.getTransactionCount(factoryAddress);
-
-    numberOfAddressesToPredict = currentJson.arrayLength;
-  } else if (currentJson.proposalType == "DeployDenominatedOracle") {
+  } else if (proposalType == "DeployDenominatedOracle") {
     factoryAddress = currentJson.DenominatedOracleFactory_Address;
-
-    nonce = await provider.getTransactionCount(factoryAddress);
-
-    numberOfAddressesToPredict = currentJson.arrayLength;
   } else {
     throw new Error("Parse Prop path: unrecognized proposal type.");
   }
+  const nonce = await provider.getTransactionCount(factoryAddress);
   let predictedAddresses = [];
-
   for (let i = 0; i < numberOfAddressesToPredict; i++) {
     const predictedAddress = ethers.getCreateAddress({
       from: factoryAddress,
       nonce: nonce + i,
     });
-
     predictedAddresses.push(predictedAddress);
   }
-
   return predictedAddresses;
 }
 
