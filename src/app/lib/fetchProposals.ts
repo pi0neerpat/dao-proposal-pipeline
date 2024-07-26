@@ -5,6 +5,7 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
   // Server side must restrict caching, otherwise Github returns stale data
   let headers: any = noCache
     ? {
+        cache: "no-store",
         "cache-Control": "no-cache",
         Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
@@ -18,10 +19,12 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
     }
   );
   const data = await response.json();
-  return data.map((file: any) => ({
-    name: file.name,
-    download_url: file.download_url,
-  }));
+  return data.map((file: any) => {
+    return {
+      name: file.name,
+      download_url: file.download_url,
+    };
+  });
 };
 
 export const fetchProposals = async (noCache: boolean): Promise<any> => {
