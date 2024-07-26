@@ -48,7 +48,7 @@ const Table = ({ data, submitted }: { data: any; submitted: boolean }) => {
       columnHelper.accessor("description", {
         header: () => "Description",
         cell: (info) => {
-          const description = info.getValue();
+          const description = info.getValue().split("\n")[0];
           return description.length > 32 ? (
             <div
               data-tooltip-id="my-tooltip"
