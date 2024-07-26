@@ -1,8 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const basePath = path.join(__dirname, "../notes.md");
+// Example usage: node tasks/parseMarkdown.js newcollateral.notes.md
+
+const args = process.argv.slice(2);
+const basePath = args[0]
 const contents = fs.readFileSync(basePath, 'utf8')
-const obj = { details: contents };
+const obj = { description: contents };
 
 console.log(JSON.stringify(obj))
