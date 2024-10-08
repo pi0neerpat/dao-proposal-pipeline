@@ -1,7 +1,9 @@
 import { type ProposalType } from "../types/proposal";
 
+const GITHUB_REPO_API: string = process.env.NEXT_PUBLIC_GITHUB_REPO_API || "";
 // this script fetches proposal data from github
 const fetchProposalNames = async (noCache: boolean): Promise<any> => {
+  console.log(GITHUB_REPO_API);
   // Server side must restrict caching, otherwise Github returns stale data
   let headers: any = noCache
     ? {
@@ -12,7 +14,7 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
         Accept: "application/vnd.github+json",
       }
     : {};
-  const response = await fetch(process.env.NEXT_PUBLIC_GITHUB_REPO_API_URL!, {
+  const response = await fetch(GITHUB_REPO_API, {
     headers,
   });
   const data = await response.json();

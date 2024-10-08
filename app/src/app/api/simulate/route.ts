@@ -5,7 +5,7 @@ import { type ProposalType } from "../../types/proposal";
 
 const TIMELOCK_CONTROLLER_ADDRESS = process.env.TIMELOCK_CONTROLLER_ADDRESS;
 const TENDERLY_API_URL = process.env.TENDERLY_API_URL;
-const NETWORK_ID = 42161;
+const NETWORK_ID = process.env.NETWORK_ID;
 
 const TENDERLY_HEADERS = {
   "Content-Type": "application/json",

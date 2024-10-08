@@ -9,20 +9,20 @@ const Navbar: React.FC = () => {
       <div className="navbar-links-list">
         <div>
           <Link href={"/"}>
-            <Image
+            {/* <Image
               src="/full-logo.svg"
               alt="logo"
               width={150}
               height={35}
               itemType="svg"
-            />
+            /> */}
+            <h1 className="navbar-title">🏗️→🗳️ DAO Proposal Pipeline</h1>
           </Link>
         </div>
         <div className="navbar-link connect-button-container">
           <w3m-button />
         </div>
       </div>
-      <h1 className="navbar-title">DAO Proposal Pipeline</h1>
     </div>
   );
 };
