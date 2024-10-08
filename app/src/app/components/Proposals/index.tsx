@@ -19,14 +19,9 @@ const Proposals: React.FC = () => {
     <div className="proposals-list container">
       <div className="proposals-link">
         <span className="proposal-link-description-text">
-          Pending proposals are fetched from our
+          Proposals published from
         </span>
-        <a
-          href={
-            "https://github.com/open-dollar/od-governance-manager/tree/main/gov-output/mainnet"
-          }
-          target="_blank"
-        >
+        <a href={process.env.NEXT_PUBLIC_GITHUB_REPO_URL} target="_blank">
           GitHub
         </a>
       </div>

@@ -3,10 +3,8 @@ import fs from "fs";
 import { fetchProposals } from "../../lib/fetchProposals";
 import { type ProposalType } from "../../types/proposal";
 
-const TIMELOCK_CONTROLLER_ADDRESS =
-  "0x7A528eA3E06D85ED1C22219471Cf0b1851943903";
-const TENDERLY_API_URL =
-  "https://api.tenderly.co/api/v1/account/11/project/sodamachine";
+const TIMELOCK_CONTROLLER_ADDRESS = process.env.TIMELOCK_CONTROLLER_ADDRESS;
+const TENDERLY_API_URL = process.env.TENDERLY_API_URL;
 const NETWORK_ID = 42161;
 
 const TENDERLY_HEADERS = {

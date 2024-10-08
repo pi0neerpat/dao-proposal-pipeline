@@ -1,14 +1,14 @@
 {
-  "name": "contracts-template",
+  "name": "dao-proposal-pipeline",
   "version": "1.0.0",
   "private": true,
-  "description": "Template for projects using @opendollar/contracts with Foundry",
-  "homepage": "https://opendollar.com/",
-  "author": "OpenFi Foundation",
+  "description": "An opinionated set of tools to generate, review, and submit DAO proposals.",
+  "homepage": "https://github.com/pi0neerpat/dao-proposal-pipeline.git",
+  "author": "pi0neerpat",
   "license": "GNU AGPL",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/open-dollar/contracts-template.git"
+    "url": "git+https://github.com/pi0neerpat/dao-proposal-pipeline.git"
   },
   "contributors": [
     "pi0neerpat (https://github.com/pi0neerpat)",
@@ -38,5 +38,6 @@
     "solhint": "^4.5.2",
     "solhint-plugin-defi-wonderland": "^1.1.3",
     "sort-package-json": "^2.8.0"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

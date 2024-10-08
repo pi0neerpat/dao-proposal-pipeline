@@ -1,36 +1,30 @@
-<p align="center">
-<img width="60" height="60"  src="https://raw.githubusercontent.com/open-dollar/.github/main/od-logo.svg">
-</p>
 <h1 align="center">
-  Open Dollar
+  DAO Proposal Pipeline
 </h1>
 
 <p align="center">
-  <a href="https://twitter.com/open_dollar" target="_blank">
-    <img alt="Twitter: open_dollar" src="https://img.shields.io/twitter/follow/open_dollar.svg?style=social" />
+  <a href="https://twitter.com/pi0neerpat" target="_blank">
+    <img alt="Twitter: pi0neeroat" src="https://img.shields.io/twitter/follow/pi0neerpat.svg?style=social" />
   </a>
 </p>
 
-Template for projects using `@opendollar/contracts` with Foundry
+An opinionated set of tools to generate, review, and submit DAO proposals.
 
-## Documentation
+# How it works
 
-- https://book.getfoundry.sh/
-- https://contracts.opendollar.com
-- https://docs.opendollar.com
+1. Generate using the Governance CLI 
+2. Verify with a standard PR review
+3. Merge to publish in the app
 
-# Governance
+To use it for your own DAO, fork this repo and deploy the `/app` to Vercel. The ENV should point to your Open Zeppelin TimelockController, and to this repo for the proposal CRM.
 
-OpenDollar governance follows the common pattern of:
-
-- generating a governance proposal
-- submitting a governance proposal
-- queuing the governance proposal
-- executing the governance proposal
-
-We include a set of governance scripts in `script/gov` which allow DAO members to propose, queue and execute different governance actions.
+All proposals in the `/gov-output` folder will automatically be published to your app.
 
 ## Governance CLI
+
+Proposals are first drafted by creating a new file in `/gov-input` folder. 
+
+Then the `propose` command is used to generate bytecode (if necessary) and create a publish-ready proposal in `/gov-output`.  
 
 ```bash
 yarn propose [action flag] [option flag] [path to input json]
@@ -187,6 +181,3 @@ You can propose multiple transfers in the same proposal by adding multiple trans
   - `transferTo`: the address of the token recipient
   - `amount`: the amount to be transfered in wei.
 
-### Add Nitro Rewards
-
-Add rewards to the Camelot Nitro pool

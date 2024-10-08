@@ -1,3 +1,4 @@
+Copyright (C) 2024 pi0neerpat
 Copyright (C) 2024 OpenFi Foundation
 
 This program is free software: you can redistribute it and/or modify

@@ -12,12 +12,9 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
         Accept: "application/vnd.github+json",
       }
     : {};
-  const response = await fetch(
-    "https://api.github.com/repos/open-dollar/od-governance-manager/contents/gov-output/mainnet",
-    {
-      headers,
-    }
-  );
+  const response = await fetch(process.env.NEXT_PUBLIC_GITHUB_REPO_API_URL!, {
+    headers,
+  });
   const data = await response.json();
   return data.map((file: any) => {
     return {
