@@ -1,5 +1,5 @@
 const fetchABI = async (contractAddress: string): Promise<any> => {
-  const url = `https://api.arbiscan.io/api?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.NEXT_PUBLIC_EXPLORER_API_KEY}`;
+  const url = `${process.env.NEXT_PUBLIC_EXPLORER_API_URL}?module=contract&action=getabi&address=${contractAddress}&apikey=${process.env.NEXT_PUBLIC_EXPLORER_API_KEY}`;
   try {
     const response = await fetch(url);
     if (!response.ok) {

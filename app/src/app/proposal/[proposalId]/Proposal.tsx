@@ -248,7 +248,10 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
             decodedCallData !== null &&
             decodedCallData.length > 0 &&
             decodedCallData.map((calldata, index) => (
-              <li className="call-data" key={index}>
+              <li
+                className="call-data"
+                key={String(currentProposal.proposalId) + index}
+              >
                 <CallData
                   calldata={calldata}
                   index={index}

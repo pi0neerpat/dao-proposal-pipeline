@@ -18,7 +18,7 @@ import GovernanceToken from "../abis/GovernanceToken.json";
 
 const ProviderContext = createContext<EtherProviderType | undefined>(undefined);
 
-const OD_GOVERNANCE_TOKEN = "0x000D636bD52BFc1B3a699165Ef5aa340BEA8939c";
+const GOVERNANCE_TOKEN = process.env.NEXT_PUBLIC_GOVERNANCE_TOKEN!;
 
 export const useEtherProviderContext = (): EtherProviderType => {
   const context = useContext(ProviderContext);
@@ -61,9 +61,9 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
       }
       setProvider(ethersProvider);
       // od gov contract
-      const odGovernorAddress = "0xf704735CE81165261156b41D33AB18a08803B86F";
+      const governorAddress = process.env.NEXT_PUBLIC_GOVERNOR_ADDRESS!;
       const odGovernor = new ethers.Contract(
-        odGovernorAddress,
+        governorAddress,
         ODGovernorABI.abi,
         signer ? signer : ethersProvider
       ) as unknown as ODGovernorType;
@@ -79,7 +79,7 @@ export const ProviderProvider: React.FC<{ children: ReactNode }> = ({
       if (signer) {
         // get user votes
         const protocolToken = new ethers.Contract(
-          OD_GOVERNANCE_TOKEN,
+          GOVERNANCE_TOKEN,
           GovernanceToken.abi,
           signer
         );

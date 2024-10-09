@@ -42,46 +42,46 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {
             const proposalId = proposal.proposalId;
-            const metadata = await odGovernor.proposals(proposalId);
+            const votes = await odGovernor.proposalVotes(proposalId);
             const {
-              id,
-              proposer,
-              eta,
-              startBlock,
-              endBlock,
+              // proposer,
+              // eta,
+              // startBlock,
+              // endBlock,
               forVotes,
               againstVotes,
               abstainVotes,
-              canceled,
-              executed,
-            } = metadata;
+              // canceled,
+              // executed,
+            } = votes;
             return {
-              id: id.toString(),
-              proposer,
-              eta: eta.toString(),
-              startBlock: startBlock.toString(),
-              endBlock: endBlock.toString(),
+              id: proposalId.toString(),
+              // proposer,
+              // eta: eta.toString(),
+              // startBlock: startBlock.toString(),
+              // endBlock: endBlock.toString(),
               forVotes: forVotes.toString(),
               againstVotes: againstVotes.toString(),
               abstainVotes: abstainVotes.toString(),
-              canceled,
-              executed,
+              //  canceled,
+              // executed,
             };
           } catch (error: any) {
-            if (error.reason.toString() === "Governor: unknown proposal id") {
+            if (error.reason?.toString() === "Governor: unknown proposal id") {
               return {
                 id: proposal.proposalId,
-                proposer: "",
-                eta: "",
-                startBlock: "",
-                endBlock: "",
+                // proposer: "",
+                // eta: "",
+                // startBlock: "",
+                // endBlock: "",
                 forVotes: "",
                 againstVotes: "",
                 abstainVotes: "",
-                canceled: "",
-                executed: "",
+                // canceled: "",
+                // executed: "",
               };
             }
+            console.log(error);
             return null;
           }
         });
@@ -103,6 +103,7 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
     proposalMetadata: any[]
   ) => {
     return proposals.map((proposal) => {
+      console.log(proposal);
       const metadata = proposalMetadata.find(
         (md) => md.id === proposal.proposalId
       );

@@ -44,7 +44,7 @@ const Simulation = ({ proposalId }: { proposalId: string }) => {
                 target="_blank"
                 className="call-data-link"
               >
-                {simulation.simulation.method}{" "}
+                {simulation.simulation.method || "(unknown)"}{" "}
                 <Image
                   src={"/external-link.svg"}
                   alt="link"
