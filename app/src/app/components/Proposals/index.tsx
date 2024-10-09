@@ -29,9 +29,10 @@ const Proposals: React.FC = () => {
         . <br />
         📋 Copy the URL to verify proposals using the complete 78-character ID.{" "}
         <br />
-        🏗️ Only proposals in this pipeline appear here; this is not meant to be
-        a complete list.
+        🏗️ Only proposals in the pipeline appear here; this is not meant to be a
+        complete list.
       </div>
+      
       <div className="pending-proposals-container">
         <div className="proposals-subsection-title">Published</div>
 
