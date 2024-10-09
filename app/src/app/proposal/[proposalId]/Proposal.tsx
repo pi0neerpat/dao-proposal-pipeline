@@ -155,7 +155,9 @@ const Proposal: React.FC<ProposalPageProps> = ({ params }) => {
             <div className="proposal-page-item">
               <div className="proposal-page-label">Status</div>
               <div className="proposal-page-value">
-                {currentMetadata !== null && currentMetadata.proposer === ""
+                {currentMetadata !== null &&
+                currentMetadata.proposer ===
+                  "0x0000000000000000000000000000000000000000"
                   ? "Unsubmitted"
                   : "Submitted"}
               </div>
