@@ -42,27 +42,24 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
         const metadataPromises = fetchedProposals.map(async (proposal) => {
           try {
             const proposalId = proposal.proposalId;
-            const votes = await odGovernor.proposalVotes(proposalId);
-            const {
-              // proposer,
-              // eta,
-              // startBlock,
-              // endBlock,
-              forVotes,
-              againstVotes,
-              abstainVotes,
-              // canceled,
-              // executed,
-            } = votes;
+            const { forVotes, againstVotes, abstainVotes } =
+              await odGovernor.proposalVotes(proposalId);
+            const proposer = await odGovernor.proposalProposer(proposalId);
+            // eta,
+            // startBlock,
+            // endBlock,
+            // canceled,
+            // executed,
+            console.log(proposer);
             return {
               id: proposalId.toString(),
-              // proposer,
-              // eta: eta.toString(),
-              // startBlock: startBlock.toString(),
-              // endBlock: endBlock.toString(),
+              proposer,
               forVotes: forVotes.toString(),
               againstVotes: againstVotes.toString(),
               abstainVotes: abstainVotes.toString(),
+              // eta: eta.toString(),
+              // startBlock: startBlock.toString(),
+              // endBlock: endBlock.toString(),
               //  canceled,
               // executed,
             };
@@ -70,15 +67,10 @@ export const ProposalProvider: React.FC<ProposalProviderProps> = ({
             if (error.reason?.toString() === "Governor: unknown proposal id") {
               return {
                 id: proposal.proposalId,
-                // proposer: "",
-                // eta: "",
-                // startBlock: "",
-                // endBlock: "",
+                proposer: "0x0000000000000000000000000000000000000000",
                 forVotes: "",
                 againstVotes: "",
                 abstainVotes: "",
-                // canceled: "",
-                // executed: "",
               };
             }
             console.log(error);

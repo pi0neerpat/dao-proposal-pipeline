@@ -123,6 +123,9 @@ interface ODGovernorType {
     againstVotes: BigNumber;
     abstainVotes: BigNumber;
   }>;
+  proposalProposer: (proposalId: BigNumberish) => Promise<{
+    proposer: string;
+  }>;
   propose: (
     targets: string[],
     values: BigNumber[],

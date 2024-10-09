@@ -9,11 +9,12 @@ import { Tooltip } from "react-tooltip";
 const Proposals: React.FC = () => {
   const { proposals } = useProposalContext();
 
-  const submittedProposals = proposals.filter(
-    (proposal) => proposal.proposer !== ""
-  );
   const pendingProposals = proposals.filter(
-    (proposal) => proposal.proposer === ""
+    (proposal) =>
+      proposal.proposer === "0x0000000000000000000000000000000000000000"
+  );
+  const submittedProposals = proposals.filter(
+    (proposal) => !pendingProposals.includes(proposal)
   );
 
   return (
@@ -32,7 +33,7 @@ const Proposals: React.FC = () => {
         🏗️ Only proposals in the pipeline appear here; this is not meant to be a
         complete list.
       </div>
-      
+
       <div className="pending-proposals-container">
         <div className="proposals-subsection-title">Published</div>
 
