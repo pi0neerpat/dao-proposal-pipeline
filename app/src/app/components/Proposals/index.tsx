@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import Image from "next/image";
+
 import { useProposalContext } from "@/app/contexts/ProposalsContext";
 import Table from "../Table";
 import { Tooltip } from "react-tooltip";
@@ -19,16 +20,17 @@ const Proposals: React.FC = () => {
     <div className="proposals-list container">
       <div className="proposals-link">
         <span className="proposal-link-description-text">
-          Publish a new proposal by making a PR on the
+          <Image src={"/github.svg"} alt="github-icon" width={20} height={20} />{" "}
+          Publish new proposals via the GitHub repo
         </span>
         <a href={process.env.NEXT_PUBLIC_GITHUB_REPO_URL} target="_blank">
-          GitHub
+          here
         </a>
         . <br />
-        Proposal IDs are consistent. The entire 78-character ID should be used
-        for verification, eg. by copying the URL. <br />
-        NOTE: Only proposals in the repo will appear here. This is not a
-        complete list.
+        📋 Copy the URL to verify proposals using the complete 78-character ID.{" "}
+        <br />
+        🏗️ Only proposals in this pipeline appear here; this is not meant to be
+        a complete list.
       </div>
       <div className="pending-proposals-container">
         <div className="proposals-subsection-title">Published</div>

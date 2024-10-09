@@ -62,7 +62,7 @@ export default function RootLayout({
             className={`${barlow.className} ${openSans.className} ${barlow.variable} ${openSans.variable}`}
           >
             <head>
-              <link rel="icon" href="./circle.svg" />
+              <link rel="icon" href="./favicon.ico" />
               <title>Governance Proposal Pipeline</title>
             </head>
             <body>

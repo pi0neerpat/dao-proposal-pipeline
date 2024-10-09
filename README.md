@@ -12,13 +12,11 @@ An opinionated set of tools to generate, review, and submit DAO proposals.
 
 # How it works
 
-1. Generate using the Governance CLI 
-2. Verify with a standard PR review
-3. Merge proposals to publish in the app using Github as the CRM
+1. Generate proposals via the CLI 
+2. Verify using the standard PR review process
+3. Merged proposals in the `/gov-output` folder are automatically published in the app
 
-To use it for your own DAO, fork this repo and deploy the `/app` to Vercel. The ENV should point to your Open Zeppelin TimelockController, and to your forked repo for the Github CRM.
-
-All proposals in the `/gov-output` folder will automatically be published to your app.
+Fork the repo for your DAO and deploy `/app` to Vercel.
 
 ## Governance CLI
 
