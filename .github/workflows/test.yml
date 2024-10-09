@@ -65,7 +65,7 @@ jobs:
         - name: "Create env file"
           run: |
             touch .env
-            echo ARB_MAINNET_RPC="${{ secrets.ARB_MAINNET_RPC }}" >> .env
+            echo ARB_RPC="${{ secrets.ARB_RPC }}" >> .env
             echo ARB_MAINNET_DEPLOYER_PK="${{ secrets.ARB_MAINNET_DEPLOYER_PK }}" >> .env
             cat .env
 

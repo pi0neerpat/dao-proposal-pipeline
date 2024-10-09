@@ -16,5 +16,6 @@ libs = ["lib"]
 fs_permissions = [{ access = "read-write", path = "./" }]
 
 [rpc_endpoints]
-mainnet = "${ARB_MAINNET_RPC}"
+mainnet = "${ARB_RPC}"
+base = "${BASE_RPC}"
 sepolia = "${ARB_SEPOLIA_RPC}"

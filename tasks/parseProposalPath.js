@@ -48,14 +48,18 @@ function getNetwork(network) {
     let anvilPK = process.env.ANVIL_ONE;
     provider = new ethers.JsonRpcProvider(anvilRpc, provider);
     signer = new ethers.Wallet(anvilPK, provider);
-  } else if (network == "sepolia" || network == "arb-sepolia") {
+  } else if (network == "arb-sepolia") {
     const rpc_endpoint = process.env.ARB_SEPOLIA_RPC;
     provider = new ethers.JsonRpcProvider(rpc_endpoint);
     signer = new ethers.Wallet(process.env.ARB_SEPOLIA_PK.slice(2), provider);
-  } else if (network == "arb-mainnet" || "mainnet") {
-    const rpc_endpoint = process.env.ARB_MAINNET_RPC;
+  } else if (network == "arb") {
+    const rpc_endpoint = process.env.ARB_RPC;
     provider = new ethers.JsonRpcProvider(rpc_endpoint);
-    signer = new ethers.Wallet(process.env.ARB_MAINNET_PK.slice(2), provider);
+    signer = new ethers.Wallet(process.env.ARB_PK.slice(2), provider);
+  } else if (network == "base") {
+    const rpc_endpoint = process.env.BASE_RPC;
+    provider = new ethers.JsonRpcProvider(rpc_endpoint);
+    signer = new ethers.Wallet(process.env.BASE_PK.slice(2), provider);
   }
   return [signer, provider];
 }

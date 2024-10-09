@@ -71,7 +71,28 @@ function generateProposal() {
   COMMAND_PATH=$(node tasks/parseProposalPath.js $1)
   echo "$COMMAND_PATH"
   CALLDATA=$(cast calldata "run(string)" $CAST_PATH)
-  forge script $COMMAND_PATH -s $CALLDATA --fork-url $ARB_MAINNET_RPC --unlocked 0x7a528ea3e06d85ed1c22219471cf0b1851943903
+
+  # Set the fork URL based on the current network
+  case $NETWORK in
+    "arb-sepolia")
+      FORK_URL=$ARB_SEPOLIA_RPC
+      ;;
+    "anvil")
+      FORK_URL=$ANVIL_RPC
+      ;;
+    "arb")
+      FORK_URL=$ARB_RPC
+      ;;
+    "base")
+      FORK_URL=$BASE_RPC
+      ;;
+    *)
+      echo "Unrecognized network: $NETWORK"
+      exit 1
+      ;;
+  esac
+
+  forge script $COMMAND_PATH -s $CALLDATA --fork-url $FORK_URL --unlocked 0x7a528ea3e06d85ed1c22219471cf0b1851943903
   echo "$(node tasks/parseProposalOutputs.js $NETWORK)"
 }
 
@@ -162,12 +183,14 @@ function makeCall() {
 }
 
 function getRpcAndPk() {
-  if [[ $1 = "arb-sepolia" || $1 = "sepolia" ]]; then
+  if [[ $1 = "arb-sepolia" ]]; then
     RPC_ENDPOINT=$ARB_SEPOLIA_RPC PRIVATE_KEY=$ARB_SEPOLIA_PK
   elif [[ $1 = "anvil" ]]; then
     RPC_ENDPOINT=$ANVIL_RPC PRIVATE_KEY=$ANVIL_ONE
-  elif [[ $1 = "arb-mainnet" || $1 = "mainnet" ]]; then
-    RPC_ENDPOINT=$ARB_MAINNET_RPC PRIVATE_KEY=$ARB_MAINNET_PK
+  elif [[ $1 = "arb"  ]]; then
+    RPC_ENDPOINT=$ARB_RPC PRIVATE_KEY=$ARB_PK
+  elif [[ $1 = "base" ]]; then
+    RPC_ENDPOINT=$BASE_RPC PRIVATE_KEY=$BASE_PK
   else
     echo "Unrecognized target environment"
     exit 1

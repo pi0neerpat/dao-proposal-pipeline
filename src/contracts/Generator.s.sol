@@ -30,11 +30,18 @@ contract Generator is ForkManagement {
     _loadJson(_filePath);
     _loadBaseData(json);
     _network = json.readString(string(abi.encodePacked('.network')));
-    if (json.readUint(string(abi.encodePacked('.chainid'))) == 421_614) {
-      vm.createSelectFork(vm.rpcUrl('sepolia'));
-    } else {
-      vm.createSelectFork(vm.rpcUrl('mainnet'));
+    uint256 chainId = json.readUint(string(abi.encodePacked('.chainid')));
+    require(chainId != 0, 'Chain ID is not defined');
+    string memory rpcUrl;
+    if (chainId == 421_614) {
+      rpcUrl = vm.rpcUrl('arbitrum-sepolia');
+    } else if (chainId == 42_161) {
+      rpcUrl = vm.rpcUrl('arb');
+    } else if (chainId == 8453) {
+      rpcUrl = vm.rpcUrl('base');
     }
+    require(bytes(rpcUrl).length > 0, 'RPC URL is null');
+    vm.createSelectFork(rpcUrl);
     _generateProposal();
   }
 
