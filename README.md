@@ -179,3 +179,17 @@ You can propose multiple transfers in the same proposal by adding multiple trans
   - `transferTo`: the address of the token recipient
   - `amount`: the amount to be transfered in wei.
 
+
+# Using cast to generate calldata
+
+Here are some helpful examples using Foundry to generate calldata for the TargetsAndCalldata template.
+
+```bash
+
+- `cast calldata "someFunc(address,uint256)" 0x... 1`
+- governance: `cast calldata "setProposalThreshold(uint256)" 2000000000000000000000`
+- nitro pool: `cast calldata "addRewards(uint256,uint256)" 8500000000000000000000 10000000000000000000000`
+- erc20 approve: `cast calldata "approve(address,uint256)" 0xa14259d4E57609cF21d40AD2C8EBAc59Ca059F42 10000000000000000000000`
+- `cast to-wei 2222222`
+
+```
