@@ -7,11 +7,11 @@ export const projectId = process.env.NEXT_PUBLIC_WEB_MODAL_PROJECT_ID;
 
 // 2. Set chains
 const mainnet = {
-  chainId: process.env.NEXT_PUBLIC_NETWORK_ID,
+  chainId: Number(process.env.NEXT_PUBLIC_NETWORK_ID!),
   name: "Base",
   currency: "ETH",
   explorerUrl: "https://basescan.org",
-  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL,
+  rpcUrl: process.env.NEXT_PUBLIC_RPC_URL || "",
 };
 // const fork = {
 //   chainId: 31337,
