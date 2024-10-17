@@ -7,7 +7,7 @@ export const projectId = process.env.NEXT_PUBLIC_WEB_MODAL_PROJECT_ID;
 
 // 2. Set chains
 const mainnet = {
-  chainId: 42161,
+  chainId: process.env.NEXT_PUBLIC_NETWORK_ID,
   name: "Arbitrum",
   currency: "ETH",
   explorerUrl: "https://arbiscan.io",

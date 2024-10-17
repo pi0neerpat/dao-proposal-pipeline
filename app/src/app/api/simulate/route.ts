@@ -5,7 +5,7 @@ import { type ProposalType } from "../../types/proposal";
 
 const TIMELOCK_CONTROLLER_ADDRESS = process.env.TIMELOCK_CONTROLLER_ADDRESS;
 const TENDERLY_API_URL = process.env.TENDERLY_API_URL;
-const NETWORK_ID = process.env.NETWORK_ID;
+const NEXT_PUBLIC_NETWORK_ID = process.env.NEXT_PUBLIC_NETWORK_ID;
 
 const TENDERLY_HEADERS = {
   "Content-Type": "application/json",
@@ -89,7 +89,7 @@ const simulate = async (proposal: ProposalType) => {
     let transactions = [];
     for (let i = 0; i < proposal.targets.length; i++) {
       transactions.push({
-        network_id: NETWORK_ID,
+        NEXT_PUBLIC_NETWORK_ID: NEXT_PUBLIC_NETWORK_ID,
         from: TIMELOCK_CONTROLLER_ADDRESS,
         to: proposal.targets[i],
         input: proposal.calldatas[i],
@@ -122,11 +122,11 @@ const fork = async (proposal: ProposalType) => {
     display_name: `OD Proposal: ${proposal.description.slice(0, 30)}`,
     slug: proposal.slug.replace(/[^a-zA-Z0-9-]/g, "").slice(-8),
     fork_config: {
-      network_id: NETWORK_ID,
+      NEXT_PUBLIC_NETWORK_ID: NEXT_PUBLIC_NETWORK_ID,
     },
     virtual_network_config: {
       chain_config: {
-        chain_id: NETWORK_ID,
+        chain_id: NEXT_PUBLIC_NETWORK_ID,
       },
     },
     explorer_page_config: {
