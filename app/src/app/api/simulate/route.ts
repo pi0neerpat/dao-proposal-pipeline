@@ -89,7 +89,7 @@ const simulate = async (proposal: ProposalType) => {
     let transactions = [];
     for (let i = 0; i < proposal.targets.length; i++) {
       transactions.push({
-        NEXT_PUBLIC_NETWORK_ID: NEXT_PUBLIC_NETWORK_ID,
+        network_id: NEXT_PUBLIC_NETWORK_ID,
         from: TIMELOCK_CONTROLLER_ADDRESS,
         to: proposal.targets[i],
         input: proposal.calldatas[i],
@@ -103,7 +103,6 @@ const simulate = async (proposal: ProposalType) => {
     const url = `${TENDERLY_API_URL}/simulate-bundle`;
 
     const data = await postTenderly(url, { simulations: transactions });
-
     for (const result of data.simulation_results) {
       if (result.simulation.id)
         await makeSimulationPublic(result.simulation.id);

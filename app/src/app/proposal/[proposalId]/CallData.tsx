@@ -31,10 +31,10 @@ const CallData: React.FC<CallDataProps> = ({
     <p>
       MethodID: {methodId}
       {args?.map((arg, i) => (
-        <>
+        <React.Fragment key={i}>
           <br />
           {`[${i}]: ${arg}`}
-        </>
+        </React.Fragment>
       ))}
     </p>
   );
