@@ -1,9 +1,10 @@
 import { type ProposalType } from "../types/proposal";
 
-const GITHUB_REPO_API: string = process.env.NEXT_PUBLIC_GITHUB_REPO_API || "";
-// this script fetches proposal data from github
+const GITHUB_REPO_API: string = `${
+  process.env.NEXT_PUBLIC_GITHUB_REPO_API
+}?_=${new Date().getTime()}`; // Append timestamp to prevent caching
+
 const fetchProposalNames = async (noCache: boolean): Promise<any> => {
-  // Server side must restrict caching, otherwise Github returns stale data
   let headers: any = noCache
     ? {
         cache: "no-store",
@@ -11,28 +12,43 @@ const fetchProposalNames = async (noCache: boolean): Promise<any> => {
         Authorization: `token ${process.env.GITHUB_PERSONAL_ACCESS_TOKEN}`,
         "X-GitHub-Api-Version": "2022-11-28",
         Accept: "application/vnd.github+json",
+        // ...(etag && { 'If-None-Match': etag }), // Add ETag if available
       }
     : {};
-  const response = await fetch(GITHUB_REPO_API, {
-    headers,
-  });
-  const data = await response.json();
-  return data.map((file: any) => {
-    return {
-      name: file.name,
-      download_url: file.download_url,
-    };
-  });
+
+  try {
+    const response = await fetch(GITHUB_REPO_API, { headers });
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    const newEtag = response.headers.get("ETag"); // Get the new ETag from the response
+    console.log("API Response Data:", data); // Log the full response data
+
+    return { data, etag: newEtag }; // Return both data and ETag
+  } catch (error) {
+    console.error("Error fetching proposal names:", error);
+    throw error; // Rethrow the error after logging
+  }
 };
 
 export const fetchProposals = async (noCache: boolean): Promise<any> => {
-  const proposalNames = await fetchProposalNames(noCache);
+  const { data: proposalNames } = await fetchProposalNames(noCache);
   const proposals: ProposalType[] = [];
   for (let i = 0; i < proposalNames.length; i++) {
-    const response = await fetch(proposalNames[i].download_url as string);
-    const proposalData: ProposalType = await response.json();
-    proposalData.slug = proposalNames[i].name.split(".")[0];
-    proposals.push(proposalData);
+    try {
+      const response = await fetch(proposalNames[i].download_url as string);
+      if (!response.ok) {
+        throw new Error(`Error fetching proposal data: ${response.statusText}`);
+      }
+      const proposalData: ProposalType = await response.json();
+      proposalData.slug = proposalNames[i].name.split(".")[0];
+      proposals.push(proposalData);
+    } catch (error) {
+      console.error(`Error fetching proposal ${proposalNames[i].name}:`, error);
+    }
   }
   return proposals;
 };
