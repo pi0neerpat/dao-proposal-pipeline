@@ -6,6 +6,6 @@ const path = require("path");
 const args = process.argv.slice(2);
 const basePath = args[0]
 const contents = fs.readFileSync(basePath, 'utf8')
-const obj = { description: contents };
+const obj = { description: contents.replace(/["`]/g, "\\$&") };
 
 console.log(JSON.stringify(obj))
